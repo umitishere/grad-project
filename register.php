@@ -131,30 +131,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <h2 class="margin-top-15">Üye Ol</h2>
         <p>Lütfen üye olmak için aşağıdaki formu doldurun.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group margin-top-10">
+            <div class="form-group margin-top-15">
                 <label for="username">Kullanıcı Adı</label>
                 <input id="username" type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" />
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>
-            <div class="form-group margin-top-10">
+            <div class="form-group margin-top-15">
                 <label for="email">E-posta</label>
                 <input id="email" type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" />
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
-            <div class="form-group margin-top-10">
+            <div class="form-group margin-top-15">
                 <label for="password">Şifre</label>
                 <input id="password" type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" />
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
-            <div class="form-group margin-top-10">
+            <div class="form-group margin-top-15">
                 <label for="confirm_password">Şifre (Doğrulama)</label>
                 <input id="confirm_password" type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
-            <div class="form-group margin-top-10">
+            <div class="form-group margin-top-15">
                 <input type="submit" class="btn btn-primary" value="Üye Ol">
             </div>
-            <p class="margin-top-10">Zaten bir hesabınız var mı? <a href="giris-yap">Giriş yapın</a>.</p>
+            <p class="margin-top-15">Zaten bir hesabınız var mı? <a href="giris-yap">Giriş yapın</a>.</p>
         </form>
     </div>
 
