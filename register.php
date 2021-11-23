@@ -1,11 +1,11 @@
 <?php
 
-$pageTitle = "Anasayfa | Brand";
+$pageTitle = "Üye Ol | Brand";
 
 require_once("includes/header.php");
 
 ?>
 
-Anasayfa
+Üye Ol
 
 <?php require_once("includes/footer.php"); ?>
