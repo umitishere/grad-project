@@ -1,5 +1,7 @@
 RewriteEngine On
 
 RewriteRule ^anasayfa$ index.php [L,QSA]
+
 RewriteRule ^giris-yap$ login.php [L,QSA]
 RewriteRule ^uye-ol$ register.php [L,QSA]
+RewriteRule ^oturumu-kapat$ logout.php [L,QSA]

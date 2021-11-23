@@ -1,4 +1,12 @@
-<?php require_once("config.php"); ?>
+<?php
+
+require_once("config.php");
+
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -43,12 +51,18 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
+                    <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="oturumu-kapat">Oturumu Kapat</a>
+                        </li>
+                    <?php } else { ?>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="giris-yap">Giriş Yap</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="uye-ol">Üye Ol</a>
                         </li>
+                    <?php } ?>
                     </ul>
                 </div>
             </div>
