@@ -67,7 +67,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="badge bg-light text-dark font-16"><?php echo $getUserInfo["username"]; ?></span>
+                                <span class="badge bg-light text-dark font-16">
+                                    <img style="border-radius: 100%;" src="assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>" width="30px" height="30px" />
+                                    <?php echo $getUserInfo["username"]; ?>
+                                </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profilim</a></li>
