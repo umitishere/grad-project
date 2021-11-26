@@ -6,4 +6,5 @@ RewriteRule ^giris-yap$ login.php [L,QSA]
 RewriteRule ^uye-ol$ register.php [L,QSA]
 RewriteRule ^oturumu-kapat$ logout.php [L,QSA]
 
+RewriteRule ^ayarlar$ settings.php [L,QSA]
 RewriteRule ^([0-9a-zA-Z-_]+)$ profile.php?username=$1 [L,QSA]

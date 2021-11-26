@@ -76,7 +76,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="<?php echo $loggedUsername; ?>"><i class="fas fa-user"></i> Profilim</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Ayarlar</a></li>
+                                <li><a class="dropdown-item" href="ayarlar"><i class="fas fa-cog"></i> Ayarlar</a></li>
                                 <li><a class="dropdown-item" href="oturumu-kapat"><i class="fas fa-sign-out-alt"></i> Oturumu Kapat</a></li>
                             </ul>
                         </li>

@@ -11,3 +11,14 @@ body, html {
 .margin-top-15 {
     margin-top: 15px;
 }
+
+.padding-15 {
+    padding: 15px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
