@@ -14,13 +14,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate username
     if(empty(trim($_POST["username"]))){
         $username_err = "Lütfen bir kullanıcı adı girin.";
-    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
-        $username_err = "Kullanıcı adı sadece harf, sayı ve alt çizgiden oluşabilir.";
-    } else{
+    } else if (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
+        $username_err = "Kullanıcı adı sadece harf, sayı ve alt çizgiden oluşmalıdır ve Türkçe karakter içermemelidir.";
+    } else if(strlen(trim($_POST["username"])) < 6 || strlen(trim($_POST["username"])) > 16) {
+        $username_err = "Kullanıcı adı en az 6, en fazla 16 karakterden oluşmalıdır.";
+    } else {
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE username = :username";
 
-        if($stmt = $pdo->prepare($sql)){
+        if($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
 
@@ -29,12 +31,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                if($stmt->rowCount() == 1){
+                if ($stmt->rowCount() == 1) {
                     $username_err = "Bu kullanıcı adı daha önce alınmış.";
                 } else{
                     $username = trim($_POST["username"]);
                 }
-            } else{
+            } else {
                 echo "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.";
             }
 
@@ -76,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate password
     if(empty(trim($_POST["password"]))){
         $password_err = "Lütfen bir şifre girin.";
-    } elseif(strlen(trim($_POST["password"])) < 8){
+    } else if(strlen(trim($_POST["password"])) < 8){
         $password_err = "Şifreniz en az 8 karakterden oluşmalıdır.";
     } else{
         $password = trim($_POST["password"]);

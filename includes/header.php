@@ -13,6 +13,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     $queryUserInfo->execute();
 
     $getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
+
+    $loggedUsername = $getUserInfo["username"];
 }
 
 ?>
@@ -68,12 +70,12 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="badge bg-light text-dark font-16">
-                                    <img style="border-radius: 100%;" src="assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>" width="30px" height="30px" />
+                                    <img style="border-radius: 100%;" src="assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>" width="25px" height="25px" />
                                     <?php echo $getUserInfo["username"]; ?>
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profilim</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $loggedUsername; ?>"><i class="fas fa-user"></i> Profilim</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Ayarlar</a></li>
                                 <li><a class="dropdown-item" href="oturumu-kapat"><i class="fas fa-sign-out-alt"></i> Oturumu Kapat</a></li>
                             </ul>
