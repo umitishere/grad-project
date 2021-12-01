@@ -65,6 +65,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <img style="border-radius: 100%;" src="assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
                 </div>
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
+                <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
                 <?php ($myProfile ? print("<button class='btn btn-sm btn-secondary' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : ""); ?>
             </div>
 
@@ -91,12 +92,35 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="includes/user-operations.php">
+        <form method="post" action="includes/user-operations.php" enctype="multipart/form-data">
+
+            <label for="update-profile-photo">Profil Fotoğrafı</label>
+            <div class="input-group">
+              <input name="new_profile_photo" type="file" class="form-control" id="update-profile-photo" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required />
+              <button class="btn btn-outline-success" type="submit" name="update_profile_photo"><i class="fas fa-save"></i></button>
+            </div>
 
             <label for="update-username">Kullanıcı Adı</label>
             <div class="input-group mb-3">
-                <input class="form-control" type="text" value="<?php echo $getProfileInfo['username']; ?>" aria-describedby="button-username" id="update-username" name="new_username" />
-                <button type="submit" name="update_username" class="btn btn-outline-success" type="button" id="button-username">
+                <input class="form-control" type="text" value="<?php echo $getProfileInfo['username']; ?>" aria-describedby="button-username" id="update-username" name="new_username" maxlength="16" required />
+                <button type="submit" name="update_username" class="btn btn-outline-success" type="button">
+                    <i class="fas fa-save"></i>
+                </button>
+            </div>
+
+            <label for="update-username">Biyografi</label>
+            <div class="input-group mb-3">
+                <input
+                    class="form-control"
+                    type="text"
+                    value="<?php echo trim($getProfileInfo['biography']); ?>"
+                    aria-describedby="button-username"
+                    id="update-biography"
+                    name="new_biography"
+                    maxlength="180"
+                    required
+                />
+                <button type="submit" name="update_biography" class="btn btn-lg btn-outline-success" type="button">
                     <i class="fas fa-save"></i>
                 </button>
             </div>

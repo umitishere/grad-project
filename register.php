@@ -135,22 +135,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group margin-top-15">
                 <label for="username">Kullanıcı Adı</label>
-                <input id="username" type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" />
+                <input id="username" type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" maxlength="16"/>
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>
             <div class="form-group margin-top-15">
                 <label for="email">E-posta</label>
-                <input id="email" type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" />
+                <input id="email" type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" maxlength="90" />
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
             <div class="form-group margin-top-15">
                 <label for="password">Şifre</label>
-                <input id="password" type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" />
+                <input id="password" type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" maxlength="256"/>
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group margin-top-15">
                 <label for="confirm_password">Şifre (Doğrulama)</label>
-                <input id="confirm_password" type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                <input id="confirm_password" type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>" maxlength="256">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group margin-top-15">

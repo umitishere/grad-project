@@ -102,12 +102,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group margin-top-15">
                 <label for="username">Kullanıcı Adı</label>
-                <input id="username" type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                <input id="username" type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" maxlength="16" />
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>
             <div class="form-group margin-top-15">
                 <label for="password">Şifre</label>
-                <input id="password" type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                <input id="password" type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" maxlength="256" />
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group margin-top-15">
