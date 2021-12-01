@@ -68,7 +68,7 @@ if (isset($_POST["update_username"])) {
 
 if (isset($_POST["update_biography"])) {
 
-    $newBiography = $_POST["new_biography"];
+    $newBiography = htmlspecialchars($_POST["new_biography"], ENT_QUOTES);
 
     $query = $pdo->prepare("UPDATE users SET biography = '$newBiography' WHERE id = '$sessionID'");
 
@@ -81,6 +81,13 @@ if (isset($_POST["update_biography"])) {
 }
 
 if (isset($_POST["update_profile_photo"])) {
+
+    // Delete previous photo from storage
+    $previousPhoto = $getUserInfo["profile_photo"];
+
+    if ($previousPhoto != "profile_default.png") {
+        unlink("../assets/img/profile_photos/$previousPhoto");
+    }
 
     // Check Image Detail And Insert Data
     $target_dir = "../assets/img/profile_photos/";
