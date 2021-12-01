@@ -8,9 +8,27 @@ $myProfile = false;
 $profileUsername = $_GET["username"];
 $errorMessage = "";
 
+$usernameChangeError = "";
+
+if (isset($_GET['usernameChangeError'])) {
+    $usernameChangeError = $_GET['usernameChangeError'];
+}
+
 $pageTitle = $profileUsername . " profili | Brand";
 
 require_once("includes/header.php");
+
+if (!empty($usernameChangeError)) {
+
+?>
+
+<script>
+    $(document).ready(function(){
+        $("#editProfile").modal('show');
+    });
+</script>
+
+<?php }
 
 $chekIfUserExists = "SELECT id FROM users WHERE username = :username";
 
@@ -96,17 +114,36 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
             <label for="update-profile-photo">Profil Fotoğrafı</label>
             <div class="input-group">
-              <input name="new_profile_photo" type="file" class="form-control" id="update-profile-photo" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required />
-              <button class="btn btn-outline-success" type="submit" name="update_profile_photo"><i class="fas fa-save"></i></button>
+                <input
+                    name="new_profile_photo"
+                    type="file"
+                    class="form-control"
+                    id="update-profile-photo"
+                    aria-describedby="inputGroupFileAddon04"
+                    aria-label="Upload"
+                />
+                <button class="btn btn-outline-success" type="submit" name="update_profile_photo"><i class="fas fa-save"></i></button>
             </div>
+
+            <br />
 
             <label for="update-username">Kullanıcı Adı</label>
             <div class="input-group mb-3">
-                <input class="form-control" type="text" value="<?php echo $getProfileInfo['username']; ?>" aria-describedby="button-username" id="update-username" name="new_username" maxlength="16" required />
+                <input
+                    class="form-control"
+                    type="text"
+                    value="<?php echo $getProfileInfo['username']; ?>"
+                    aria-describedby="button-username"
+                    id="update-username"
+                    name="new_username"
+                    maxlength="16"
+                    required
+                />
                 <button type="submit" name="update_username" class="btn btn-outline-success" type="button">
                     <i class="fas fa-save"></i>
                 </button>
             </div>
+            <p class="text-danger"><?php echo $usernameChangeError; ?></p>
 
             <label for="update-username">Biyografi</label>
             <div class="input-group mb-3">
@@ -118,9 +155,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     id="update-biography"
                     name="new_biography"
                     maxlength="180"
-                    required
                 />
-                <button type="submit" name="update_biography" class="btn btn-lg btn-outline-success" type="button">
+                <button type="submit" name="update_biography" class="btn btn-outline-success" type="button">
                     <i class="fas fa-save"></i>
                 </button>
             </div>
