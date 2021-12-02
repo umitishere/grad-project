@@ -80,12 +80,18 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
             <div class="card padding-15 margin-top-15">
                 <div class="center">
-                    <img style="border-radius: 100%;" src="assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
+                    <img style="border-radius: 100%;" src="/<?php echo $rootName; ?>/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
                 </div>
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
+                
                 <?php ($myProfile ? print("<button class='btn btn-sm btn-secondary' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : ""); ?>
-                <?php (!$myProfile ? print("<a href='conversation.php?with=$profileUsername' class='btn btn-primary btn-sm active' role='button' aria-pressed='true'>Mesaj</a>") : ""); ?>
+                
+                <?php if (!$myProfile) { ?>
+
+                    <a href="/<?php echo $rootName; ?>/messages/conversation?with=<?php echo $profileUsername; ?>" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Mesaj</a>
+
+                <?php } ?>
             </div>
 
         </div>

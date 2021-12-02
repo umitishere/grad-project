@@ -1,5 +1,7 @@
 <?php
 
+$rootName = "graduation-project-web";
+
 require_once("config.php");
 
 if (!isset($_SESSION)) {
@@ -50,7 +52,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="anasayfa">Site Adı</a>
+                <a class="navbar-brand" href="/<?php echo $rootName; ?>/anasayfa">Site Adı</a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -65,7 +67,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="anasayfa">Anasayfa</a>
+                            <a class="nav-link active" aria-current="page" href="/<?php echo $rootName; ?>/anasayfa">Anasayfa</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
@@ -73,22 +75,25 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="badge bg-light text-dark font-16">
-                                    <img style="border-radius: 100%;" src="assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>" width="25px" height="25px" />
+                                    <img 
+                                        style="border-radius: 100%;" 
+                                        src="/<?php echo $rootName; ?>/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>" 
+                                        width="25px" height="25px" />
                                     <?php echo $getUserInfo["username"]; ?>
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="<?php echo $loggedUsername; ?>"><i class="fas fa-user"></i> Profilim</a></li>
-                                <li><a class="dropdown-item" href="ayarlar"><i class="fas fa-cog"></i> Ayarlar</a></li>
-                                <li><a class="dropdown-item" href="oturumu-kapat"><i class="fas fa-sign-out-alt"></i> Oturumu Kapat</a></li>
+                                <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/user/<?php echo $loggedUsername; ?>"><i class="fas fa-user"></i> Profilim</a></li>
+                                <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/ayarlar"><i class="fas fa-cog"></i> Ayarlar</a></li>
+                                <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/oturumu-kapat"><i class="fas fa-sign-out-alt"></i> Oturumu Kapat</a></li>
                             </ul>
                         </li>
                     <?php } else { ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
+                            <a class="nav-link active" aria-current="page" href="/<?php echo $rootName; ?>/giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
+                            <a class="nav-link active" aria-current="page" href="/<?php echo $rootName; ?>/uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
                         </li>
                     <?php } ?>
                     </ul>

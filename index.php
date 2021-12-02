@@ -14,6 +14,8 @@ require_once("includes/header.php");
 
             <p class="text-center">Anasayfa içeriği</p>
 
+            <a href="<?php echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])); ?>">aaa</a>
+
         </div>
 
         <div class="col-md-3 col-sm-12">

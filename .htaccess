@@ -7,7 +7,6 @@ RewriteRule ^uye-ol$ register.php [L,QSA]
 RewriteRule ^oturumu-kapat$ logout.php [L,QSA]
 
 RewriteRule ^ayarlar$ settings.php [L,QSA]
-RewriteRule ^([0-9a-zA-Z-_]+)$ profile.php?username=$1 [L,QSA]
+RewriteRule ^user/([0-9a-zA-Z-_]+)$ profile.php?username=$1 [L,QSA]
 
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}/index.php -f
-RewriteRule ^message/([0-9a-zA-Z-_]+)$ conversation.php?who=$1 [L]
+RewriteRule ^messages/conversation$ conversation.php?with=$1 [L,QSA]
