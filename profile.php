@@ -85,6 +85,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
                 <?php ($myProfile ? print("<button class='btn btn-sm btn-secondary' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : ""); ?>
+                <?php (!$myProfile ? print("<a href='conversation.php?with=$profileUsername' class='btn btn-primary btn-sm active' role='button' aria-pressed='true'>Mesaj</a>") : ""); ?>
             </div>
 
         </div>
