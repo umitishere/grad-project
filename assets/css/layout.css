@@ -38,3 +38,8 @@ body, html {
   background-color: #5cb85c;
   color: white;
 }
+
+.message-area {
+  overflow: scroll;
+  height: 600px;
+}
