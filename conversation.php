@@ -15,31 +15,58 @@ $getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
 
 $myUsername = $getUserInfo["username"];
 
-$queryMessages = $pdo->prepare("SELECT * FROM messages WHERE message_sender = '$myUsername' AND message_getter = '$conversationWith' AND delete_key = '$sessionID'");
+$queryMessages = $pdo->prepare(
+    "SELECT *
+    FROM messages
+    INNER JOIN users
+    ON messages.message_sender = users.username
+    WHERE ((messages.message_sender = '$myUsername' AND messages.message_getter = '$conversationWith') 
+    OR (messages.message_sender = '$conversationWith' AND messages.message_getter = '$myUsername')) 
+    AND messages.delete_key = '$sessionID'
+    ORDER BY messages.id DESC" 
+);
 $queryMessages->execute();
 
 ?>
 
 <div class="container">
 
-    <div class="card padding-15">
-        <form action="includes/send-message.php" method="post">
+    <section class="padding-15 margin-top-30">
+        <form action="/graduation-project-web/includes/send-message.php" method="post">
+
+            <input type="hidden" name="message_getter" value="<?php echo $conversationWith; ?>" />
 
             <div class="form-group">
-              <label for="exampleFormControlTextarea1">Mesaj Gönder</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <label for="message"><b>Mesaj Gönder</b></label>
+              <textarea class="form-control" id="message" name="message_detail" rows="2"></textarea>
+            </div>
+
+            <div class="text-center margin-top-15">
+                <button type="submit" name="send_message" class="btn btn-lg button-color1">Gönder</button>
             </div>
 
         </form>
-    </div>
+    </section>
 
-    <?php while ($getMessages = $queryMessages->fetch(PDO::FETCH_ASSOC)) { ?>
+    <section class="padding-15 card">
 
-    <div class="card">
+        <?php while ($getMessages = $queryMessages->fetch(PDO::FETCH_ASSOC)) { ?>
 
-    </div>
+        <section class="margin-top-15">
+            <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                <span><img class="image-message-sender" src="/graduation-project-web/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span> 
+                <span><?php echo $getMessages['message_time']; ?></span>
+            </div>
+            <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
+                    <?php echo $getMessages['message_detail']; ?>
+                </div>
+            </div>
+        </section>
 
-    <?php } ?>
+        <?php } ?>
+
+    </section>
 
 </div>
 

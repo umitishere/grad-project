@@ -12,6 +12,10 @@ body, html {
     margin-top: 15px;
 }
 
+.margin-top-30 {
+  margin-top: 30px;
+}
+
 .padding-15 {
     padding: 15px;
 }
@@ -23,6 +27,14 @@ body, html {
   width: 50%;
 }
 
-textarea {
-    text-align: justify;
+.message-box-1 {
+  display: inline-block;
+  background-color: #5bc0de;
+  color: white;
+}
+
+.message-box-2 {
+  display: inline-block;
+  background-color: #5cb85c;
+  color: white;
 }

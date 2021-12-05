@@ -42,15 +42,17 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <script src="https://kit.fontawesome.com/05e9384002.js" crossorigin="anonymous"></script>
 
     <!-- Custom CSS -->
-    <link href="assets/css/layout.css" rel="stylesheet" />
-    <link href="assets/css/fonts.css" rel="stylesheet" />
+    <link href="/graduation-project-web/assets/css/layout.css" rel="stylesheet" />
+    <link href="/graduation-project-web/assets/css/fonts.css" rel="stylesheet" />
+    <link href="/graduation-project-web/assets/css/colors.css" rel="stylesheet" />
+    <link href="/graduation-project-web/assets/css/images.css" rel="stylesheet" />
 
     <title><?php echo $pageTitle; ?></title>
 </head>
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/<?php echo $rootName; ?>/anasayfa">Site Adı</a>
                 <button
@@ -66,9 +68,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/<?php echo $rootName; ?>/anasayfa">Anasayfa</a>
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
@@ -83,6 +85,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/messages/gelen-kutusu"><i class="fas fa-inbox"></i> Mesajlar</a></li>
                                 <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/user/<?php echo $loggedUsername; ?>"><i class="fas fa-user"></i> Profilim</a></li>
                                 <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/ayarlar"><i class="fas fa-cog"></i> Ayarlar</a></li>
                                 <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/oturumu-kapat"><i class="fas fa-sign-out-alt"></i> Oturumu Kapat</a></li>

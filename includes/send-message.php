@@ -18,7 +18,66 @@ $username = $getUserInfo["username"];
 if (isset($_POST["send_message"])) {
 
     $messageDetail = htmlspecialchars($_POST["message_detail"], ENT_QUOTES);
-    $messageGetter = $_POST["message_getter"];
+    $messageGetter = htmlspecialchars($_POST["message_getter"], ENT_QUOTES);
+
+    $queryGetterInfo = $pdo->prepare("SELECT * FROM users WHERE username = '$messageGetter'");
+    $queryGetterInfo->execute();
+    
+    $getGetterInfo = $queryGetterInfo->fetch(PDO::FETCH_ASSOC);
+    
+    $getterID = $getGetterInfo["id"];
+
+    $messageDataForSender = [
+        ":message_detail"=>$messageDetail,
+        ":message_getter"=>$messageGetter,
+        ":message_sender"=>$username,
+        ":delete_key"=>$sessionID
+    ];
+
+    $messageDataForGetter = [
+        ":message_detail"=>$messageDetail,
+        ":message_getter"=>$messageGetter,
+        ":message_sender"=>$username,
+        ":delete_key"=>$getterID
+    ];
+
+    $querySendMessage1 = "INSERT INTO `messages`
+    (
+        `message_detail`,
+        `message_getter`,
+        `message_sender`,
+        `delete_key`
+    )
+    VALUES 
+    (
+        :message_detail,
+        :message_getter,
+        :message_sender,
+        :delete_key
+    )";
+
+    $querySendMessage2 = "INSERT INTO `messages`
+    (
+        `message_detail`,
+        `message_getter`,
+        `message_sender`,
+        `delete_key`
+    )
+    VALUES 
+    (
+        :message_detail,
+        :message_getter,
+        :message_sender,
+        :delete_key
+    )";
+
+    $pdoResult1 = $pdo->prepare($querySendMessage1);
+    $pdoExecute1 = $pdoResult1->execute($messageDataForSender);
+
+    $pdoResult2 = $pdo->prepare($querySendMessage2);
+    $pdoExecute2 = $pdoResult2->execute($messageDataForGetter);
+
+    header("Location: ../messages/conversation?with=$messageGetter");
 
 }
 
