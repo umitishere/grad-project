@@ -10,3 +10,4 @@ RewriteRule ^ayarlar$ settings.php [L,QSA]
 RewriteRule ^user/([0-9a-zA-Z-_]+)$ profile.php?username=$1 [L,QSA]
 
 RewriteRule ^messages/conversation$ conversation.php?with=$1 [L,QSA]
+RewriteRule ^messages/gelen-kutusu$ inbox.php [L,QSA]
