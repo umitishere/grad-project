@@ -1,1 +1,1 @@
-Graduation project website
+This is a social media platform.
