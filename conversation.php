@@ -62,7 +62,7 @@ $queryMessages->execute();
                         <div class="modal-body">
                             <form action="/graduation-project-web/includes/send-message.php" method="post">
 
-                                <input type="hidden" value="<?php echo $getMessages['id']; ?>" name="message_id" />
+                                <input type="hidden" value="<?php echo $getMessages['unique_name']; ?>" name="unique" />
 
                                 <input type="hidden" value="<?php echo $conversationWith; ?>" name="conversation_with" />
 

@@ -20,6 +20,8 @@ if (isset($_POST["send_message"])) {
     $messageDetail = htmlspecialchars($_POST["message_detail"], ENT_QUOTES);
     $messageGetter = htmlspecialchars($_POST["message_getter"], ENT_QUOTES);
 
+    $uniqueName = $username . rand(1, 9999999);
+
     $queryGetterInfo = $pdo->prepare("SELECT * FROM users WHERE username = '$messageGetter'");
     $queryGetterInfo->execute();
     
@@ -31,14 +33,16 @@ if (isset($_POST["send_message"])) {
         ":message_detail"=>$messageDetail,
         ":message_getter"=>$messageGetter,
         ":message_sender"=>$username,
-        ":delete_key"=>$sessionID
+        ":delete_key"=>$sessionID,
+        ":unique_name"=>$uniqueName
     ];
 
     $messageDataForGetter = [
         ":message_detail"=>$messageDetail,
         ":message_getter"=>$messageGetter,
         ":message_sender"=>$username,
-        ":delete_key"=>$getterID
+        ":delete_key"=>$getterID,
+        ":unique_name"=>$uniqueName
     ];
 
     $querySendMessage1 = "INSERT INTO `messages`
@@ -46,14 +50,16 @@ if (isset($_POST["send_message"])) {
         `message_detail`,
         `message_getter`,
         `message_sender`,
-        `delete_key`
+        `delete_key`,
+        `unique_name`
     )
     VALUES 
     (
         :message_detail,
         :message_getter,
         :message_sender,
-        :delete_key
+        :delete_key,
+        :unique_name
     )";
 
     $querySendMessage2 = "INSERT INTO `messages`
@@ -61,14 +67,16 @@ if (isset($_POST["send_message"])) {
         `message_detail`,
         `message_getter`,
         `message_sender`,
-        `delete_key`
+        `delete_key`,
+        `unique_name`
     )
     VALUES 
     (
         :message_detail,
         :message_getter,
         :message_sender,
-        :delete_key
+        :delete_key,
+        :unique_name
     )";
 
     $pdoResult1 = $pdo->prepare($querySendMessage1);
@@ -83,10 +91,22 @@ if (isset($_POST["send_message"])) {
 
 if (isset($_POST["delete_message_for_me"])) {
 
-    $messageID = $_POST["message_id"];
+    $messageID = $_POST["unique"];
     $conversationWith = $_POST["conversation_with"];
 
-    $query = $pdo->prepare("DELETE FROM messages WHERE id = '$messageID' AND delete_key = '$sessionID'");
+    $query = $pdo->prepare("DELETE FROM messages WHERE unique_name = '$messageID' AND delete_key = '$sessionID'");
+    $queryExecute = $query->execute();
+
+    header("Location: ../messages/conversation?with=$conversationWith");
+
+}
+
+if (isset($_POST["delete_message_for_everyone"])) {
+
+    $messageID = $_POST["unique"];
+    $conversationWith = $_POST["conversation_with"];
+
+    $query = $pdo->prepare("DELETE FROM messages WHERE unique_name = '$messageID'");
     $queryExecute = $query->execute();
 
     header("Location: ../messages/conversation?with=$conversationWith");
