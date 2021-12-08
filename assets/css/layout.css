@@ -39,7 +39,7 @@ body, html {
   color: white;
 }
 
-.message-area {
+.conversation-area {
   overflow: scroll;
   height: 600px;
 }

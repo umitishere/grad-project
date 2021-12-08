@@ -81,9 +81,15 @@ if (isset($_POST["send_message"])) {
 
 }
 
-if (isset($_POST["delete_message"])) {
+if (isset($_POST["delete_message_for_me"])) {
 
+    $messageID = $_POST["message_id"];
+    $conversationWith = $_POST["conversation_with"];
 
+    $query = $pdo->prepare("DELETE FROM messages WHERE id = '$messageID' AND delete_key = '$sessionID'");
+    $queryExecute = $query->execute();
+
+    header("Location: ../messages/conversation?with=$conversationWith");
 
 }
 

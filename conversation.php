@@ -16,7 +16,7 @@ $getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
 $myUsername = $getUserInfo["username"];
 
 $queryMessages = $pdo->prepare(
-    "SELECT *
+    "SELECT users.username, users.profile_photo, messages.*
     FROM messages
     INNER JOIN users
     ON messages.message_sender = users.username
@@ -33,22 +33,58 @@ $queryMessages->execute();
 
     <section class="padding-15 margin-top-15 card">
 
-        <section class="message-area padding-15">
+        <section class="conversation-area padding-15">
         <?php while ($getMessages = $queryMessages->fetch(PDO::FETCH_ASSOC)) { ?>
 
-<section class="margin-top-15">
-    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
-        <span><img class="image-message-sender" src="/graduation-project-web/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span> 
-        <span><?php echo $getMessages['message_time']; ?></span>
-    </div>
-    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
-        <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
-            <?php echo $getMessages['message_detail']; ?>
-        </div>
-    </div>
-</section>
+            <section class="margin-top-15 card padding-15">
+                <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                    <span><img class="image-message-sender" src="/graduation-project-web/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span> 
+                    <span><?php echo $getMessages['message_time']; ?></span>
+                </div>
+                <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
+                        <?php echo $getMessages['message_detail']; ?>
+                    </div>                    
+                    <button type="button" class="btn btn-danger margin-top-15" data-bs-toggle="modal" data-bs-target="#deleteMessage<?php echo $getMessages['id']; ?>">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </section>
 
-<?php } ?>            
+            <!-- Modal DELETE MESSAGE -->
+            <div class="modal fade" id="deleteMessage<?php echo $getMessages['id']; ?>" tabindex="-1" aria-labelledby="deleteMessage<?php echo $getMessages['id']; ?>" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteMessage<?php echo $getMessages['id']; ?>">Mesajı sil</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/graduation-project-web/includes/send-message.php" method="post">
+
+                                <input type="hidden" value="<?php echo $getMessages['id']; ?>" name="message_id" />
+
+                                <input type="hidden" value="<?php echo $conversationWith; ?>" name="conversation_with" />
+
+                                <section class="text-center">
+                                    <button type="submit" class="btn btn-lg btn-danger margin-top-15" name="delete_message_for_me">
+                                        Benden Sil
+                                    </button>
+                                    <button type="submit" class="btn btn-lg btn-danger margin-top-15" name="delete_message_for_everyone">
+                                        Herkesten Sil
+                                    </button>
+                                </section>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <?php } ?>            
         </section>
 
         <section class="padding-15 margin-top-30">
