@@ -329,17 +329,16 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
               ?>
 
 
-              <div class="col-6 card text-center">
+              <div class="col-6 text-center">
                   <div class="text-center">
                       <a href="/graduation-project-web/user/<?php echo $getterNameFollower['username']; ?>" class="my-links">
-                          <img
-                              class="padding-15"
-                              style="border-radius: 100%;"
-                              src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterNameFollower['profile_photo']; ?>"
-                              width="120px"
-                              height="120px"
-                            />
-                          <p><b><?php echo $getterNameFollower['username']; ?></b></p>
+                          <span class="badge bg-light text-dark font-16">
+                              <img
+                                  style="border-radius: 100%;"
+                                  src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterNameFollower["profile_photo"]; ?>"
+                                  width="40px" height="40px" />
+                              <?php echo $getterNameFollower["username"]; ?>
+                          </span>
                       </a>
                   </div>
               </div>
@@ -389,17 +388,16 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
               ?>
 
 
-              <div class="col-6 card text-center">
+              <div class="col-6 text-center">
                   <div class="text-center">
                       <a href="/graduation-project-web/user/<?php echo $getterNameFollowing['username']; ?>" class="my-links">
-                          <img
-                              class="padding-15"
-                              style="border-radius: 100%;"
-                              src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterNameFollowing['profile_photo']; ?>"
-                              width="120px"
-                              height="120px"
-                            />
-                          <p><b><?php echo $getterNameFollowing['username']; ?></b></p>
+                          <span class="badge bg-light text-dark font-16">
+                              <img
+                                  style="border-radius: 100%;"
+                                  src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterNameFollowing["profile_photo"]; ?>"
+                                  width="40px" height="40px" />
+                              <?php echo $getterNameFollowing["username"]; ?>
+                          </span>
                       </a>
                   </div>
               </div>
