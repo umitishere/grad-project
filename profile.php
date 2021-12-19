@@ -19,6 +19,15 @@ $pageTitle = $profileUsername . " profili | Brand";
 
 require_once("includes/header.php");
 
+$queryFollowers = $pdo->prepare("SELECT * FROM follower WHERE followed_name = '$profileUsername'");
+$queryFollowers->execute();
+
+$queryFollowing = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$profileUsername'");
+$queryFollowing->execute();
+
+$numberOfFollowers = $queryFollowers->rowCount();
+$numberOfFollowing = $queryFollowing->rowCount();
+
 if (!empty($usernameChangeError)) {
 
 ?>
@@ -86,7 +95,18 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
 
-                <?php ($myProfile ? print("<button class='btn btn-sm btn-secondary' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : ""); ?>
+                <section class="row">
+                    <div class="col-6 text-center">
+                        <div><b><?php echo $numberOfFollowers; ?></b></div>
+                        <div>Takipçi</div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div><b><?php echo $numberOfFollowing; ?></b></div>
+                        <div>Takip Edilen</div>
+                    </div>
+                </section>
+
+                <?php ($myProfile ? print("<button class='btn btn-sm btn-secondary margin-top-15' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : ""); ?>
 
                 <?php if (!$myProfile) { ?>
 
@@ -106,13 +126,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                         ?>
 
-                        <section class="text-center">
+                        <section class="text-center margin-top-15">
                             <button type="submit" class="btn btn-primary" name="unfollow">Takip Ediliyor</button>
                         </section>
 
                         <?php } else { ?>
 
-                        <section class="text-center">
+                        <section class="text-center margin-top-15">
                             <button type="submit" class="btn btn-primary" name="follow">Takip Et</button>
                         </section>
 
