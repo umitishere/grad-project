@@ -7,6 +7,7 @@ if (!isset($_SESSION)) {
 $myProfile = false;
 $profileUsername = $_GET["username"];
 $errorMessage = "";
+$myUsername = $_SESSION["username"];
 
 $usernameChangeError = "";
 
@@ -84,12 +85,49 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 </div>
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
-                
+
                 <?php ($myProfile ? print("<button class='btn btn-sm btn-secondary' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : ""); ?>
-                
+
                 <?php if (!$myProfile) { ?>
 
-                    <a href="/<?php echo $rootName; ?>/messages/conversation?with=<?php echo $profileUsername; ?>" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Mesaj</a>
+                    <form action="/graduation-project-web/includes/follower-operations.php" method="post">
+
+                        <input type="hidden" name="followed_person" value="<?php echo $profileUsername; ?>" />
+
+                        <?php
+
+                        $queryFollowInfo = $pdo->prepare(
+                            "SELECT * FROM follower
+                            WHERE follower_name = '$myUsername' AND followed_name = '$profileUsername'"
+                        );
+                        $queryFollowInfo->execute();
+
+                        if ($queryFollowInfo->rowCount() == 1) {
+
+                        ?>
+
+                        <section class="text-center">
+                            <button type="submit" class="btn btn-primary" name="unfollow">Takip Ediliyor</button>
+                        </section>
+
+                        <?php } else { ?>
+
+                        <section class="text-center">
+                            <button type="submit" class="btn btn-primary" name="follow">Takip Et</button>
+                        </section>
+
+                        <?php } ?>
+
+                    </form>
+
+                    <a
+                        href="/<?php echo $rootName; ?>/messages/conversation?with=<?php echo $profileUsername; ?>"
+                        class="btn btn-primary margin-top-15"
+                        role="button"
+                        aria-pressed="true"
+                    >
+                        Mesaj
+                    </a>
 
                 <?php } ?>
             </div>
