@@ -267,20 +267,20 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
               ?>
 
 
-                  <div class="col-6 card text-center">
-                      <div class="text-center">
-                        <a href="/graduation-project-web/user/<?php echo $getterNameFollower['username']; ?>" class="my-links">
-                            <img
+              <div class="col-6 card text-center">
+                  <div class="text-center">
+                      <a href="/graduation-project-web/user/<?php echo $getterNameFollower['username']; ?>" class="my-links">
+                          <img
                               class="padding-15"
                               style="border-radius: 100%;"
                               src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterNameFollower['profile_photo']; ?>"
                               width="120px"
                               height="120px"
-                              />
-                              <p><b><?php echo $getterNameFollower['username']; ?></b></p>
-                        </a>
-                      </div>
+                            />
+                          <p><b><?php echo $getterNameFollower['username']; ?></b></p>
+                      </a>
                   </div>
+              </div>
 
 
           <?php } ?>
@@ -306,6 +306,47 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+
+          <section class="padding-15 text-center row">
+
+          <?php while($getFollowings = $queryFollowing->fetch(PDO::FETCH_ASSOC)) { ?>
+
+              <?php
+
+                $followID = $getFollowings['id'];
+                $followingName = $getFollowings['followed_name'];
+
+                $queryNameFollowing = "queryFollowingList" . $followID;
+                $getterNameFollowing = "getFollowingList" . $followID;
+
+                $queryNameFollowing = $pdo->prepare("SELECT * FROM users WHERE username = '$followingName'");
+                $queryNameFollowing->execute();
+
+                $getterNameFollowing = $queryNameFollowing->fetch(PDO::FETCH_ASSOC);
+
+              ?>
+
+
+              <div class="col-6 card text-center">
+                  <div class="text-center">
+                      <a href="/graduation-project-web/user/<?php echo $getterNameFollowing['username']; ?>" class="my-links">
+                          <img
+                              class="padding-15"
+                              style="border-radius: 100%;"
+                              src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterNameFollowing['profile_photo']; ?>"
+                              width="120px"
+                              height="120px"
+                            />
+                          <p><b><?php echo $getterNameFollowing['username']; ?></b></p>
+                      </a>
+                  </div>
+              </div>
+
+
+          <?php } ?>
+
+          </section>
+
 
       </div>
       <div class="modal-footer">
