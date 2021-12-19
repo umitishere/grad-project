@@ -27,6 +27,11 @@ body, html {
   width: 50%;
 }
 
+.center-content {
+    align-items: center;
+    justify-content: center;
+}
+
 .message-box-1 {
   display: inline-block;
   background-color: #27496D;

@@ -2,3 +2,12 @@
     background-color: #EC255A;
     color: white;
 }
+
+.white-text {
+    color: white;
+}
+
+.my-links {
+    text-decoration: none;
+    color: black;
+}

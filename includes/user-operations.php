@@ -59,7 +59,7 @@ if (isset($_POST["update_username"])) {
     if (!empty($username_err)) {
         header("Location: ../$username?usernameChangeError=$username_err");
     } else {
-        header("Location: ../$newUsername");
+        header("Location: ../logout.php");
     }
 
 
@@ -76,7 +76,7 @@ if (isset($_POST["update_biography"])) {
         $queryExeute = $query->execute();
     }
 
-    header("Location: ../$username");
+    header("Location: ../user/$username");
 
 }
 
@@ -133,7 +133,7 @@ if (isset($_POST["update_profile_photo"])) {
         }
     }
 
-    header("Location: ../$username");
+    header("Location: ../user/$username");
 
 }
 

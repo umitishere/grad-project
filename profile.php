@@ -96,11 +96,11 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
 
                 <section class="row">
-                    <div class="col-6 text-center">
+                    <div class="col-6 text-center" data-bs-toggle="modal" data-bs-target="#showFollowers">
                         <div><b><?php echo $numberOfFollowers; ?></b></div>
                         <div>Takipçi</div>
                     </div>
-                    <div class="col-6 text-center">
+                    <div class="col-6 text-center" data-bs-toggle="modal" data-bs-target="#showFollowings">
                         <div><b><?php echo $numberOfFollowing; ?></b></div>
                         <div>Takip Edilen</div>
                     </div>
@@ -175,7 +175,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="includes/user-operations.php" enctype="multipart/form-data">
+        <form method="post" action="/graduation-project-web/includes/user-operations.php" enctype="multipart/form-data">
 
             <label for="update-profile-photo">Profil Fotoğrafı</label>
             <div class="input-group">
@@ -235,5 +235,85 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
   </div>
 </div>
 <!-- Edit Profile Modal -->
+
+
+<!-- Show Followers Modal -->
+<div class="modal fade" id="showFollowers" tabindex="-1" aria-labelledby="showFollowers" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showFollowers">Takipçiler</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+          <section class="padding-15 text-center row">
+
+          <?php while($getFollowers = $queryFollowers->fetch(PDO::FETCH_ASSOC)) { ?>
+
+              <?php
+
+                $followID = $getFollowers['id'];
+                $followerName = $getFollowers['follower_name'];
+
+                $queryNameFollower = "queryFollowerList" . $followID;
+                $getterNameFollower = "getFollowerList" . $followID;
+
+                $queryNameFollower = $pdo->prepare("SELECT * FROM users WHERE username = '$followerName'");
+                $queryNameFollower->execute();
+
+                $getterNameFollower = $queryNameFollower->fetch(PDO::FETCH_ASSOC);
+
+              ?>
+
+
+                  <div class="col-6 card text-center">
+                      <div class="text-center">
+                        <a href="/graduation-project-web/user/<?php echo $getterNameFollower['username']; ?>" class="my-links">
+                            <img
+                              class="padding-15"
+                              style="border-radius: 100%;"
+                              src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterNameFollower['profile_photo']; ?>"
+                              width="120px"
+                              height="120px"
+                              />
+                              <p><b><?php echo $getterNameFollower['username']; ?></b></p>
+                        </a>
+                      </div>
+                  </div>
+
+
+          <?php } ?>
+
+          </section>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Show Followers Modal -->
+
+
+<!-- Show Followings Modal -->
+<div class="modal fade" id="showFollowings" tabindex="-1" aria-labelledby="showFollowings" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showFollowings">Takip Edilenler</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Show Followings Modal -->
 
 <?php require_once("includes/footer.php"); ?>
