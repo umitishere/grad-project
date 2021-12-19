@@ -22,31 +22,24 @@ if (isset($_POST['create_content'])) {
 
     $contentData = [
         ":content_publisher"=>$username,
-        ":content_publisher_id"=>$sessionID,
         ":content_detail"=>$contentDetail,
     ];
 
-    $querySendMessage1 = "INSERT INTO `contents`
+    $query = "INSERT INTO `contents`
     (
-        `message_detail`,
-        `message_getter`,
-        `message_sender`,
-        `delete_key`,
-        `unique_name`
+        `content_publisher`,
+        `content_detail`
     )
     VALUES
     (
-        :message_detail,
-        :message_getter,
-        :message_sender,
-        :delete_key,
-        :unique_name
+        :content_publisher,
+        :content_detail
     )";
 
-    $pdoResult1 = $pdo->prepare($querySendMessage1);
-    $pdoExecute1 = $pdoResult1->execute($messageDataForSender);
+    $pdoResult = $pdo->prepare($query);
+    $pdoExecute = $pdoResult->execute($contentData);
 
-    header("Location: ../messages/conversation?with=$messageGetter");
+    header("Location: /graduation-project-web/anasayfa");
 
 
 }
