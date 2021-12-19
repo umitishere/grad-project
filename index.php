@@ -15,7 +15,7 @@ $queryLastContents->execute();
 
         <div class="col-md-9 col-sm-12">
 
-            <section class="padding-15">
+            <section class="padding-15 content-share margin-top-15">
                 <form action="/graduation-project-web/includes/content-operations.php" method="post">
 
                     <textarea
@@ -41,10 +41,53 @@ $queryLastContents->execute();
 
                 <?php while($getLastContents = $queryLastContents->fetch(PDO::FETCH_ASSOC)) { ?>
 
+                    <?php
+
+                    $contentID = $getLastContents['id'];
+                    $publisherID = $getLastContents['publisher_id'];
+
+                    $queryName = "queryPublisher" . $contentID;
+                    $getterName = "getPublisher" . $contentID;
+
+                    $queryName = $pdo->prepare("SELECT * FROM users WHERE id = $publisherID");
+                    $queryName->execute();
+
+                    $getterName = $queryName->fetch(PDO::FETCH_ASSOC);
+
+                    ?>
+
                     <section class="margin-top-15 card padding-15">
 
                         <section>
-                            <?php echo nl2br($getLastContents['content_detail']); ?>
+                            <span class="badge bg-light text-dark font-16">
+                                <img
+                                    style="border-radius: 100%;"
+                                    src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
+                                    width="25px" height="25px" />
+                                <?php echo $getterName["username"]; ?>
+                            </span>
+                            <section class="margin-top-15">
+                                <?php echo nl2br($getLastContents['content_detail']); ?>
+                            </section>
+                            <section class="margin-top-15 row text-center content-icons">
+
+                                <div class="col-3">
+                                    <i class="far fa-heart"></i>
+                                </div>
+
+                                <div class="col-3">
+                                    <i class="far fa-comments"></i>
+                                </div>
+
+                                <div class="col-3">
+                                    <i class="far fa-paper-plane"></i>
+                                </div>
+
+                                <div class="col-3">
+                                    <i class="far fa-bookmark"></i>
+                                </div>
+
+                            </section>
                         </section>
 
                     </section>

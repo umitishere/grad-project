@@ -54,7 +54,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/<?php echo $rootName; ?>/anasayfa">Site Adı</a>
+                <a class="navbar-brand" href="/<?php echo $rootName; ?>/anasayfa"><b>Grad Project</b></a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -77,9 +77,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="badge bg-light text-dark font-16">
-                                    <img 
-                                        style="border-radius: 100%;" 
-                                        src="/<?php echo $rootName; ?>/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>" 
+                                    <img
+                                        style="border-radius: 100%;"
+                                        src="/<?php echo $rootName; ?>/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
                                         width="25px" height="25px" />
                                     <?php echo $getUserInfo["username"]; ?>
                                 </span>

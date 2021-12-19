@@ -21,18 +21,18 @@ if (isset($_POST['create_content'])) {
     $contentDetail = htmlspecialchars($_POST["content_detail"], ENT_QUOTES);
 
     $contentData = [
-        ":content_publisher"=>$username,
+        ":publisher_id"=>$sessionID,
         ":content_detail"=>$contentDetail,
     ];
 
     $query = "INSERT INTO `contents`
     (
-        `content_publisher`,
+        `publisher_id`,
         `content_detail`
     )
     VALUES
     (
-        :content_publisher,
+        :publisher_id,
         :content_detail
     )";
 
