@@ -22,7 +22,7 @@ if (isset($_POST['create_content'])) {
 
     $contentData = [
         ":publisher_id"=>$sessionID,
-        ":content_detail"=>$contentDetail,
+        ":content_detail"=>$contentDetail
     ];
 
     $query = "INSERT INTO `contents`
@@ -42,6 +42,46 @@ if (isset($_POST['create_content'])) {
     header("Location: /grad-project/anasayfa");
 
 
+}
+
+
+
+if (isset($_POST['like_content'])) {
+
+    $contentID = $_POST['liked_content'];
+
+    $contentData = [
+        ":liked_content"=>$contentID,
+        ":who_liked"=>$sessionID
+    ];
+
+    $query = "INSERT INTO `liked_contents`
+    (
+        `liked_content`,
+        `who_liked`
+    )
+    VALUES
+    (
+        :liked_content,
+        :who_liked
+    )";
+
+    $pdoResult = $pdo->prepare($query);
+    $pdoExecute = $pdoResult->execute($contentData);
+
+    header("Location: /grad-project/anasayfa");
+
+}
+
+
+if (isset($_POST['dislike_content'])) {
+
+    $contentID = $_POST['liked_content'];
+
+    $query = $pdo->prepare("DELETE FROM liked_contents WHERE liked_content = '$contentID' AND who_liked = '$sessionID'");
+    $queryExecute = $query->execute();
+
+    header("Location: /grad-project/anasayfa");
 }
 
 ?>

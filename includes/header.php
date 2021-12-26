@@ -1,5 +1,6 @@
 <?php
 
+$loggedUserID = "";
 $projectName = "grad-project";
 
 require_once("config.php");

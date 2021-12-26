@@ -15,3 +15,8 @@
 .content-share {
     background-color: #F8F9FA;
 }
+
+.content-button {
+    background: none;
+    border: none;
+}
