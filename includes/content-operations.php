@@ -39,7 +39,7 @@ if (isset($_POST['create_content'])) {
     $pdoResult = $pdo->prepare($query);
     $pdoExecute = $pdoResult->execute($contentData);
 
-    header("Location: /graduation-project-web/anasayfa");
+    header("Location: /grad-project/anasayfa");
 
 
 }

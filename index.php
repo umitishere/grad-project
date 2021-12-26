@@ -1,5 +1,7 @@
 <?php
 
+require_once("VARIABLES_EVERYWHERE.php");
+
 $pageTitle = "Anasayfa | Brand";
 
 require_once("includes/header.php");
@@ -16,7 +18,7 @@ $queryLastContents->execute();
         <div class="col-md-9 col-sm-12">
 
             <section class="padding-15 content-share margin-top-15">
-                <form action="/graduation-project-web/includes/content-operations.php" method="post">
+                <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
 
                     <textarea
                         placeholder="Ne düşünüyorsun?"
@@ -59,13 +61,15 @@ $queryLastContents->execute();
                     <section class="margin-top-15 card padding-15">
 
                         <section>
-                            <span class="badge bg-light text-dark font-16">
-                                <img
-                                    style="border-radius: 100%;"
-                                    src="/graduation-project-web/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
-                                    width="25px" height="25px" />
-                                <?php echo $getterName["username"]; ?>
-                            </span>
+                            <a href="/<?php echo $projectName; ?>/user/<?php echo $getterName['username']; ?>" class="my-links">
+                                <span class="badge bg-light text-dark font-16">
+                                    <img
+                                        style="border-radius: 100%;"
+                                        src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
+                                        width="25px" height="25px" />
+                                    <?php echo $getterName["username"]; ?>
+                                </span>
+                            </a>
                             <section class="margin-top-15">
                                 <?php echo nl2br($getLastContents['content_detail']); ?>
                             </section>
@@ -80,11 +84,11 @@ $queryLastContents->execute();
                                 </div>
 
                                 <div class="col-3">
-                                    <i class="far fa-paper-plane"></i>
+                                    <i class="far fa-share-square"></i>
                                 </div>
 
                                 <div class="col-3">
-                                    <i class="far fa-bookmark"></i>
+                                    <i class="far fa-plus-square"></i>
                                 </div>
 
                             </section>

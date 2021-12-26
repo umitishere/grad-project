@@ -1,6 +1,6 @@
 <?php
 
-$rootName = "graduation-project-web";
+$projectName = "grad-project";
 
 require_once("config.php");
 
@@ -42,10 +42,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <script src="https://kit.fontawesome.com/05e9384002.js" crossorigin="anonymous"></script>
 
     <!-- Custom CSS -->
-    <link href="/graduation-project-web/assets/css/layout.css" rel="stylesheet" />
-    <link href="/graduation-project-web/assets/css/fonts.css" rel="stylesheet" />
-    <link href="/graduation-project-web/assets/css/colors.css" rel="stylesheet" />
-    <link href="/graduation-project-web/assets/css/images.css" rel="stylesheet" />
+    <link href="/<?php echo $projectName; ?>/assets/css/layout.css" rel="stylesheet" />
+    <link href="/<?php echo $projectName; ?>/assets/css/fonts.css" rel="stylesheet" />
+    <link href="/<?php echo $projectName; ?>/assets/css/colors.css" rel="stylesheet" />
+    <link href="/<?php echo $projectName; ?>/assets/css/images.css" rel="stylesheet" />
 
     <title><?php echo $pageTitle; ?></title>
 </head>
@@ -54,7 +54,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/<?php echo $rootName; ?>/anasayfa"><b>Grad Project</b></a>
+                <a class="navbar-brand" href="/<?php echo $projectName; ?>/anasayfa"><b>Grad Project</b></a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -69,7 +69,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav">
                         <!-- <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/<?php echo $rootName; ?>/anasayfa">Anasayfa</a>
+                            <a class="nav-link active" aria-current="page" href="/<?php echo $projectName; ?>/anasayfa">Anasayfa</a>
                         </li> -->
                     </ul>
                     <ul class="navbar-nav ms-auto">
@@ -79,24 +79,24 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 <span class="badge bg-light text-dark font-16">
                                     <img
                                         style="border-radius: 100%;"
-                                        src="/<?php echo $rootName; ?>/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
+                                        src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
                                         width="25px" height="25px" />
                                     <?php echo $getUserInfo["username"]; ?>
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/messages/gelen-kutusu"><i class="fas fa-inbox"></i> Mesajlar</a></li>
-                                <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/user/<?php echo $loggedUsername; ?>"><i class="fas fa-user"></i> Profilim</a></li>
-                                <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/ayarlar"><i class="fas fa-cog"></i> Ayarlar</a></li>
-                                <li><a class="dropdown-item" href="/<?php echo $rootName; ?>/oturumu-kapat"><i class="fas fa-sign-out-alt"></i> Oturumu Kapat</a></li>
+                                <li><a class="dropdown-item" href="/<?php echo $projectName; ?>/messages/gelen-kutusu"><i class="fas fa-inbox"></i> Mesajlar</a></li>
+                                <li><a class="dropdown-item" href="/<?php echo $projectName; ?>/user/<?php echo $loggedUsername; ?>"><i class="fas fa-user"></i> Profilim</a></li>
+                                <li><a class="dropdown-item" href="/<?php echo $projectName; ?>/ayarlar"><i class="fas fa-cog"></i> Ayarlar</a></li>
+                                <li><a class="dropdown-item" href="/<?php echo $projectName; ?>/oturumu-kapat"><i class="fas fa-sign-out-alt"></i> Oturumu Kapat</a></li>
                             </ul>
                         </li>
                     <?php } else { ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/<?php echo $rootName; ?>/giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
+                            <a class="nav-link active" aria-current="page" href="/<?php echo $projectName; ?>/giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/<?php echo $rootName; ?>/uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
+                            <a class="nav-link active" aria-current="page" href="/<?php echo $projectName; ?>/uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
                         </li>
                     <?php } ?>
                     </ul>

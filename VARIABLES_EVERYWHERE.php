@@ -1,0 +1,5 @@
+<?php
+
+$projectName = "grad-project";
+
+?>

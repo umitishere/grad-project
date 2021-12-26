@@ -1,5 +1,7 @@
 <?php
 
+require_once("VARIABLES_EVERYWHERE.php");
+
 $pageTitle = "Gelen Kutusu";
 
 require_once("includes/header.php");
@@ -21,7 +23,7 @@ $queryMessages = $pdo->prepare(
     WHERE (messages.message_sender = '$myUsername' OR messages.message_getter = '$myUsername')
     AND messages.delete_key = '$sessionID'
     GROUP BY messages.message_sender
-    ORDER BY messages.id DESC" 
+    ORDER BY messages.id DESC"
 );
 $queryMessages->execute();
 
@@ -38,7 +40,7 @@ $queryMessages->execute();
 
             <section class="margin-top-15 card padding-15">
                 <div>
-                    <span><img class="image-message-sender" src="/graduation-project-web/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span> 
+                    <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
                     <span><?php echo $getMessages['message_time']; ?></span>
                 </div>
                 <a href="conversation?with=<?php echo $getMessages['message_sender']; ?>">
@@ -50,7 +52,7 @@ $queryMessages->execute();
 
             <?php } ?>
 
-        <?php } ?>            
+        <?php } ?>
         </section>
 
     </section>

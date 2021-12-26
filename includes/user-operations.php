@@ -54,6 +54,30 @@ if (isset($_POST["update_username"])) {
 
     if (empty($username_err)) {
         $queryExecute = $query->execute();
+
+        $updateMessagesTable1 = $pdo->prepare(
+            "UPDATE messages
+            SET message_sender = '$newUsername' WHERE message_sender = '$username'"
+        );
+        $updateMessagesTable2 = $pdo->prepare(
+            "UPDATE messages
+            SET message_getter = '$newUsername' WHERE message_getter = '$username'"
+        );
+
+        $updateFollowTable1 = $pdo->prepare(
+            "UPDATE follower
+            SET follower_name = '$newUsername' WHERE follower_name = '$username'"
+        );
+        $updateFollowTable2 = $pdo->prepare(
+            "UPDATE follower
+            SET followed_name = '$newUsername' WHERE followed_name = '$username'"
+        );
+
+        $messagesExecute1 = $updateMessagesTable1->execute();
+        $messagesExecute2 = $updateMessagesTable2->execute();
+
+        $followExecute1 = $updateFollowTable1->execute();
+        $followExecute2 = $updateFollowTable2->execute();
     }
 
     if (!empty($username_err)) {

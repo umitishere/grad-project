@@ -1,5 +1,7 @@
 <?php
 
+require_once("VARIABLES_EVERYWHERE.php");
+
 $conversationWith = $_GET["with"];
 
 $pageTitle = $conversationWith . " ile sohbet";
@@ -20,10 +22,10 @@ $queryMessages = $pdo->prepare(
     FROM messages
     INNER JOIN users
     ON messages.message_sender = users.username
-    WHERE ((messages.message_sender = '$myUsername' AND messages.message_getter = '$conversationWith') 
-    OR (messages.message_sender = '$conversationWith' AND messages.message_getter = '$myUsername')) 
+    WHERE ((messages.message_sender = '$myUsername' AND messages.message_getter = '$conversationWith')
+    OR (messages.message_sender = '$conversationWith' AND messages.message_getter = '$myUsername'))
     AND messages.delete_key = '$sessionID'
-    ORDER BY messages.id ASC" 
+    ORDER BY messages.id ASC"
 );
 $queryMessages->execute();
 
@@ -38,13 +40,13 @@ $queryMessages->execute();
 
             <section class="margin-top-15 card padding-15">
                 <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
-                    <span><img class="image-message-sender" src="/graduation-project-web/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span> 
+                    <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
                     <span><?php echo $getMessages['message_time']; ?></span>
                 </div>
                 <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
                     <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
                         <?php echo $getMessages['message_detail']; ?>
-                    </div>                    
+                    </div>
                     <button type="button" class="btn btn-danger margin-top-15" data-bs-toggle="modal" data-bs-target="#deleteMessage<?php echo $getMessages['id']; ?>">
                         <i class="fas fa-trash-alt"></i>
                     </button>
@@ -60,7 +62,7 @@ $queryMessages->execute();
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/graduation-project-web/includes/send-message.php" method="post">
+                            <form action="/<?php echo $projectName; ?>/includes/send-message.php" method="post">
 
                                 <input type="hidden" value="<?php echo $getMessages['unique_name']; ?>" name="unique" />
 
@@ -84,11 +86,11 @@ $queryMessages->execute();
                 </div>
             </div>
 
-        <?php } ?>            
+        <?php } ?>
         </section>
 
         <section class="padding-15 margin-top-30">
-            <form action="/graduation-project-web/includes/send-message.php" method="post">
+            <form action="/<?php echo $projectName; ?>/includes/send-message.php" method="post">
 
                 <input type="hidden" name="message_getter" value="<?php echo $conversationWith; ?>" />
 
