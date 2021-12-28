@@ -17,7 +17,7 @@ if (isset($_GET['usernameChangeError'])) {
     $usernameChangeError = $_GET['usernameChangeError'];
 }
 
-$pageTitle = $profileUsername . " profili | Brand";
+$pageTitle = $profileUsername . " profili | Grad Project";
 
 require_once("includes/header.php");
 

@@ -1,6 +1,6 @@
 <?php
 
-$pageTitle = "Giriş Yap | Brand";
+$pageTitle = "Giriş Yap | Grad Project";
 
 require_once("includes/header.php");
 

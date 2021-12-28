@@ -1,6 +1,6 @@
 <?php
 
-$pageTitle = "Üye Ol | Brand";
+$pageTitle = "Üye Ol | Grad Project";
 
 require_once("includes/header.php");
 

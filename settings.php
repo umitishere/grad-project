@@ -8,7 +8,7 @@ if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true) {
     header("Location: giris-yap");
 }
 
-$pageTitle = "Ayarlar | Brand";
+$pageTitle = "Ayarlar | Grad Project";
 
 require_once("includes/header.php");
 

@@ -2,7 +2,7 @@
 
 require_once("VARIABLES_EVERYWHERE.php");
 
-$pageTitle = "Anasayfa | Brand";
+$pageTitle = "Anasayfa | Grad Project";
 
 require_once("includes/header.php");
 

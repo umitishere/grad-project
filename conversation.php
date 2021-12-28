@@ -4,7 +4,7 @@ require_once("VARIABLES_EVERYWHERE.php");
 
 $conversationWith = $_GET["with"];
 
-$pageTitle = $conversationWith . " ile sohbet";
+$pageTitle = $conversationWith . " ile sohbet | Grad Project";
 
 require_once("includes/header.php");
 
