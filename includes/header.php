@@ -103,7 +103,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/user/<?php echo $loggedUsername; ?>">
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/yaptigim-yorumlar">
                                         <i class="far fa-comments"></i> Yorumlarım
                                     </a>
                                 </li>
