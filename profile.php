@@ -175,6 +175,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     $queryName = "queryPublisher" . $contentID;
                     $getterName = "getPublisher" . $contentID;
 
+                    $queryLikesName = "queryLikes" . $contentID;
+                    $getLikesName = "getLikes" . $contentID;
+
                     $queryName = $pdo->prepare("SELECT * FROM users WHERE id = $publisherID");
                     $queryName->execute();
 
@@ -195,25 +198,70 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             <section class="margin-top-15">
                                 <?php echo nl2br($getLastContents['content_detail']); ?>
                             </section>
-                            <section class="margin-top-15 row text-center content-icons">
 
-                                <div class="col-3">
-                                    <i class="far fa-heart"></i>
-                                </div>
+                            <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
 
-                                <div class="col-3">
-                                    <i class="far fa-comments"></i>
-                                </div>
+                                <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
+                                <input type="hidden" name="from_where" value="profile" />
 
-                                <div class="col-3">
-                                    <i class="far fa-share-square"></i>
-                                </div>
+                                <section class="margin-top-15 row text-center content-icons">
 
-                                <div class="col-3">
-                                    <i class="far fa-plus-square"></i>
-                                </div>
+                                    <?php
 
-                            </section>
+                                        $likedContent = $getLastContents['id'];
+
+                                        $queryLikesName = $pdo->prepare(
+                                            "SELECT * FROM liked_contents
+                                            WHERE liked_content = $likedContent
+                                            AND who_liked = $loggedUserID
+                                        ");
+                                        $queryLikesName->execute();
+
+                                    ?>
+
+                                    <div class="col-3">
+
+                                        <?php if ($queryLikesName->rowCount() == 1) { ?>
+
+                                        <button type="submit" name="dislike_content" class="content-button">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+
+                                        <?php } else { ?>
+
+                                        <button type="submit" name="like_content" class="content-button">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+
+                                        <?php } ?>
+
+                                    </div>
+
+                                    <?php include("modal-send-comment.php"); ?>
+
+                                    <div class="col-3">
+                                        <button
+                                            type="button"
+                                            name="like_content"
+                                            class="content-button"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sendComment<?php echo $getLastContents['id']; ?>"
+                                        >
+                                            <i class="far fa-comments"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <i class="far fa-share-square"></i>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <i class="far fa-plus-square"></i>
+                                    </div>
+
+                                </section>
+
+                            </form>
                         </section>
 
                     </section>

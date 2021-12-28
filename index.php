@@ -80,6 +80,7 @@ $queryLastContents->execute();
                             <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
 
                                 <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
+                                <input type="hidden" name="from_where" value="home" />
 
                                 <section class="margin-top-15 row text-center content-icons">
 
@@ -99,18 +100,33 @@ $queryLastContents->execute();
                                     <div class="col-3">
 
                                         <?php if ($queryLikesName->rowCount() == 1) { ?>
+
                                         <button type="submit" name="dislike_content" class="content-button">
                                             <i class="fas fa-heart"></i>
                                         </button>
+
                                         <?php } else { ?>
+
                                         <button type="submit" name="like_content" class="content-button">
                                             <i class="far fa-heart"></i>
                                         </button>
+
                                         <?php } ?>
+
                                     </div>
 
+                                    <?php include("modal-send-comment.php"); ?>
+
                                     <div class="col-3">
-                                        <i class="far fa-comments"></i>
+                                        <button
+                                            type="button"
+                                            name="like_content"
+                                            class="content-button"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sendComment<?php echo $getLastContents['id']; ?>"
+                                        >
+                                            <i class="far fa-comments"></i>
+                                        </button>
                                     </div>
 
                                     <div class="col-3">

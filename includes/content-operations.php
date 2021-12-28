@@ -44,6 +44,37 @@ if (isset($_POST['create_content'])) {
 
 }
 
+if (isset($_POST['send_comment'])) {
+
+    $commentDetail = htmlspecialchars($_POST["comment_detail"], ENT_QUOTES);
+    $commentedPost = htmlspecialchars($_POST["commented_content"], ENT_QUOTES);
+
+    $commentData = [
+        ":comment_sender"=>$sessionID,
+        ":commented_post"=>$commentedPost,
+        ":comment_detail"=>$commentDetail
+    ];
+
+    $query = "INSERT INTO `comments`
+    (
+        `comment_sender`,
+        `commented_post`,
+        `comment_detail`
+    )
+    VALUES
+    (
+        :comment_sender,
+        :commented_post,
+        :comment_detail
+    )";
+
+    $pdoResult = $pdo->prepare($query);
+    $pdoExecute = $pdoResult->execute($commentData);
+
+    header("Location: /grad-project/anasayfa");
+
+
+}
 
 
 if (isset($_POST['like_content'])) {
