@@ -64,7 +64,11 @@ $profileInfo->execute();
 
 $getProfileInfo = $profileInfo->fetch(PDO::FETCH_ASSOC);
 
-$profileID = $getProfileInfo["id"];
+$profileID = 0;
+
+if (empty($errorMessage)) {
+    $profileID = $getProfileInfo["id"];
+}
 
 $queryLastContents = $pdo->prepare("SELECT * FROM contents WHERE publisher_id = '$profileID' ORDER BY id DESC");
 $queryLastContents->execute();

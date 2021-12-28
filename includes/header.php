@@ -86,10 +86,43 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="/<?php echo $projectName; ?>/messages/gelen-kutusu"><i class="fas fa-inbox"></i> Mesajlar</a></li>
-                                <li><a class="dropdown-item" href="/<?php echo $projectName; ?>/user/<?php echo $loggedUsername; ?>"><i class="fas fa-user"></i> Profilim</a></li>
-                                <li><a class="dropdown-item" href="/<?php echo $projectName; ?>/ayarlar"><i class="fas fa-cog"></i> Ayarlar</a></li>
-                                <li><a class="dropdown-item" href="/<?php echo $projectName; ?>/oturumu-kapat"><i class="fas fa-sign-out-alt"></i> Oturumu Kapat</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/messages/gelen-kutusu">
+                                        <i class="fas fa-inbox"></i> Mesajlar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/user/<?php echo $loggedUsername; ?>">
+                                        <i class="fas fa-user"></i> Profilim
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/begendigim-gonderiler">
+                                        <i class="far fa-heart"></i> Beğendiklerim
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/user/<?php echo $loggedUsername; ?>">
+                                        <i class="far fa-comments"></i> Yorumlarım
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/user/<?php echo $loggedUsername; ?>">
+                                        <i class="far fa-plus-square"></i> Kaydettiklerim
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/ayarlar">
+                                        <i class="fas fa-cog"></i> Ayarlar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/oturumu-kapat">
+                                        <i class="fas fa-sign-out-alt"></i> Oturumu Kapat
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     <?php } else { ?>

@@ -17,6 +17,7 @@
                 name="comment_detail"
                 rows="2"
                 maxlength="120"
+                placeholder="Yorum yap..."
             ></textarea>
             <button type="submit" name="send_comment" class="btn btn-outline-primary" type="button">
                 Gönder
