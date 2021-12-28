@@ -38,10 +38,21 @@ $queryMessages->execute();
         <section class="conversation-area padding-15">
         <?php while ($getMessages = $queryMessages->fetch(PDO::FETCH_ASSOC)) { ?>
 
+            <?php
+
+            $messageYear = substr($getMessages['message_time'], 0, 4);
+            $messageMonth = substr($getMessages['message_time'], 5, 2);
+            $messageDay = substr($getMessages['message_time'], 8, 2);
+
+            $messageHour = substr($getMessages['message_time'], 11, 2);
+            $messageMinute = substr($getMessages['message_time'], 14, 2);
+
+            ?>
+
             <section class="margin-top-15 card padding-15">
                 <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
                     <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
-                    <span><?php echo $getMessages['message_time']; ?></span>
+                    <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                 </div>
                 <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
                     <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">

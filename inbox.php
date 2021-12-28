@@ -15,16 +15,6 @@ $getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
 
 $myUsername = $getUserInfo["username"];
 
-/* $queryMessages = $pdo->prepare(
-    "SELECT *
-    FROM messages
-    INNER JOIN users
-    ON messages.message_sender = users.username
-    WHERE (messages.message_sender = '$myUsername')
-    AND messages.delete_key = '$sessionID'
-    GROUP BY messages.message_sender OR messages.message_getter
-    ORDER BY messages.id DESC"
-); */
 $queryMessages = $pdo->prepare(
     "SELECT *
     FROM messages
@@ -65,14 +55,21 @@ $queryMessages->execute();
         <hr />
 
         <section class="message-area padding-15">
-        <?php while ($getMessages = $queryMessages->fetch(PDO::FETCH_ASSOC)) { ?>
+        <?php while ($getMessages = $queryMessages->fetch(PDO::FETCH_ASSOC)) {
 
-            <?php if ($getMessages['message_sender'] != $myUsername) { ?>
+            $messageYear = substr($getMessages['message_time'], 0, 4);
+            $messageMonth = substr($getMessages['message_time'], 5, 2);
+            $messageDay = substr($getMessages['message_time'], 8, 2);
+
+            $messageHour = substr($getMessages['message_time'], 11, 2);
+            $messageMinute = substr($getMessages['message_time'], 14, 2);
+
+            if ($getMessages['message_sender'] != $myUsername) { ?>
 
             <section class="margin-top-15 card padding-15">
                 <div>
                     <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
-                    <span><?php echo $getMessages['message_time']; ?></span>
+                    <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                 </div>
 
                 <a href="conversation?with=<?php echo $getMessages['message_sender']; ?>">
@@ -88,7 +85,7 @@ $queryMessages->execute();
                 <section class="margin-top-15 card padding-15">
                     <div>
                         <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_getter']; ?></b></span>
-                        <span><?php echo $getMessages['message_time']; ?></span>
+                        <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                     </div>
 
                     <a href="conversation?with=<?php echo $getMessages['message_getter']; ?>">
