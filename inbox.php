@@ -18,7 +18,7 @@ $myUsername = $getUserInfo["username"];
 $queryMessages = $pdo->prepare(
     "SELECT *
     FROM messages
-    INNER JOIN users
+    LEFT JOIN users
     ON (
         IF (
             messages.message_sender = '$myUsername',
@@ -40,7 +40,7 @@ $queryMessages = $pdo->prepare(
             messages.message_sender
         )
     )
-    ORDER BY messages.id DESC
+    ORDER BY messages.message_time DESC
 "
 );
 $queryMessages->execute();

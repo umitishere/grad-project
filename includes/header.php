@@ -119,6 +119,11 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                     </a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/ayarlar">
+                                        <i class="fas fa-question-circle"></i> Yardım
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="/<?php echo $projectName; ?>/oturumu-kapat">
                                         <i class="fas fa-sign-out-alt"></i> Oturumu Kapat
                                     </a>

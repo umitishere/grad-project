@@ -25,7 +25,7 @@ $queryMessages = $pdo->prepare(
     WHERE ((messages.message_sender = '$myUsername' AND messages.message_getter = '$conversationWith')
     OR (messages.message_sender = '$conversationWith' AND messages.message_getter = '$myUsername'))
     AND messages.delete_key = '$sessionID'
-    ORDER BY messages.id ASC"
+    ORDER BY messages.id DESC"
 );
 $queryMessages->execute();
 
