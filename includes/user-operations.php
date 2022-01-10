@@ -161,4 +161,39 @@ if (isset($_POST["update_profile_photo"])) {
 
 }
 
+// SETTINGS
+
+if (isset($_POST["update_profile_lock"])) {
+
+    $newStatus = htmlspecialchars($_POST["profile_lock"], ENT_QUOTES);
+
+    $query = $pdo->prepare("UPDATE users SET profile_lock = '$newStatus' WHERE id = '$sessionID'");
+    $queryExeute = $query->execute();
+
+    header("Location: /grad-project/ayarlar");
+
+}
+
+if (isset($_POST["update_like_visibility"])) {
+
+    $newStatus = htmlspecialchars($_POST["like_visibility"], ENT_QUOTES);
+
+    $query = $pdo->prepare("UPDATE users SET like_visibility = '$newStatus' WHERE id = '$sessionID'");
+    $queryExeute = $query->execute();
+
+    header("Location: /grad-project/ayarlar");
+
+}
+
+if (isset($_POST["comment_visibility"])) {
+
+    $newStatus = htmlspecialchars($_POST["comment_visibility"], ENT_QUOTES);
+
+    $query = $pdo->prepare("UPDATE users SET comment_visibility = '$newStatus' WHERE id = '$sessionID'");
+    $queryExeute = $query->execute();
+
+    header("Location: /grad-project/ayarlar");
+
+}
+
 ?>

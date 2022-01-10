@@ -12,6 +12,11 @@ $pageTitle = "Ayarlar | Grad Project";
 
 require_once("includes/header.php");
 
+$queryProfileStatus = $pdo->prepare("SELECT * FROM users WHERE id = '$loggedUserID'");
+$queryProfileStatus->execute();
+
+$getProfileStatus = $queryProfileStatus->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <div class="container">
@@ -27,10 +32,9 @@ require_once("includes/header.php");
 
             <label><b>Kilitli Profil</b></label>
             <div class="input-group mb-3">
-                <select class="form-select">
-                    <option selected>Sadece takipçilerim gönderilerimi görebilsin</option>
-                    <option value="1">Evet</option>
-                    <option value="0">Hayır</option>
+                <select name="profile_lock" class="form-select">
+                    <option value="1" <?php $getProfileStatus['profile_lock'] == 1 ? print('selected') : '' ?>>Evet</option>
+                    <option value="0" <?php $getProfileStatus['profile_lock'] == 0 ? print('selected') : '' ?>>Hayır</option>
                 </select>
                 <button type="submit" name="update_profile_lock" class="btn btn-outline-primary" type="button">
                     <i class="fas fa-save"></i>
@@ -39,10 +43,9 @@ require_once("includes/header.php");
 
             <label><b>Beğenileri Göster/Gizle</b></label>
             <div class="input-group mb-3">
-                <select class="form-select">
-                    <option selected>Gelen beğenileri sadece ben görebileyim</option>
-                    <option value="1">Evet</option>
-                    <option value="0">Hayır</option>
+                <select name="like_visibility" class="form-select">
+                    <option value="1" <?php $getProfileStatus['like_visibility'] == 1 ? print('selected') : '' ?>>Evet</option>
+                    <option value="0" <?php $getProfileStatus['like_visibility'] == 0 ? print('selected') : '' ?>>Hayır</option>
                 </select>
                 <button type="submit" name="update_like_visibility" class="btn btn-outline-primary" type="button">
                     <i class="fas fa-save"></i>
@@ -51,10 +54,9 @@ require_once("includes/header.php");
 
             <label><b>Yorumları Göster/Gizle</b></label>
             <div class="input-group mb-3">
-                <select class="form-select">
-                    <option selected>Gelen yorumları sadece ben görebileyim</option>
-                    <option value="1">Evet</option>
-                    <option value="0">Hayır</option>
+                <select name="comment_visibility" class="form-select">
+                    <option value="1" <?php $getProfileStatus['comment_visibility'] == 1 ? print('selected') : '' ?>>Evet</option>
+                    <option value="0" <?php $getProfileStatus['comment_visibility'] == 0 ? print('selected') : '' ?>>Hayır</option>
                 </select>
                 <button type="submit" name="update_comment_visibility" class="btn btn-outline-primary" type="button">
                     <i class="fas fa-save"></i>
