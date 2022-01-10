@@ -199,6 +199,27 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                     width="25px" height="25px" />
                                 <?php echo $getterName["username"]; ?>
                             </span>
+                            <span style="float: right; clear: right;">
+                                <?php if ($getLastContents['publisher_id'] == $loggedUserID) { ?>
+                                <button
+                                    type="button"
+                                    class="content-button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editContent<?php echo $getLastContents['id']; ?>"
+                                >
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <?php } else { ?>
+                                    <button
+                                        type="button"
+                                        class="content-button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#contentSettings<?php echo $getLastContents['id']; ?>"
+                                    >
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                <?php } ?>
+                            </span>
                             <section class="margin-top-15">
                                 <?php echo nl2br($getLastContents['content_detail']); ?>
                             </section>
@@ -242,6 +263,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                     </div>
 
                                     <?php include("modal-send-comment.php"); ?>
+
+                                    <?php ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>
 
                                     <div class="col-3">
                                         <button

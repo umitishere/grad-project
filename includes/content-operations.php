@@ -115,4 +115,14 @@ if (isset($_POST['dislike_content'])) {
     header("Location: /grad-project/anasayfa");
 }
 
+if (isset($_POST['delete_content'])) {
+
+    $contentID = $_POST['content_id'];
+
+    $query = $pdo->prepare("DELETE FROM contents WHERE id = '$contentID'");
+    $queryExecute = $query->execute();
+
+    header("Location: /grad-project/anasayfa");
+}
+
 ?>

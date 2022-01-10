@@ -73,6 +73,27 @@ $queryLastContents->execute();
                                     <?php echo $getterName["username"]; ?>
                                 </span>
                             </a>
+                            <span style="float: right; clear: right;">
+                                <?php if ($getLastContents['publisher_id'] == $loggedUserID) { ?>
+                                <button
+                                    type="button"
+                                    class="content-button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editContent<?php echo $getLastContents['id']; ?>"
+                                >
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <?php } else { ?>
+                                    <button
+                                        type="button"
+                                        class="content-button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#contentSettings<?php echo $getLastContents['id']; ?>"
+                                    >
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                <?php } ?>
+                            </span>
                             <section class="margin-top-15">
                                 <?php echo nl2br($getLastContents['content_detail']); ?>
                             </section>
@@ -116,6 +137,8 @@ $queryLastContents->execute();
                                     </div>
 
                                     <?php include("modal-send-comment.php"); ?>
+
+                                    <?php ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>
 
                                     <div class="col-3">
                                         <button
