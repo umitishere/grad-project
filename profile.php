@@ -64,6 +64,17 @@ $profileInfo->execute();
 
 $getProfileInfo = $profileInfo->fetch(PDO::FETCH_ASSOC);
 
+$lockedProfile = false;
+
+$queryFollowingInfo = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$loggedUsername' AND followed_name = '$profileUsername'");
+$queryFollowingInfo->execute();
+
+if ($getProfileInfo['profile_lock'] == 1 && $getProfileInfo['username'] != $loggedUsername) {
+    $lockedProfile = true;
+} else {
+    $lockedProfile = false;
+}
+
 $profileID = 0;
 
 if (empty($errorMessage)) {
@@ -166,6 +177,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         <div class="col-md-9 col-sm-12">
 
             <main>
+
+                <?php if (!$lockedProfile || $queryFollowingInfo->rowCount() == 1) { ?>
 
                 <section>
 
@@ -296,6 +309,12 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <?php } ?>
 
                 </section>
+
+            <?php } else { ?>
+
+                <p class="text-center"><b>Bu kullanıcının profili gizlidir.</b></p>
+
+            <?php } ?>
 
             </main>
 
