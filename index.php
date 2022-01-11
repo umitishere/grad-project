@@ -54,6 +54,9 @@ $queryLastContents->execute();
                     $queryLikesName = "queryLikes" . $contentID;
                     $getLikesName = "getLikes" . $contentID;
 
+                    $queryTotalLikesName = "queryTotalLikes" . $contentID;
+                    $getTotalLikesName = "getTotalLikes" . $contentID;
+
                     $queryFollowName = "queryFollow" . $contentID;
                     $getFollowName = "getFollow" . $contentID;
 
@@ -153,16 +156,49 @@ $queryLastContents->execute();
 
                                     <div class="col-3">
 
+                                        <?php
+
+                                            $queryTotalLikesName = $pdo->prepare(
+                                                "SELECT * FROM liked_contents WHERE liked_content = $likedContent"
+                                            );
+                                            $queryTotalLikesName->execute();
+
+                                            $likesCount = $queryTotalLikesName->rowCount();
+
+                                        ?>
+
                                         <?php if ($queryLikesName->rowCount() == 1) { ?>
 
                                         <button type="submit" name="dislike_content" class="content-button">
                                             <i class="fas fa-heart"></i>
+                                            <span class="font-20">
+                                                <?php
+
+                                                if ($canSeeLikes) {
+                                                    echo $likesCount;
+                                                } else {
+                                                    echo "";
+                                                }
+
+                                                ?>
+                                            </span>
                                         </button>
 
                                         <?php } else { ?>
 
                                         <button type="submit" name="like_content" class="content-button">
                                             <i class="far fa-heart"></i>
+                                            <span class="font-20">
+                                                <?php
+
+                                                if ($canSeeLikes) {
+                                                    echo $likesCount;
+                                                } else {
+                                                    echo "";
+                                                }
+
+                                                ?>
+                                            </span>
                                         </button>
 
                                         <?php } ?>
