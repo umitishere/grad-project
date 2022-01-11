@@ -54,12 +54,31 @@ $queryLastContents->execute();
                     $queryLikesName = "queryLikes" . $contentID;
                     $getLikesName = "getLikes" . $contentID;
 
+                    $queryFollowName = "queryFollow" . $contentID;
+                    $getFollowName = "getFollow" . $contentID;
+
                     $queryName = $pdo->prepare("SELECT * FROM users WHERE id = $publisherID");
                     $queryName->execute();
 
                     $getterName = $queryName->fetch(PDO::FETCH_ASSOC);
 
+                    $postUsername = $getterName['username'];
+                    $queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$loggedUsername' AND followed_name = '$postUsername'");
+                    $queryFollowName->execute();
+
+                    $canSeePost = true;
+
+                    if ($getterName['profile_lock'] == 1) {
+                        if ($queryFollowName->rowCount() == 1) {
+                            $canSeePost = true;
+                        } else {
+                            $canSeePost = false;
+                        }
+                    }
+
                     ?>
+
+                    <?php if($canSeePost) { ?>
 
                     <section class="margin-top-15 card padding-15">
 
@@ -166,6 +185,8 @@ $queryLastContents->execute();
                         </section>
 
                     </section>
+
+                    <?php } // end if can see post ?>
 
                 <?php } ?>
 
