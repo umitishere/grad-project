@@ -67,13 +67,27 @@ $queryLastContents->execute();
                     $queryFollowName->execute();
 
                     $canSeePost = true;
+                    $canSeeLikes = true;
+                    $canSeeComments = true;
 
-                    if ($getterName['profile_lock'] == 1) {
+                    if ($getterName['profile_lock'] == 1 && $getterName['username'] != $loggedUsername) {
                         if ($queryFollowName->rowCount() == 1) {
                             $canSeePost = true;
                         } else {
                             $canSeePost = false;
                         }
+                    }
+
+                    if ($getterName['like_visibility'] == 0 && $getterName['username'] != $loggedUsername) {
+                        $canSeeLikes = false;
+                    } else {
+                        $canSeeLikes = true;
+                    }
+
+                    if ($getterName['comment_visibility'] == 0 && $getterName['username'] != $loggedUsername) {
+                        $canSeeComments = false;
+                    } else {
+                        $canSeeComments = true;
                     }
 
                     ?>

@@ -34,6 +34,8 @@
         $queryLastComments = $pdo->prepare("SELECT * FROM comments WHERE commented_post = '$commentedPost' ORDER BY id DESC");
         $queryLastComments->execute();
 
+    if ($canSeeComments) {
+
         while($getLastComments = $queryLastComments->fetch(PDO::FETCH_ASSOC)) {
 
             $commentSender = $getLastComments['comment_sender'];
@@ -71,6 +73,12 @@
         </section>
 
         <?php } ?>
+
+    <?php } else { ?>
+
+        <p class="text-center"><b>Bu gönderinin yorumları kapalıdır.</b></p>
+
+    <?php } ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
