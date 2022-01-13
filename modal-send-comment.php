@@ -76,7 +76,7 @@
 
     <?php } else { ?>
 
-        <p class="text-center"><b>Bu gönderinin yorumları kapalıdır.</b></p>
+        <p class="text-center"><b>Bu gönderinin yorumları kapalı.</b></p>
 
     <?php } ?>
       </div>

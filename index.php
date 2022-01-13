@@ -17,6 +17,8 @@ $queryLastContents->execute();
 
         <div class="col-md-9 col-sm-12">
 
+            <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
+
             <section class="padding-15 content-share margin-top-15">
                 <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
 
@@ -241,6 +243,16 @@ $queryLastContents->execute();
                 <?php } ?>
 
                 </section>
+
+            <?php } else { ?>
+
+                <section class="text-center margin-top-15">
+                    <div class="alert alert-primary" role="alert">
+                        Gönderileri görebilmek ve paylaşım yapabilmek için <a href="giris-yap"><b>buraya tıklayarak</b></a> giriş yapabilirsiniz.
+                    </div>
+                </section>
+
+            <?php } ?>
 
             </main>
 

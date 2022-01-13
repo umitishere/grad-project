@@ -312,7 +312,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
             <?php } else { ?>
 
-                <p class="text-center"><b>Bu kullanıcının profili gizlidir.</b></p>
+                <p class="text-center"><b>Bu kullanıcının profili gizli.</b></p>
 
             <?php } ?>
 
