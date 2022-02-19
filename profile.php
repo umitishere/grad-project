@@ -142,6 +142,12 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         );
                         $queryFollowInfo->execute();
 
+                        $queryFollowRequestInfo = $pdo->prepare(
+                            "SELECT * FROM follow_requests
+                            WHERE request_sender = '$myUsername' AND request_getter = '$profileUsername'"
+                        );
+                        $queryFollowRequestInfo->execute();
+
                         if ($queryFollowInfo->rowCount() == 1) {
 
                         ?>
@@ -152,9 +158,19 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                         <?php } else { ?>
 
-                        <section class="text-center margin-top-15">
-                            <button type="submit" class="btn btn-primary" name="follow">Takip Et</button>
-                        </section>
+                            <?php if ($queryFollowRequestInfo->rowCount() != 0) { ?>
+
+                                <section class="text-center margin-top-15">
+                                    <button type="button" class="btn btn-primary" name="request_sent">İstek Gönderildi</button>
+                                </section>
+
+                            <?php } else { ?>
+
+                                <section class="text-center margin-top-15">
+                                    <button type="submit" class="btn btn-primary" name="follow">Takip Et</button>
+                                </section>
+
+                            <?php } ?>
 
                         <?php } ?>
 

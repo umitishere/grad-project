@@ -20,24 +20,51 @@ if (isset($_POST['follow'])) {
 
     $followedPerson = htmlspecialchars($_POST["followed_person"], ENT_QUOTES);
 
+    $queryUserDetails = $pdo->prepare("SELECT * FROM users WHERE username = '$followedPerson'");
+    $queryUserDetails->execute();
+
+    $getUserDetails = $queryUserDetails->fetch(PDO::FETCH_ASSOC);
+
+    $profileLock = $getUserDetails['profile_lock'];
+
     $followerData = [
         ":follower_name"=>$username,
         ":followed_name"=>$followedPerson
     ];
 
-    $query = "INSERT INTO `follower`
-    (
-        `follower_name`,
-        `followed_name`
-    )
-    VALUES
-    (
-        :follower_name,
-        :followed_name
-    )";
+    if ($profileLock == "1") {
 
-    $pdoResult = $pdo->prepare($query);
-    $pdoExecute = $pdoResult->execute($followerData);
+        $query = "INSERT INTO `follow_requests`
+        (
+            `request_sender`,
+            `request_getter`
+        )
+        VALUES
+        (
+            :follower_name,
+            :followed_name
+        )";
+
+        $pdoResult = $pdo->prepare($query);
+        $pdoExecute = $pdoResult->execute($followerData);
+
+    } else if ($profileLock == "0") {
+
+        $query = "INSERT INTO `follower`
+        (
+            `follower_name`,
+            `followed_name`
+        )
+        VALUES
+        (
+            :follower_name,
+            :followed_name
+        )";
+
+        $pdoResult = $pdo->prepare($query);
+        $pdoExecute = $pdoResult->execute($followerData);
+
+    }
 
     header("Location: ../user/$followedPerson");
 
