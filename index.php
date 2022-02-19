@@ -133,7 +133,9 @@ $queryLastContents->execute();
                                 <?php } ?>
                             </span>
                             <section class="margin-top-15">
-                                <?php echo nl2br($getLastContents['content_detail']); ?>
+                                <a href="/grad-project/posts/<?php echo $getLastContents['id']; ?>" style="color: black; text-decoration: none;">
+                                    <?php echo nl2br($getLastContents['content_detail']); ?>
+                                </a>
                             </section>
 
                             <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
