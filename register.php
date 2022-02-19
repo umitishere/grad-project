@@ -12,7 +12,7 @@ $username_err = $email_err = $password_err = $confirm_password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Validate username
-    if(empty(trim($_POST["username"]))){
+    if(empty(trim($_POST["username"]))) {
         $username_err = "Lütfen bir kullanıcı adı girin.";
     } else if (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
         $username_err = "Kullanıcı adı sadece harf, sayı ve alt çizgiden oluşmalıdır ve Türkçe karakter içermemelidir.";
@@ -30,10 +30,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_username = trim($_POST["username"]);
 
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
+            if($stmt->execute()) {
                 if ($stmt->rowCount() == 1) {
                     $username_err = "Bu kullanıcı adı daha önce alınmış.";
-                } else{
+                } else {
                     $username = trim($_POST["username"]);
                 }
             } else {
@@ -46,13 +46,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate email
-    if(empty(trim($_POST["email"]))){
+    if(empty(trim($_POST["email"]))) {
         $username_err = "Lütfen bir e-posta girin.";
     } else {
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE email = :email";
 
-        if($stmt = $pdo->prepare($sql)){
+        if($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
 
@@ -60,13 +60,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_email = trim($_POST["email"]);
 
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                if($stmt->rowCount() == 1){
+            if($stmt->execute()) {
+                if($stmt->rowCount() == 1) {
                     $email_err = "Bu e-postaya sahip bir hesap mevcut.";
-                } else{
+                } else {
                     $email = trim($_POST["email"]);
                 }
-            } else{
+            } else {
                 echo "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.";
             }
 
@@ -76,19 +76,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate password
-    if(empty(trim($_POST["password"]))){
+    if(empty(trim($_POST["password"]))) {
         $password_err = "Lütfen bir şifre girin.";
-    } else if(strlen(trim($_POST["password"])) < 8){
+    } else if(strlen(trim($_POST["password"])) < 8) {
         $password_err = "Şifreniz en az 8 karakterden oluşmalıdır.";
-    } else{
+    } else {
         $password = trim($_POST["password"]);
     }
 
     // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
+    if(empty(trim($_POST["confirm_password"]))) {
         $confirm_password_err = "Lütfen şifrenizi doğrulayın.";
-    } else{
+    } else {
         $confirm_password = trim($_POST["confirm_password"]);
+
         if(empty($password_err) && ($password != $confirm_password)){
             $confirm_password_err = "Şifreler eşleşmiyor.";
         }

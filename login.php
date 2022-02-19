@@ -115,6 +115,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <p class="margin-top-10">Bir hesabınız yok mu? <a href="uye-ol">Şimdi üye olun</a>.</p>
         </form>
+
+        <br /><br /><br /><br />
     </div>
 
 <?php require_once("includes/footer.php"); ?>

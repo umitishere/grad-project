@@ -250,6 +250,7 @@ $queryLastContents->execute();
                     <div class="alert alert-primary" role="alert">
                         Gönderileri görebilmek ve paylaşım yapabilmek için <a href="giris-yap"><b>buraya tıklayarak</b></a> giriş yapabilirsiniz.
                     </div>
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 </section>
 
             <?php } ?>
