@@ -80,6 +80,9 @@ if (isset($_POST['send_comment'])) {
 if (isset($_POST['like_content'])) {
 
     $contentID = $_POST['liked_content'];
+    $fromWhere = $_POST['to_where'];
+
+    echo $fromWhere;
 
     $contentData = [
         ":liked_content"=>$contentID,
@@ -100,7 +103,13 @@ if (isset($_POST['like_content'])) {
     $pdoResult = $pdo->prepare($query);
     $pdoExecute = $pdoResult->execute($contentData);
 
-    header("Location: /grad-project/anasayfa");
+    if ($fromWhere == "home") {
+        header("Location: /grad-project/anasayfa");
+    } else if ($fromWhere == "content_detail") {
+        header("Location: /grad-project/posts/$contentID");
+    } else if ($fromWhere == "profile") {
+        // header("Location: /grad-project/user/$username");
+    }
 
 }
 
@@ -108,11 +117,20 @@ if (isset($_POST['like_content'])) {
 if (isset($_POST['dislike_content'])) {
 
     $contentID = $_POST['liked_content'];
+    $fromWhere = $_POST['to_where'];
 
     $query = $pdo->prepare("DELETE FROM liked_contents WHERE liked_content = '$contentID' AND who_liked = '$sessionID'");
     $queryExecute = $query->execute();
 
-    header("Location: /grad-project/anasayfa");
+    if ($fromWhere == "home") {
+
+        header("Location: /grad-project/anasayfa");
+
+    } else if ($fromWhere == "content_detail") {
+
+        header("Location: /grad-project/posts/$contentID");
+
+    }
 }
 
 if (isset($_POST['delete_content'])) {

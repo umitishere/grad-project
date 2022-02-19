@@ -79,7 +79,7 @@ $getPosterInfo = $queryPosterInfo->fetch(PDO::FETCH_ASSOC);
             <form action="/grad-project/includes/content-operations.php" method="post">
 
                 <input type="hidden" name="liked_content" value="<?php echo $getContentDetail['id']; ?>" />
-                <input type="hidden" name="from_where" value="home" />
+                <input type="hidden" name="to_where" value="content_detail" />
 
                 <section class="margin-top-15 row text-center content-icons">
 

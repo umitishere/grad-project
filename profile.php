@@ -240,7 +240,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
 
                                 <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
-                                <input type="hidden" name="from_where" value="profile" />
+                                <input type="hidden" name="to_where" value="profile" />
 
                                 <section class="margin-top-15 row text-center content-icons">
 

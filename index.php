@@ -141,7 +141,7 @@ $queryLastContents->execute();
                             <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
 
                                 <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
-                                <input type="hidden" name="from_where" value="home" />
+                                <input type="hidden" name="to_where" value="home" />
 
                                 <section class="margin-top-15 row text-center content-icons">
 
