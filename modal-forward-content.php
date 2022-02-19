@@ -1,0 +1,64 @@
+<!-- Forward Content Modal -->
+<div class="modal fade" id="forwardContent<?php echo $getLastContents['id']; ?>" tabindex="-1" aria-labelledby="forwardContent<?php echo $getLastContents['id']; ?>" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forwardContent<?php echo $getLastContents['id']; ?>">Gönderiyi Paylaş</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+<?php
+
+$sessionID = $_SESSION["id"];
+
+$queryUserInfo = $pdo->prepare("SELECT * FROM users WHERE id = '$sessionID'");
+$queryUserInfo->execute();
+
+$getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
+
+$myUsername = $getUserInfo["username"];
+
+$queryFollowedByMe = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$myUsername'");
+$queryFollowedByMe->execute();
+
+?>
+
+        <form method="post" action="/<?php echo $projectName; ?>/includes/content-operations.php">
+
+            <input type="hidden" name="content_id" value="<?php echo $getLastContents['id']; ?>" />
+
+            <hr />
+
+            <?php while ($getFollowedByMe = $queryFollowedByMe->fetch(PDO::FETCH_ASSOC)) { ?>
+
+                <section class="card padding-15 margin-top-10">
+
+                    <section class="row">
+
+                        <section class="col-10">
+                            <?php echo $getFollowedByMe['followed_name']; ?>
+                        </section>
+
+                        <section class="col-2">
+                            <button type="submit" name="forward_content" class="btn btn-outline-primary" type="button">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </section>
+
+                    </section>
+
+                <section>
+
+            <?php } ?>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Forward Content Modal -->
