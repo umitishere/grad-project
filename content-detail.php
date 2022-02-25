@@ -35,6 +35,45 @@ $queryPosterInfo->execute();
 
 $getPosterInfo = $queryPosterInfo->fetch(PDO::FETCH_ASSOC);
 
+$publisherID = $getPosterInfo['id'];
+$postUsername = $getPosterInfo['username'];
+
+$queryLikesName = "queryLikes" . $contentID;
+$getLikesName = "getLikes" . $contentID;
+
+$queryTotalLikesName = "queryTotalLikes" . $contentID;
+$getTotalLikesName = "getTotalLikes" . $contentID;
+
+$queryFollowName = "queryFollow" . $contentID;
+$getFollowName = "getFollow" . $contentID;
+
+$queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$loggedUsername' AND followed_name = '$postUsername'");
+$queryFollowName->execute();
+
+$canSeePost = true;
+$canSeeLikes = true;
+$canSeeComments = true;
+
+if ($getPosterInfo['profile_lock'] == 1 && $getPosterInfo['username'] != $loggedUsername) {
+    if ($queryFollowName->rowCount() == 1) {
+        $canSeePost = true;
+    } else {
+        $canSeePost = false;
+    }
+}
+
+if ($getPosterInfo['like_visibility'] == 0 && $getPosterInfo['username'] != $loggedUsername) {
+    $canSeeLikes = false;
+} else {
+    $canSeeLikes = true;
+}
+
+if ($getPosterInfo['comment_visibility'] == 0 && $getPosterInfo['username'] != $loggedUsername) {
+    $canSeeComments = false;
+} else {
+    $canSeeComments = true;
+}
+
 ?>
 
 <section class="container">
@@ -131,6 +170,7 @@ $getPosterInfo = $queryPosterInfo->fetch(PDO::FETCH_ASSOC);
 
                     </div>
 
+                    <?php $commentFromWhere = "Content Detail"; ?>
                     <?php include("modal-send-comment.php"); ?>
 
                     <?php ($getContentDetail['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>

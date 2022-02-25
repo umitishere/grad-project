@@ -209,6 +209,7 @@ $queryLastContents->execute();
 
                                     </div>
 
+                                    <?php $commentFromWhere = "Home"; ?>
                                     <?php include("modal-send-comment.php"); ?>
 
                                     <?php ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>

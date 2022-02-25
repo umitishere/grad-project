@@ -203,6 +203,50 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <?php
 
                     $contentID = $getLastContents['id'];
+                    $publisherID = $profileID;
+                    $postUsername = $getProfileInfo['username'];
+
+                    $queryLikesName = "queryLikes" . $contentID;
+                    $getLikesName = "getLikes" . $contentID;
+
+                    $queryTotalLikesName = "queryTotalLikes" . $contentID;
+                    $getTotalLikesName = "getTotalLikes" . $contentID;
+
+                    $queryFollowName = "queryFollow" . $contentID;
+                    $getFollowName = "getFollow" . $contentID;
+
+                    $queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$loggedUsername' AND followed_name = '$postUsername'");
+                    $queryFollowName->execute();
+
+                    $canSeePost = true;
+                    $canSeeLikes = true;
+                    $canSeeComments = true;
+
+                    if ($getProfileInfo['profile_lock'] == 1 && $getProfileInfo['username'] != $loggedUsername) {
+                        if ($queryFollowName->rowCount() == 1) {
+                            $canSeePost = true;
+                        } else {
+                            $canSeePost = false;
+                        }
+                    }
+
+                    if ($getProfileInfo['like_visibility'] == 0 && $getProfileInfo['username'] != $loggedUsername) {
+                        $canSeeLikes = false;
+                    } else {
+                        $canSeeLikes = true;
+                    }
+
+                    if ($getProfileInfo['comment_visibility'] == 0 && $getProfileInfo['username'] != $loggedUsername) {
+                        $canSeeComments = false;
+                    } else {
+                        $canSeeComments = true;
+                    }
+
+                    ?>
+
+                    <?php
+
+                    $contentID = $getLastContents['id'];
                     $publisherID = $getLastContents['publisher_id'];
 
                     $queryName = "queryPublisher" . $contentID;
@@ -291,6 +335,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                                     </div>
 
+                                    <?php $commentFromWhere = "Profile Page"; ?>
                                     <?php include("modal-send-comment.php"); ?>
 
                                     <?php ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>

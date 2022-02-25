@@ -1,15 +1,29 @@
+<?php
+
+$contentID = "";
+
+if ($commentFromWhere == "Home") {
+    $contentID = $getLastContents['id'];
+} else if ($commentFromWhere == "Content Detail") {
+    $contentID = $getContentDetail['id'];
+} else if ($commentFromWhere == "Profile Page") {
+    $contentID = $getLastContents['id'];
+}
+
+?>
+
 <!-- Send Comment Modal -->
-<div class="modal fade" id="sendComment<?php echo $getLastContents['id']; ?>" tabindex="-1" aria-labelledby="sendComment<?php echo $getLastContents['id']; ?>" aria-hidden="true">
+<div class="modal fade" id="sendComment<?php echo $contentID; ?>" tabindex="-1" aria-labelledby="sendComment<?php echo $contentID; ?>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="sendComment<?php echo $getLastContents['id']; ?>">Yorum Yap</h5>
+        <h5 class="modal-title" id="sendComment<?php echo $contentID; ?>">Yorum Yap</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form method="post" action="/<?php echo $projectName; ?>/includes/content-operations.php">
 
-            <input type="hidden" name="commented_content" value="<?php echo $getLastContents['id']; ?>" />
+            <input type="hidden" name="commented_content" value="<?php echo $contentID; ?>" />
             <input type="hidden" name="from_where" value="home" />
 
             <textarea
@@ -29,7 +43,7 @@
 
         <?php
 
-        $commentedPost = $getLastContents['id'];
+        $commentedPost = $contentID;
 
         $queryLastComments = $pdo->prepare("SELECT * FROM comments WHERE commented_post = '$commentedPost' ORDER BY id DESC");
         $queryLastComments->execute();
