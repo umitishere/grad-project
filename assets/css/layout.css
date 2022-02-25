@@ -48,3 +48,7 @@ body, html {
   overflow: scroll;
   height: 600px;
 }
+
+.shared-post {
+    max-width: 50%;
+}

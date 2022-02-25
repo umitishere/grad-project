@@ -24,11 +24,11 @@ $queryFollowedByMe->execute();
 
 ?>
 
-        <form method="post" action="/<?php echo $projectName; ?>/includes/content-operations.php">
-
             <input type="hidden" name="content_id" value="<?php echo $getLastContents['id']; ?>" />
 
             <hr />
+
+            <p class="text-center margin-top-10 font-16">Gönderiler sadece takip edilenlerle paylaşılabilir.</p>
 
             <?php while ($getFollowedByMe = $queryFollowedByMe->fetch(PDO::FETCH_ASSOC)) { ?>
 
@@ -41,18 +41,26 @@ $queryFollowedByMe->execute();
                         </section>
 
                         <section class="col-2">
-                            <button type="submit" name="forward_content" class="btn btn-outline-primary" type="button">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+
+                            <form action="/<?php echo $projectName; ?>/includes/send-message.php" method="post">
+
+                                <input type="hidden" name="message_getter" value="<?php echo $getFollowedByMe['followed_name']; ?>" />
+                                <input type="hidden" name="message_detail" value="<?php echo $getLastContents['id']; ?>" />
+                                <input type="hidden" name="isThisPost" value="1" />
+
+                                <button type="submit" name="send_message" class="btn btn-outline-primary" type="button">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+
+                            </form>
+
                         </section>
 
                     </section>
 
-                <section>
+                </section>
 
             <?php } ?>
-
-        </form>
 
       </div>
       <div class="modal-footer">

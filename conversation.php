@@ -49,20 +49,43 @@ $queryMessages->execute();
 
             ?>
 
-            <section class="margin-top-15 card padding-15">
-                <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
-                    <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
-                    <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
-                </div>
-                <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
-                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
-                        <?php echo $getMessages['message_detail']; ?>
+            <?php if ($getMessages['isThisPost'] == 1) { ?>
+
+                <section class="margin-top-15 padding-15">
+                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                        <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
+                        <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
+
+                        <p class="font-12"><i class="fas fa-share-square"></i> sizinle bir gönderi paylaştı</p>
                     </div>
-                    <button type="button" class="btn btn-danger margin-top-15" data-bs-toggle="modal" data-bs-target="#deleteMessage<?php echo $getMessages['id']; ?>">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-            </section>
+                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                        <div class="padding-15 card margin-top-15">
+                            <?php echo $getMessages['message_detail']; ?>
+                        </div>
+                        <button type="button" class="btn btn-danger margin-top-15" data-bs-toggle="modal" data-bs-target="#deleteMessage<?php echo $getMessages['id']; ?>">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </section>
+
+            <?php } else { ?>
+
+                <section class="margin-top-15 card padding-15">
+                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                        <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
+                        <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
+                    </div>
+                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                        <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
+                            <?php echo $getMessages['message_detail']; ?>
+                        </div>
+                        <button type="button" class="btn btn-danger margin-top-15" data-bs-toggle="modal" data-bs-target="#deleteMessage<?php echo $getMessages['id']; ?>">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </section>
+
+            <?php } ?>
 
             <!-- Modal DELETE MESSAGE -->
             <div class="modal fade" id="deleteMessage<?php echo $getMessages['id']; ?>" tabindex="-1" aria-labelledby="deleteMessage<?php echo $getMessages['id']; ?>" aria-hidden="true">
@@ -100,10 +123,12 @@ $queryMessages->execute();
         <?php } ?>
         </section>
 
+        <!-- SEND MESSAGE -->
         <section class="padding-15 margin-top-30">
             <form action="/<?php echo $projectName; ?>/includes/send-message.php" method="post">
 
                 <input type="hidden" name="message_getter" value="<?php echo $conversationWith; ?>" />
+                <input type="hidden" name="isThisPost" value="0" />
 
                 <div class="form-group">
                 <label for="message"><b>Mesaj Gönder</b></label>
