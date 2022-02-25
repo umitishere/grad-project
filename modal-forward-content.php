@@ -1,9 +1,23 @@
+<?php
+
+$contentID = "";
+
+if ($forwardFromWhere == "Home") {
+    $contentID = $getLastContents['id'];
+} else if ($forwardFromWhere == "Content Detail") {
+    $contentID = $getContentDetail['id'];
+} else if ($forwardFromWhere == "Profile Page") {
+    $contentID = $getLastContents['id'];
+}
+
+?>
+
 <!-- Forward Content Modal -->
-<div class="modal fade" id="forwardContent<?php echo $getLastContents['id']; ?>" tabindex="-1" aria-labelledby="forwardContent<?php echo $getLastContents['id']; ?>" aria-hidden="true">
+<div class="modal fade" id="forwardContent<?php echo $contentID; ?>" tabindex="-1" aria-labelledby="forwardContent<?php echo $contentID; ?>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="forwardContent<?php echo $getLastContents['id']; ?>">Gönderiyi Paylaş</h5>
+        <h5 class="modal-title" id="forwardContent<?php echo $contentID; ?>">Gönderiyi Paylaş</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -24,7 +38,7 @@ $queryFollowedByMe->execute();
 
 ?>
 
-            <input type="hidden" name="content_id" value="<?php echo $getLastContents['id']; ?>" />
+            <input type="hidden" name="content_id" value="<?php echo $contentID; ?>" />
 
             <hr />
 
@@ -45,7 +59,7 @@ $queryFollowedByMe->execute();
                             <form action="/<?php echo $projectName; ?>/includes/send-message.php" method="post">
 
                                 <input type="hidden" name="message_getter" value="<?php echo $getFollowedByMe['followed_name']; ?>" />
-                                <input type="hidden" name="message_detail" value="<?php echo $getLastContents['id']; ?>" />
+                                <input type="hidden" name="message_detail" value="<?php echo $contentID; ?>" />
                                 <input type="hidden" name="isThisPost" value="1" />
 
                                 <button type="submit" name="send_message" class="btn btn-outline-primary" type="button">

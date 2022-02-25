@@ -56,7 +56,7 @@ $queryMessages->execute();
                         <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
 
-                        <p class="font-12"><i class="fas fa-share-square"></i> sizinle bir gönderi paylaştı</p>
+                        <p class="font-12 margin-top-10"><i class="fas fa-share-square"></i> bir gönderi paylaştı</p>
                     </div>
                     <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
                         <div class="padding-15 card margin-top-15">

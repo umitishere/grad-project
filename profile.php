@@ -308,7 +308,17 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                     </div>
 
                                     <div class="col-3">
-                                        <i class="far fa-share-square"></i>
+                                        <button
+                                            type="button"
+                                            class="content-button"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#forwardContent<?php echo $getLastContents['id']; ?>"
+                                        >
+                                            <i class="far fa-share-square"></i>
+                                        </button>
+
+                                        <?php $forwardFromWhere = "Profile Page"; ?>
+                                        <?php include("modal-forward-content.php"); ?>
                                     </div>
 
                                     <div class="col-3">

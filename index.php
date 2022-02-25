@@ -235,6 +235,7 @@ $queryLastContents->execute();
                                             <i class="far fa-share-square"></i>
                                         </button>
 
+                                        <?php $forwardFromWhere = "Home"; ?>
                                         <?php include("modal-forward-content.php"); ?>
                                     </div>
 

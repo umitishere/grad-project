@@ -148,7 +148,17 @@ $getPosterInfo = $queryPosterInfo->fetch(PDO::FETCH_ASSOC);
                     </div>
 
                     <div class="col-3">
-                        <i class="far fa-share-square"></i>
+                        <button
+                            type="button"
+                            class="content-button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#forwardContent<?php echo $getContentDetail['id']; ?>"
+                        >
+                            <i class="far fa-share-square"></i>
+                        </button>
+
+                        <?php $forwardFromWhere = "Content Detail"; ?>
+                        <?php include("modal-forward-content.php"); ?>
                     </div>
 
                     <div class="col-3">
