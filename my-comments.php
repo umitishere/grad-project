@@ -7,13 +7,10 @@ $pageTitle = "Yaptığım Yorumlar | Grad Project";
 require_once("includes/header.php");
 
 $sqlStatement = "SELECT * FROM comments
-    LEFT JOIN contents
-    ON comments.commented_post = contents.id
-    WHERE comments.comment_sender = $loggedUserID
-    GROUP BY contents.id
-    ORDER BY comments.id DESC";
-$queryLastContents = $pdo->prepare($sqlStatement);
-$queryLastContents->execute();
+    WHERE comment_sender = $loggedUserID
+    ORDER BY id DESC";
+$queryLastComments = $pdo->prepare($sqlStatement);
+$queryLastComments->execute();
 
 ?>
 
@@ -27,113 +24,53 @@ $queryLastContents->execute();
 
                 <section>
 
-                    <h3 class="margin-top-15 text-center">Yorum Yaptığım Gönderiler</h3>
+                    <h3 class="margin-top-15 text-center">Yaptığım Yorumlar</h3>
                     <hr />
 
-                <?php while($getLastContents = $queryLastContents->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <section class="row">
 
-                    <?php
+                        <?php while($getLastComments = $queryLastComments->fetch(PDO::FETCH_ASSOC)) { ?>
 
-                    $contentID = $getLastContents['id'];
-                    $publisherID = $getLastContents['publisher_id'];
+                            <?php
 
-                    $queryName = "queryPublisher" . $contentID;
-                    $getterName = "getPublisher" . $contentID;
+                            $contentID = $getLastComments['commented_post'];
 
-                    $queryLikesName = "queryLikes" . $contentID;
-                    $getLikesName = "getLikes" . $contentID;
+                            $queryName = "queryPublisher" . $contentID;
+                            $getterName = "getPublisher" . $contentID;
 
-                    $queryName = $pdo->prepare("SELECT * FROM users WHERE id = $publisherID");
-                    $queryName->execute();
+                            $queryLikesName = "queryLikes" . $contentID;
+                            $getLikesName = "getLikes" . $contentID;
 
-                    $getterName = $queryName->fetch(PDO::FETCH_ASSOC);
+                            $queryName = $pdo->prepare("SELECT * FROM contents WHERE id = $contentID");
+                            $queryName->execute();
 
-                    ?>
+                            $getterName = $queryName->fetch(PDO::FETCH_ASSOC);
 
-                    <section class="margin-top-15 card padding-15">
+                            ?>
 
-                        <section>
-                            <a href="/<?php echo $projectName; ?>/user/<?php echo $getterName['username']; ?>" class="my-links">
-                                <span class="badge bg-light text-dark font-16">
-                                    <img
-                                        style="border-radius: 100%;"
-                                        src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
-                                        width="25px" height="25px" />
-                                    <?php echo $getterName["username"]; ?>
-                                </span>
-                            </a>
-                            <section class="margin-top-15">
-                                <?php echo nl2br($getLastContents['content_detail']); ?>
-                            </section>
+                            <section class="col-md-6 col-sm-12">
 
-                            <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
+                                <section class="margin-top-15 card padding-15">
 
-                                <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
-                                <input type="hidden" name="from_where" value="home" />
+                                    <p class="text-center"><?php echo $getLastComments['comment_detail']; ?></p>
 
-                                <section class="margin-top-15 row text-center content-icons">
-
-                                    <?php
-
-                                        $likedContent = $getLastContents['id'];
-
-                                        $queryLikesName = $pdo->prepare(
-                                            "SELECT * FROM liked_contents
-                                            WHERE liked_content = $likedContent
-                                            AND who_liked = $loggedUserID
-                                        ");
-                                        $queryLikesName->execute();
-
-                                    ?>
-
-                                    <div class="col-3">
-
-                                        <?php if ($queryLikesName->rowCount() == 1) { ?>
-
-                                        <button type="submit" name="dislike_content" class="content-button">
-                                            <i class="fas fa-heart"></i>
-                                        </button>
-
-                                        <?php } else { ?>
-
-                                        <button type="submit" name="like_content" class="content-button">
-                                            <i class="far fa-heart"></i>
-                                        </button>
-
-                                        <?php } ?>
-
-                                    </div>
-
-                                    <?php include("modal-send-comment.php"); ?>
-
-                                    <div class="col-3">
+                                    <section class="text-center">
                                         <button
+                                            onclick="window.location.href='posts/<?php echo $contentID; ?>'"
                                             type="button"
-                                            name="like_content"
-                                            class="content-button"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#sendComment<?php echo $getLastContents['id']; ?>"
+                                            class="btn btn-primary"
                                         >
-                                            <i class="far fa-comments"></i>
+                                            Gönderiyi Görüntüle
                                         </button>
-                                    </div>
-
-                                    <div class="col-3">
-                                        <i class="far fa-share-square"></i>
-                                    </div>
-
-                                    <div class="col-3">
-                                        <i class="far fa-plus-square"></i>
-                                    </div>
+                                    </section>
 
                                 </section>
 
-                            </form>
-                        </section>
+                            </section>
+
+                        <?php } ?>
 
                     </section>
-
-                <?php } ?>
 
                 </section>
 
