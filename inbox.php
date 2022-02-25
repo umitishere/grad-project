@@ -73,11 +73,8 @@ $queryMessages->execute();
                 </div>
 
                 <a href="conversation?with=<?php echo $getMessages['message_sender']; ?>">
-                    <div class="message-box-1 padding-15 margin-top-15">
-                        <?php echo $getMessages['message_detail']; ?>
-                    </div>
+                    <button type="button" class="btn btn-primary margin-top-15">Mesajları Görüntüle</button>
                 </a>
-
             </section>
 
             <?php } else { ?>
@@ -89,9 +86,7 @@ $queryMessages->execute();
                     </div>
 
                     <a href="conversation?with=<?php echo $getMessages['message_getter']; ?>">
-                        <div class="message-box-1 padding-15 margin-top-15">
-                            <?php echo $getMessages['message_detail']; ?>
-                        </div>
+                        <button type="button" class="btn btn-primary margin-top-15">Mesajları Görüntüle</button>
                     </a>
 
                 </section>
