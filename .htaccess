@@ -10,6 +10,7 @@ RewriteRule ^begendigim-gonderiler$ liked-contents.php [L,QSA]
 RewriteRule ^yaptigim-yorumlar$ my-comments.php [L,QSA]
 
 RewriteRule ^ayarlar$ settings.php [L,QSA]
+RewriteRule ^bildirimler$ show-notifications.php [L,QSA]
 RewriteRule ^user/([0-9a-zA-Z-_]+)$ profile.php?username=$1 [L,QSA]
 
 RewriteRule ^posts/([0-9a-zA-Z-_]+)$ content-detail.php?contentID=$1 [L,QSA]

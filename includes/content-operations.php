@@ -114,7 +114,7 @@ if (isset($_POST['like_content'])) {
 
     // SEND NOTIFICATION
 
-    $notificationDetail = $username . " gönderini beğendi.";
+    $notificationDetail = "<a style='text-decoration: none;' href='/grad-project/user/$username'><b>$username</b></a> gönderini beğendi.";
 
     $notificationData = [
         ":notification_detail"=>$notificationDetail,

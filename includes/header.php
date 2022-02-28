@@ -79,6 +79,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 ORDER BY notification_id DESC LIMIT 10");
                             $queryNotifications->execute();
 
+                            $notificationEmptyMessage = "";
+
+
+
                             ?>
 
                         <li class="nav-item dropdown">
@@ -88,6 +92,16 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+
+                                <?php
+
+                                $emptyNotificationsMessage = "";
+
+                                if (!$queryNotifications->rowCount()) {
+                                    echo "<p class='text-center padding-3'>henüz bir bildirim yok.</p>";
+                                }
+
+                                ?>
 
                                 <?php while ($getNotifications = $queryNotifications->fetch(PDO::FETCH_ASSOC)) { ?>
 
@@ -108,7 +122,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                         </section>
 
                                         <section class="text-center padding-15">
-                                            <button class="btn-light" type="submit" name="mark_as_read">Tümünü Göster</button>
+                                            <button onclick="window.location.href='/grad-project/bildirimler'" class="btn-light" type="button">Tümünü Göster</button>
                                         </section>
 
                                     </form>
