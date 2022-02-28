@@ -82,7 +82,15 @@ if (isset($_POST['like_content'])) {
     $contentID = $_POST['liked_content'];
     $fromWhere = $_POST['to_where'];
 
-    echo $fromWhere;
+    $queryProfileInfo = $pdo->prepare("SELECT * FROM users
+        LEFT JOIN contents
+        ON users.id = contents.publisher_id
+        WHERE users.id = contents.publisher_id AND contents.id = '$contentID'");
+    $queryProfileInfo->execute();
+
+    $getProfileInfo = $queryProfileInfo->fetch(PDO::FETCH_ASSOC);
+
+    $profileUsername = $getProfileInfo['username'];
 
     $contentData = [
         ":liked_content"=>$contentID,
@@ -108,7 +116,7 @@ if (isset($_POST['like_content'])) {
     } else if ($fromWhere == "content_detail") {
         header("Location: /grad-project/posts/$contentID");
     } else if ($fromWhere == "profile") {
-        // header("Location: /grad-project/user/$username");
+        header("Location: /grad-project/user/$profileUsername");
     }
 
 }
@@ -119,17 +127,25 @@ if (isset($_POST['dislike_content'])) {
     $contentID = $_POST['liked_content'];
     $fromWhere = $_POST['to_where'];
 
+    $queryProfileInfo = $pdo->prepare("SELECT * FROM users
+        LEFT JOIN contents
+        ON users.id = contents.publisher_id
+        WHERE users.id = contents.publisher_id AND contents.id = '$contentID'");
+    $queryProfileInfo->execute();
+
+    $getProfileInfo = $queryProfileInfo->fetch(PDO::FETCH_ASSOC);
+
+    $profileUsername = $getProfileInfo['username'];
+
     $query = $pdo->prepare("DELETE FROM liked_contents WHERE liked_content = '$contentID' AND who_liked = '$sessionID'");
     $queryExecute = $query->execute();
 
     if ($fromWhere == "home") {
-
         header("Location: /grad-project/anasayfa");
-
     } else if ($fromWhere == "content_detail") {
-
         header("Location: /grad-project/posts/$contentID");
-
+    } else if ($fromWhere == "profile") {
+        header("Location: /grad-project/user/$profileUsername");
     }
 }
 

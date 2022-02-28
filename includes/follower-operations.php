@@ -84,7 +84,7 @@ if (isset($_POST['unfollow'])) {
 
     $profileUsername = $getUserDetails['username'];
 
-    $query = $pdo->prepare("DELETE FROM follower WHERE follower_id = '$sessionID' AND followed_name = '$followedPersonID'");
+    $query = $pdo->prepare("DELETE FROM follower WHERE follower_id = '$sessionID' AND followed_id = '$followedPersonID'");
     $queryExecute = $query->execute();
 
     header("Location: ../user/$profileUsername");
