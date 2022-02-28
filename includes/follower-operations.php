@@ -18,18 +18,19 @@ $username = $getUserInfo["username"];
 
 if (isset($_POST['follow'])) {
 
-    $followedPerson = htmlspecialchars($_POST["followed_person"], ENT_QUOTES);
+    $followedPersonID = htmlspecialchars($_POST["followed_id"], ENT_QUOTES);
 
-    $queryUserDetails = $pdo->prepare("SELECT * FROM users WHERE username = '$followedPerson'");
+    $queryUserDetails = $pdo->prepare("SELECT * FROM users WHERE id = '$followedPersonID'");
     $queryUserDetails->execute();
 
     $getUserDetails = $queryUserDetails->fetch(PDO::FETCH_ASSOC);
 
     $profileLock = $getUserDetails['profile_lock'];
+    $profileUsername = $getUserDetails['username'];
 
     $followerData = [
-        ":follower_name"=>$username,
-        ":followed_name"=>$followedPerson
+        ":follower_id"=>$sessionID,
+        ":followed_id"=>$followedPersonID
     ];
 
     if ($profileLock == "1") {
@@ -41,8 +42,8 @@ if (isset($_POST['follow'])) {
         )
         VALUES
         (
-            :follower_name,
-            :followed_name
+            :follower_id,
+            :followed_id
         )";
 
         $pdoResult = $pdo->prepare($query);
@@ -52,13 +53,13 @@ if (isset($_POST['follow'])) {
 
         $query = "INSERT INTO `follower`
         (
-            `follower_name`,
-            `followed_name`
+            `follower_id`,
+            `followed_id`
         )
         VALUES
         (
-            :follower_name,
-            :followed_name
+            :follower_id,
+            :followed_id
         )";
 
         $pdoResult = $pdo->prepare($query);
@@ -66,7 +67,7 @@ if (isset($_POST['follow'])) {
 
     }
 
-    header("Location: ../user/$followedPerson");
+    header("Location: ../user/$profileUsername");
 
 
 }
@@ -74,12 +75,19 @@ if (isset($_POST['follow'])) {
 
 if (isset($_POST['unfollow'])) {
 
-    $followedPerson = htmlspecialchars($_POST["followed_person"], ENT_QUOTES);
+    $followedPersonID = htmlspecialchars($_POST["followed_id"], ENT_QUOTES);
 
-    $query = $pdo->prepare("DELETE FROM follower WHERE follower_name = '$username' AND followed_name = '$followedPerson'");
+    $queryUserDetails = $pdo->prepare("SELECT * FROM users WHERE id = '$followedPersonID'");
+    $queryUserDetails->execute();
+
+    $getUserDetails = $queryUserDetails->fetch(PDO::FETCH_ASSOC);
+
+    $profileUsername = $getUserDetails['username'];
+
+    $query = $pdo->prepare("DELETE FROM follower WHERE follower_id = '$sessionID' AND followed_name = '$followedPersonID'");
     $queryExecute = $query->execute();
 
-    header("Location: ../user/$followedPerson");
+    header("Location: ../user/$profileUsername");
 }
 
 ?>

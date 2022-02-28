@@ -22,21 +22,19 @@ if ($forwardFromWhere == "Home") {
       </div>
       <div class="modal-body">
 
-<?php
+        <?php
 
-$sessionID = $_SESSION["id"];
+        $sessionID = $_SESSION["id"];
 
-$queryUserInfo = $pdo->prepare("SELECT * FROM users WHERE id = '$sessionID'");
-$queryUserInfo->execute();
+        $sqlStatement = "SELECT * FROM follower
+                        RIGHT JOIN users
+                        ON follower.followed_id = users.id
+                        WHERE follower_id = '$sessionID'";
 
-$getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
+        $queryFollowedByMe = $pdo->prepare($sqlStatement);
+        $queryFollowedByMe->execute();
 
-$myUsername = $getUserInfo["username"];
-
-$queryFollowedByMe = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$myUsername'");
-$queryFollowedByMe->execute();
-
-?>
+        ?>
 
             <input type="hidden" name="content_id" value="<?php echo $contentID; ?>" />
 
@@ -51,14 +49,20 @@ $queryFollowedByMe->execute();
                     <section class="row">
 
                         <section class="col-10">
-                            <?php echo $getFollowedByMe['followed_name']; ?>
+                            <span class="badge bg-light text-dark font-16">
+                                <img
+                                    style="border-radius: 100%;"
+                                    src="/grad-project/assets/img/profile_photos/<?php echo $getFollowedByMe["profile_photo"]; ?>"
+                                    width="40px" height="40px" />
+                                <?php echo $getFollowedByMe["username"]; ?>
+                            </span>
                         </section>
 
                         <section class="col-2">
 
                             <form action="/grad-project/includes/send-message.php" method="post">
 
-                                <input type="hidden" name="message_getter" value="<?php echo $getFollowedByMe['followed_name']; ?>" />
+                                <input type="hidden" name="message_getter" value="<?php echo $getFollowedByMe['followed_id']; ?>" />
                                 <input type="hidden" name="message_detail" value="<?php echo $contentID; ?>" />
                                 <input type="hidden" name="isThisPost" value="1" />
 

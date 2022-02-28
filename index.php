@@ -66,14 +66,15 @@ $queryLastContents->execute();
                     $getterName = $queryName->fetch(PDO::FETCH_ASSOC);
 
                     $postUsername = $getterName['username'];
-                    $queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$loggedUsername' AND followed_name = '$postUsername'");
+                    $postID = $getterName['id'];
+                    $queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_id = '$loggedUserID' AND followed_id = '$postID'");
                     $queryFollowName->execute();
 
                     $canSeePost = true;
                     $canSeeLikes = true;
                     $canSeeComments = true;
 
-                    if ($getterName['profile_lock'] == 1 && $getterName['username'] != $loggedUsername) {
+                    if ($getterName['profile_lock'] == 1 && $getterName['id'] != $loggedUserID) {
                         if ($queryFollowName->rowCount() == 1) {
                             $canSeePost = true;
                         } else {
@@ -81,13 +82,13 @@ $queryLastContents->execute();
                         }
                     }
 
-                    if ($getterName['like_visibility'] == 0 && $getterName['username'] != $loggedUsername) {
+                    if ($getterName['like_visibility'] == 0 && $getterName['id'] != $loggedUserID) {
                         $canSeeLikes = false;
                     } else {
                         $canSeeLikes = true;
                     }
 
-                    if ($getterName['comment_visibility'] == 0 && $getterName['username'] != $loggedUsername) {
+                    if ($getterName['comment_visibility'] == 0 && $getterName['id'] != $loggedUserID) {
                         $canSeeComments = false;
                     } else {
                         $canSeeComments = true;

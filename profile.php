@@ -9,20 +9,27 @@ $profileUsername = $_GET["username"];
 $errorMessage = "";
 $myUsername = $_SESSION["username"];
 
+$pageTitle = $profileUsername . " profili | Grad Project";
+
+require_once("includes/header.php");
+
+$profileInfo = $pdo->prepare("SELECT * FROM users WHERE username = '$profileUsername'");
+$profileInfo->execute();
+
+$getProfileInfo = $profileInfo->fetch(PDO::FETCH_ASSOC);
+
+$profileID = $getProfileInfo['id'];
+
 $usernameChangeError = "";
 
 if (isset($_GET['usernameChangeError'])) {
     $usernameChangeError = $_GET['usernameChangeError'];
 }
 
-$pageTitle = $profileUsername . " profili | Grad Project";
-
-require_once("includes/header.php");
-
-$queryFollowers = $pdo->prepare("SELECT * FROM follower WHERE followed_name = '$profileUsername'");
+$queryFollowers = $pdo->prepare("SELECT * FROM follower WHERE followed_id = '$profileID'");
 $queryFollowers->execute();
 
-$queryFollowing = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$profileUsername'");
+$queryFollowing = $pdo->prepare("SELECT * FROM follower WHERE follower_id = '$profileID'");
 $queryFollowing->execute();
 
 $numberOfFollowers = $queryFollowers->rowCount();
@@ -57,26 +64,15 @@ if($stmt = $pdo->prepare($chekIfUserExists)) {
 
 }
 
-$profileInfo = $pdo->prepare("SELECT * FROM users WHERE username = '$profileUsername'");
-$profileInfo->execute();
-
-$getProfileInfo = $profileInfo->fetch(PDO::FETCH_ASSOC);
-
 $lockedProfile = false;
 
-$queryFollowingInfo = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$loggedUsername' AND followed_name = '$profileUsername'");
+$queryFollowingInfo = $pdo->prepare("SELECT * FROM follower WHERE follower_id = '$loggedUserID' AND followed_id = '$profileID'");
 $queryFollowingInfo->execute();
 
-if ($getProfileInfo['profile_lock'] == 1 && $getProfileInfo['username'] != $loggedUsername) {
+if ($getProfileInfo['profile_lock'] == 1 && $profileID != $loggedUserID) {
     $lockedProfile = true;
 } else {
     $lockedProfile = false;
-}
-
-$profileID = 0;
-
-if (empty($errorMessage)) {
-    $profileID = $getProfileInfo["id"];
 }
 
 $queryLastContents = $pdo->prepare("SELECT * FROM contents WHERE publisher_id = '$profileID' ORDER BY id DESC");
@@ -130,19 +126,19 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                     <form action="/grad-project/includes/follower-operations.php" method="post">
 
-                        <input type="hidden" name="followed_person" value="<?php echo $profileUsername; ?>" />
+                        <input type="hidden" name="followed_id" value="<?php echo $profileID; ?>" />
 
                         <?php
 
                         $queryFollowInfo = $pdo->prepare(
                             "SELECT * FROM follower
-                            WHERE follower_name = '$myUsername' AND followed_name = '$profileUsername'"
+                            WHERE follower_id = '$loggedUserID' AND followed_id = '$profileID'"
                         );
                         $queryFollowInfo->execute();
 
                         $queryFollowRequestInfo = $pdo->prepare(
                             "SELECT * FROM follow_requests
-                            WHERE request_sender = '$myUsername' AND request_getter = '$profileUsername'"
+                            WHERE request_sender = '$loggedUserID' AND request_getter = '$profileID'"
                         );
                         $queryFollowRequestInfo->execute();
 
@@ -213,14 +209,14 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     $queryFollowName = "queryFollow" . $contentID;
                     $getFollowName = "getFollow" . $contentID;
 
-                    $queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$loggedUsername' AND followed_name = '$postUsername'");
+                    $queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_id = '$loggedUserID' AND followed_id = '$profileID'");
                     $queryFollowName->execute();
 
                     $canSeePost = true;
                     $canSeeLikes = true;
                     $canSeeComments = true;
 
-                    if ($getProfileInfo['profile_lock'] == 1 && $getProfileInfo['username'] != $loggedUsername) {
+                    if ($getProfileInfo['profile_lock'] == 1 && $profileID != $loggedUserID) {
                         if ($queryFollowName->rowCount() == 1) {
                             $canSeePost = true;
                         } else {
@@ -228,13 +224,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         }
                     }
 
-                    if ($getProfileInfo['like_visibility'] == 0 && $getProfileInfo['username'] != $loggedUsername) {
+                    if ($getProfileInfo['like_visibility'] == 0 && $profileID != $loggedUserID) {
                         $canSeeLikes = false;
                     } else {
                         $canSeeLikes = true;
                     }
 
-                    if ($getProfileInfo['comment_visibility'] == 0 && $getProfileInfo['username'] != $loggedUsername) {
+                    if ($getProfileInfo['comment_visibility'] == 0 && $profileID != $loggedUserID) {
                         $canSeeComments = false;
                     } else {
                         $canSeeComments = true;
@@ -481,12 +477,12 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
               <?php
 
                 $followID = $getFollowers['id'];
-                $followerName = $getFollowers['follower_name'];
+                $followerID = $getFollowers['follower_id'];
 
                 $queryNameFollower = "queryFollowerList" . $followID;
                 $getterNameFollower = "getFollowerList" . $followID;
 
-                $queryNameFollower = $pdo->prepare("SELECT * FROM users WHERE username = '$followerName'");
+                $queryNameFollower = $pdo->prepare("SELECT * FROM users WHERE id = '$followerID'");
                 $queryNameFollower->execute();
 
                 $getterNameFollower = $queryNameFollower->fetch(PDO::FETCH_ASSOC);
@@ -540,12 +536,12 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
               <?php
 
                 $followID = $getFollowings['id'];
-                $followingName = $getFollowings['followed_name'];
+                $followingID = $getFollowings['followed_id'];
 
                 $queryNameFollowing = "queryFollowingList" . $followID;
                 $getterNameFollowing = "getFollowingList" . $followID;
 
-                $queryNameFollowing = $pdo->prepare("SELECT * FROM users WHERE username = '$followingName'");
+                $queryNameFollowing = $pdo->prepare("SELECT * FROM users WHERE id = '$followingID'");
                 $queryNameFollowing->execute();
 
                 $getterNameFollowing = $queryNameFollowing->fetch(PDO::FETCH_ASSOC);

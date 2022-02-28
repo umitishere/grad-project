@@ -146,6 +146,7 @@ $queryMessages->execute();
 
             </form>
         </section>
+        <!-- /SEND MESSAGE -->
 
     </section>
 
