@@ -91,6 +91,7 @@ if (isset($_POST['like_content'])) {
     $getProfileInfo = $queryProfileInfo->fetch(PDO::FETCH_ASSOC);
 
     $profileUsername = $getProfileInfo['username'];
+    $profileID = $getProfileInfo['publisher_id'];
 
     $contentData = [
         ":liked_content"=>$contentID,
@@ -110,6 +111,31 @@ if (isset($_POST['like_content'])) {
 
     $pdoResult = $pdo->prepare($query);
     $pdoExecute = $pdoResult->execute($contentData);
+
+    // SEND NOTIFICATION
+
+    $notificationDetail = $username . " gönderini beğendi.";
+
+    $notificationData = [
+        ":notification_detail"=>$notificationDetail,
+        ":notification_getter_id"=>$profileID
+    ];
+
+    $queryNotification = "INSERT INTO `notifications`
+    (
+        `notification_detail`,
+        `notification_getter_id`
+    )
+    VALUES
+    (
+        :notification_detail,
+        :notification_getter_id
+    )";
+
+    $pdoResultNotification = $pdo->prepare($queryNotification);
+    $pdoExecuteNotification = $pdoResultNotification->execute($notificationData);
+
+    // /SEND NOTIFICATION
 
     if ($fromWhere == "home") {
         header("Location: /grad-project/anasayfa");

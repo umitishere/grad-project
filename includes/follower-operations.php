@@ -90,6 +90,8 @@ if (isset($_POST['follow'])) {
     $pdoResultNotification = $pdo->prepare($queryNotification);
     $pdoExecuteNotification = $pdoResultNotification->execute($notificationData);
 
+    // /SEND NOTIFICATION
+
 
     header("Location: ../user/$profileUsername");
 

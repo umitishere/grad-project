@@ -74,7 +74,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                             <?php
 
-                            $queryNotifications = $pdo->prepare("SELECT * FROM notifications WHERE notification_getter_id = $loggedUserID");
+                            $queryNotifications = $pdo->prepare("SELECT * FROM notifications
+                                WHERE notification_getter_id = '$loggedUserID' AND isRead = '0'
+                                ORDER BY notification_id DESC LIMIT 10");
                             $queryNotifications->execute();
 
                             ?>
