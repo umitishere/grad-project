@@ -67,6 +67,30 @@ if (isset($_POST['follow'])) {
 
     }
 
+    // SEND NOTIFICATION
+
+    $notificationDetail = $username . " seni takip etmeye başladı.";
+
+    $notificationData = [
+        ":notification_detail"=>$notificationDetail,
+        ":notification_getter_id"=>$followedPersonID
+    ];
+
+    $queryNotification = "INSERT INTO `notifications`
+    (
+        `notification_detail`,
+        `notification_getter_id`
+    )
+    VALUES
+    (
+        :notification_detail,
+        :notification_getter_id
+    )";
+
+    $pdoResultNotification = $pdo->prepare($queryNotification);
+    $pdoExecuteNotification = $pdoResultNotification->execute($notificationData);
+
+
     header("Location: ../user/$profileUsername");
 
 

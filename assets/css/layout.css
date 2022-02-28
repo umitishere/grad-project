@@ -20,6 +20,10 @@ body, html {
     padding: 15px;
 }
 
+.padding-3 {
+    padding: 5px;
+}
+
 .center {
   display: block;
   margin-left: auto;

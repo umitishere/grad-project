@@ -47,7 +47,7 @@ $getTotalLikesName = "getTotalLikes" . $contentID;
 $queryFollowName = "queryFollow" . $contentID;
 $getFollowName = "getFollow" . $contentID;
 
-$queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_name = '$loggedUsername' AND followed_name = '$postUsername'");
+$queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_id = '$loggedUserID' AND followed_id = '$whoPostedThis'");
 $queryFollowName->execute();
 
 $canSeePost = true;

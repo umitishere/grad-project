@@ -69,9 +69,53 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav">
-                        <!-- <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/grad-project/anasayfa">Anasayfa</a>
-                        </li> -->
+
+                        <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
+
+                            <?php
+
+                            $queryNotifications = $pdo->prepare("SELECT * FROM notifications WHERE notification_getter_id = $loggedUserID");
+                            $queryNotifications->execute();
+
+                            ?>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="badge bg-light text-dark font-20">
+                                    <i class="fas fa-bell"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+
+                                <?php while ($getNotifications = $queryNotifications->fetch(PDO::FETCH_ASSOC)) { ?>
+
+                                <li>
+                                    <p class="text-center padding-3">
+                                        <?php echo $getNotifications['notification_detail']; ?>
+                                    </p>
+                                </li>
+
+                                <?php } ?>
+
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="/grad-project/includes/notifications.php" method="post">
+
+                                        <section class="text-center padding-15">
+                                            <button class="btn-light btn-sm" type="submit" name="mark_as_read">Okundu Olarak İşaretle</button>
+                                        </section>
+
+                                        <section class="text-center padding-15">
+                                            <button class="btn-light" type="submit" name="mark_as_read">Tümünü Göster</button>
+                                        </section>
+
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <?php } ?>
+
                     </ul>
                     <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>

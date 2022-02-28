@@ -6,13 +6,6 @@ require_once("includes/header.php");
 
 $sessionID = $_SESSION["id"];
 
-$queryUserInfo = $pdo->prepare("SELECT * FROM users WHERE id = '$sessionID'");
-$queryUserInfo->execute();
-
-$getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
-
-$myUsername = $getUserInfo["username"];
-
 $queryMessages = $pdo->prepare(
     "SELECT *
     FROM messages
@@ -38,7 +31,7 @@ $queryMessages = $pdo->prepare(
             messages.message_sender
         )
     )
-    ORDER BY messages.message_time DESC
+    ORDER BY messages.id DESC
 "
 );
 $queryMessages->execute();
