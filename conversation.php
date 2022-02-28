@@ -1,14 +1,14 @@
 <?php
 
-require_once("VARIABLES_EVERYWHERE.php");
+$conversationWithID = $_GET["with"];
 
-$conversationWith = $_GET["with"];
-
-$pageTitle = $conversationWith . " ile sohbet | Grad Project";
+$pageTitle = "Sohbet | Grad Project";
 
 require_once("includes/header.php");
 
 $sessionID = $_SESSION["id"];
+
+/* GET MY AND OTHER USER INFO */
 
 $queryUserInfo = $pdo->prepare("SELECT * FROM users WHERE id = '$sessionID'");
 $queryUserInfo->execute();
@@ -17,13 +17,19 @@ $getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
 
 $myUsername = $getUserInfo["username"];
 
+$myID = $sessionID;
+
+/* GET MY AND OTHER USER INFO */
+
+
+
 $queryMessages = $pdo->prepare(
     "SELECT users.username, users.profile_photo, messages.*
     FROM messages
     INNER JOIN users
-    ON messages.message_sender = users.username
-    WHERE ((messages.message_sender = '$myUsername' AND messages.message_getter = '$conversationWith')
-    OR (messages.message_sender = '$conversationWith' AND messages.message_getter = '$myUsername'))
+    ON messages.message_sender = users.id
+    WHERE ((messages.message_sender = '$sessionID' AND messages.message_getter = '$conversationWithID')
+    OR (messages.message_sender = '$conversationWithID' AND messages.message_getter = '$sessionID'))
     AND messages.delete_key = '$sessionID'
     ORDER BY messages.id DESC"
 );
@@ -52,13 +58,13 @@ $queryMessages->execute();
             <?php if ($getMessages['isThisPost'] == 1) { ?>
 
                 <section class="margin-top-15 padding-15">
-                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
-                        <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
+                    <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right') : print('text-on-left') ?>">
+                        <span><img class="image-message-sender" src="/grad-project/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
 
                         <p class="font-12 margin-top-10"><i class="fas fa-share-square"></i> bir gönderi paylaştı</p>
                     </div>
-                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
+                    <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right') : print('text-on-left') ?>">
                         <div class="padding-15 card margin-top-15">
                             <?php echo $getMessages['message_detail']; ?>
                         </div>
@@ -71,12 +77,12 @@ $queryMessages->execute();
             <?php } else { ?>
 
                 <section class="margin-top-15 card padding-15">
-                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
-                        <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
+                    <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right') : print('text-on-left') ?>">
+                        <span><img class="image-message-sender" src="/grad-project/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                     </div>
-                    <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('text-on-right') : print('text-on-left') ?>">
-                        <div class="<?php ($getMessages['message_sender'] == $myUsername) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
+                    <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right') : print('text-on-left') ?>">
+                        <div class="<?php ($getMessages['message_sender'] == $myID) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
                             <?php echo $getMessages['message_detail']; ?>
                         </div>
                         <button type="button" class="btn btn-danger margin-top-15" data-bs-toggle="modal" data-bs-target="#deleteMessage<?php echo $getMessages['id']; ?>">
@@ -96,11 +102,10 @@ $queryMessages->execute();
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/<?php echo $projectName; ?>/includes/send-message.php" method="post">
+                            <form action="/grad-project/includes/send-message.php" method="post">
 
                                 <input type="hidden" value="<?php echo $getMessages['unique_name']; ?>" name="unique" />
-
-                                <input type="hidden" value="<?php echo $conversationWith; ?>" name="conversation_with" />
+                                <input type="hidden" value="<?php echo $conversationWithID; ?>" name="conversation_with" />
 
                                 <section class="text-center">
                                     <button type="submit" class="btn btn-lg btn-danger margin-top-15" name="delete_message_for_me">
@@ -125,9 +130,9 @@ $queryMessages->execute();
 
         <!-- SEND MESSAGE -->
         <section class="padding-15 margin-top-30">
-            <form action="/<?php echo $projectName; ?>/includes/send-message.php" method="post">
+            <form action="/grad-project/includes/send-message.php" method="post">
 
-                <input type="hidden" name="message_getter" value="<?php echo $conversationWith; ?>" />
+                <input type="hidden" name="message_getter" value="<?php echo $conversationWithID; ?>" />
                 <input type="hidden" name="isThisPost" value="0" />
 
                 <div class="form-group">

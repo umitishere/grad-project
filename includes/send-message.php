@@ -15,12 +15,12 @@ $getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
 
 $username = $getUserInfo["username"];
 
-if (isset($_POST['send_post'])) {
+$queryConversationWith = $pdo->prepare("SELECT * FROM users WHERE id = '$messageGetter'");
+$queryConversationWith->execute();
 
-    $messageDetail = htmlspecialchars($_POST["message_detail"], ENT_QUOTES);
-    $messageGetter = htmlspecialchars($_POST["message_getter"], ENT_QUOTES);
+$getConversationWithInfo = $queryConversationWith->fetch(PDO::FETCH_ASSOC);
 
-}
+$conversationWithUsername = $getConversationWithInfo['username'];
 
 if (isset($_POST["send_message"])) {
 
@@ -39,21 +39,12 @@ if (isset($_POST["send_message"])) {
         $messageDetail = "<a href='/grad-project/posts/$messageDetail' style='color: black; text-decoration: none;'>$postDetail</a>";
     }
 
-    echo $messageDetail;
-
-    $uniqueName = $username . rand(1, 9999999);
-
-    $queryGetterInfo = $pdo->prepare("SELECT * FROM users WHERE username = '$messageGetter'");
-    $queryGetterInfo->execute();
-
-    $getGetterInfo = $queryGetterInfo->fetch(PDO::FETCH_ASSOC);
-
-    $getterID = $getGetterInfo["id"];
+    $uniqueName = $sessionID . rand(1, 9999999);
 
     $messageDataForSender = [
         ":message_detail"=>$messageDetail,
         ":message_getter"=>$messageGetter,
-        ":message_sender"=>$username,
+        ":message_sender"=>$sessionID,
         ":delete_key"=>$sessionID,
         ":unique_name"=>$uniqueName,
         ":isThisPost"=>$isThisPost
@@ -62,8 +53,8 @@ if (isset($_POST["send_message"])) {
     $messageDataForGetter = [
         ":message_detail"=>$messageDetail,
         ":message_getter"=>$messageGetter,
-        ":message_sender"=>$username,
-        ":delete_key"=>$getterID,
+        ":message_sender"=>$sessionID,
+        ":delete_key"=>$messageGetter,
         ":unique_name"=>$uniqueName,
         ":isThisPost"=>$isThisPost
     ];

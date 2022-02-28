@@ -1,7 +1,5 @@
 <?php
 
-require_once("VARIABLES_EVERYWHERE.php");
-
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -110,7 +108,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
             <div class="card padding-15 margin-top-15">
                 <div class="center">
-                    <img style="border-radius: 100%;" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
+                    <img style="border-radius: 100%;" src="/grad-project/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
                 </div>
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
@@ -130,7 +128,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 <?php if (!$myProfile) { ?>
 
-                    <form action="/<?php echo $projectName; ?>/includes/follower-operations.php" method="post">
+                    <form action="/grad-project/includes/follower-operations.php" method="post">
 
                         <input type="hidden" name="followed_person" value="<?php echo $profileUsername; ?>" />
 
@@ -177,7 +175,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     </form>
 
                     <a
-                        href="/<?php echo $projectName; ?>/messages/conversation?with=<?php echo $profileUsername; ?>"
+                        href="/grad-project/messages/conversation?with=<?php echo $profileID; ?>"
                         class="btn btn-primary margin-top-15"
                         role="button"
                         aria-pressed="true"
@@ -268,7 +266,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             <span class="badge bg-light text-dark font-16">
                                 <img
                                     style="border-radius: 100%;"
-                                    src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
+                                    src="/grad-project/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
                                     width="25px" height="25px" />
                                 <?php echo $getterName["username"]; ?>
                             </span>
@@ -297,7 +295,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 <?php echo nl2br($getLastContents['content_detail']); ?>
                             </section>
 
-                            <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
+                            <form action="/grad-project/includes/content-operations.php" method="post">
 
                                 <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
                                 <input type="hidden" name="to_where" value="profile" />
@@ -404,7 +402,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="/<?php echo $projectName; ?>/includes/user-operations.php" enctype="multipart/form-data">
+        <form method="post" action="/grad-project/includes/user-operations.php" enctype="multipart/form-data">
 
             <label for="update-profile-photo">Profil Fotoğrafı</label>
             <div class="input-group">
@@ -498,11 +496,11 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
               <div class="col-6 text-center">
                   <div class="text-center margin-top-15">
-                      <a href="/<?php echo $projectName; ?>/user/<?php echo $getterNameFollower['username']; ?>" class="my-links">
+                      <a href="/grad-project/user/<?php echo $getterNameFollower['username']; ?>" class="my-links">
                           <span class="badge bg-light text-dark font-16">
                               <img
                                   style="border-radius: 100%;"
-                                  src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getterNameFollower["profile_photo"]; ?>"
+                                  src="/grad-project/assets/img/profile_photos/<?php echo $getterNameFollower["profile_photo"]; ?>"
                                   width="40px" height="40px" />
                               <?php echo $getterNameFollower["username"]; ?>
                           </span>
@@ -557,11 +555,11 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
               <div class="col-6 text-center">
                   <div class="text-center margin-top-15">
-                      <a href="/<?php echo $projectName; ?>/user/<?php echo $getterNameFollowing['username']; ?>" class="my-links margin-top-15">
+                      <a href="/grad-project/user/<?php echo $getterNameFollowing['username']; ?>" class="my-links margin-top-15">
                           <span class="badge bg-light text-dark font-16">
                               <img
                                   style="border-radius: 100%;"
-                                  src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getterNameFollowing["profile_photo"]; ?>"
+                                  src="/grad-project/assets/img/profile_photos/<?php echo $getterNameFollowing["profile_photo"]; ?>"
                                   width="40px" height="40px" />
                               <?php echo $getterNameFollowing["username"]; ?>
                           </span>

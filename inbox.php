@@ -1,7 +1,5 @@
 <?php
 
-require_once("VARIABLES_EVERYWHERE.php");
-
 $pageTitle = "Gelen Kutusu | Grad Project";
 
 require_once("includes/header.php");
@@ -21,21 +19,21 @@ $queryMessages = $pdo->prepare(
     LEFT JOIN users
     ON (
         IF (
-            messages.message_sender = '$myUsername',
-            messages.message_getter = users.username,
-            messages.message_sender = users.username
+            messages.message_sender = '$sessionID',
+            messages.message_getter = users.id,
+            messages.message_sender = users.id
         )
     )
     WHERE (
         IF (
-            messages.message_sender = '$myUsername',
-            messages.message_sender = '$myUsername',
-            messages.message_getter = '$myUsername'
+            messages.message_sender = '$sessionID',
+            messages.message_sender = '$sessionID',
+            messages.message_getter = '$sessionID'
         )
     )
     GROUP BY (
         IF (
-            messages.message_sender = '$myUsername',
+            messages.message_sender = '$sessionID',
             messages.message_getter,
             messages.message_sender
         )
@@ -64,11 +62,11 @@ $queryMessages->execute();
             $messageHour = substr($getMessages['message_time'], 11, 2);
             $messageMinute = substr($getMessages['message_time'], 14, 2);
 
-            if ($getMessages['message_sender'] != $myUsername) { ?>
+            if ($getMessages['message_sender'] != $sessionID) { ?>
 
             <section class="margin-top-15 card padding-15">
                 <div>
-                    <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_sender']; ?></b></span>
+                    <span><img class="image-message-sender" src="/grad-project/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                     <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                 </div>
 
@@ -81,7 +79,7 @@ $queryMessages->execute();
 
                 <section class="margin-top-15 card padding-15">
                     <div>
-                        <span><img class="image-message-sender" src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['message_getter']; ?></b></span>
+                        <span><img class="image-message-sender" src="/grad-project/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                     </div>
 

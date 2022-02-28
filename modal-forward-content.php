@@ -56,7 +56,7 @@ $queryFollowedByMe->execute();
 
                         <section class="col-2">
 
-                            <form action="/<?php echo $projectName; ?>/includes/send-message.php" method="post">
+                            <form action="/grad-project/includes/send-message.php" method="post">
 
                                 <input type="hidden" name="message_getter" value="<?php echo $getFollowedByMe['followed_name']; ?>" />
                                 <input type="hidden" name="message_detail" value="<?php echo $contentID; ?>" />

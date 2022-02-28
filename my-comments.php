@@ -1,7 +1,5 @@
 <?php
 
-require_once("VARIABLES_EVERYWHERE.php");
-
 $pageTitle = "Yaptığım Yorumlar | Grad Project";
 
 require_once("includes/header.php");

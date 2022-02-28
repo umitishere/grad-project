@@ -1,5 +1,0 @@
-<?php
-
-$projectName = "grad-project";
-
-?>

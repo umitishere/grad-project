@@ -1,7 +1,5 @@
 <?php
 
-require_once("VARIABLES_EVERYWHERE.php");
-
 $pageTitle = "Beğendiğim Gönderiler | Grad Project";
 
 require_once("includes/header.php");
@@ -52,11 +50,11 @@ $queryLastContents->execute();
                     <section class="margin-top-15 card padding-15">
 
                         <section>
-                            <a href="/<?php echo $projectName; ?>/user/<?php echo $getterName['username']; ?>" class="my-links">
+                            <a href="/grad-project/user/<?php echo $getterName['username']; ?>" class="my-links">
                                 <span class="badge bg-light text-dark font-16">
                                     <img
                                         style="border-radius: 100%;"
-                                        src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
+                                        src="/grad-project/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
                                         width="25px" height="25px" />
                                     <?php echo $getterName["username"]; ?>
                                 </span>
@@ -65,7 +63,7 @@ $queryLastContents->execute();
                                 <?php echo nl2br($getLastContents['content_detail']); ?>
                             </section>
 
-                            <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
+                            <form action="/grad-project/includes/content-operations.php" method="post">
 
                                 <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
                                 <input type="hidden" name="from_where" value="home" />
@@ -103,6 +101,7 @@ $queryLastContents->execute();
 
                                     </div>
 
+                                    <?php $commentFromWhere = "Home"; ?>
                                     <?php include("modal-send-comment.php"); ?>
 
                                     <div class="col-3">

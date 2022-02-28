@@ -7,8 +7,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          
-        <form method="post" action="/<?php echo $projectName; ?>/includes/content-operations.php">
+
+        <form method="post" action="/grad-project/includes/content-operations.php">
 
             <input type="hidden" name="content_id" value="<?php echo $getLastContents['id']; ?>" />
             <input type="hidden" name="from_where" value="home" />

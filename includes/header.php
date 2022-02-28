@@ -43,10 +43,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <script src="https://kit.fontawesome.com/05e9384002.js" crossorigin="anonymous"></script>
 
     <!-- Custom CSS -->
-    <link href="/<?php echo $projectName; ?>/assets/css/layout.css" rel="stylesheet" />
-    <link href="/<?php echo $projectName; ?>/assets/css/fonts.css" rel="stylesheet" />
-    <link href="/<?php echo $projectName; ?>/assets/css/colors.css" rel="stylesheet" />
-    <link href="/<?php echo $projectName; ?>/assets/css/images.css" rel="stylesheet" />
+    <link href="/grad-project/assets/css/layout.css" rel="stylesheet" />
+    <link href="/grad-project/assets/css/fonts.css" rel="stylesheet" />
+    <link href="/grad-project/assets/css/colors.css" rel="stylesheet" />
+    <link href="/grad-project/assets/css/images.css" rel="stylesheet" />
 
     <title><?php echo $pageTitle; ?></title>
 </head>
@@ -55,7 +55,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/<?php echo $projectName; ?>/anasayfa"><b>Grad Project</b></a>
+                <a class="navbar-brand" href="/grad-project/anasayfa"><b>Grad Project</b></a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -70,7 +70,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav">
                         <!-- <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/<?php echo $projectName; ?>/anasayfa">Anasayfa</a>
+                            <a class="nav-link active" aria-current="page" href="/grad-project/anasayfa">Anasayfa</a>
                         </li> -->
                     </ul>
                     <ul class="navbar-nav ms-auto">
@@ -80,51 +80,51 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 <span class="badge bg-light text-dark font-16">
                                     <img
                                         style="border-radius: 100%;"
-                                        src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
+                                        src="/grad-project/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
                                         width="25px" height="25px" />
                                     <?php echo $getUserInfo["username"]; ?>
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/messages/gelen-kutusu">
+                                    <a class="dropdown-item" href="/grad-project/messages/gelen-kutusu">
                                         <i class="fas fa-inbox"></i> Mesajlar
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/user/<?php echo $loggedUsername; ?>">
+                                    <a class="dropdown-item" href="/grad-project/user/<?php echo $loggedUsername; ?>">
                                         <i class="fas fa-user"></i> Profilim
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/begendigim-gonderiler">
+                                    <a class="dropdown-item" href="/grad-project/begendigim-gonderiler">
                                         <i class="far fa-heart"></i> Beğendiklerim
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/yaptigim-yorumlar">
+                                    <a class="dropdown-item" href="/grad-project/yaptigim-yorumlar">
                                         <i class="far fa-comments"></i> Yorumlarım
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/user/<?php echo $loggedUsername; ?>">
+                                    <a class="dropdown-item" href="/grad-project/user/<?php echo $loggedUsername; ?>">
                                         <i class="far fa-plus-square"></i> Kaydettiklerim
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/ayarlar">
+                                    <a class="dropdown-item" href="/grad-project/ayarlar">
                                         <i class="fas fa-cog"></i> Ayarlar
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/ayarlar">
+                                    <a class="dropdown-item" href="/grad-project/ayarlar">
                                         <i class="fas fa-question-circle"></i> Yardım
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $projectName; ?>/oturumu-kapat">
+                                    <a class="dropdown-item" href="/grad-project/oturumu-kapat">
                                         <i class="fas fa-sign-out-alt"></i> Oturumu Kapat
                                     </a>
                                 </li>
@@ -132,10 +132,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         </li>
                     <?php } else { ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/<?php echo $projectName; ?>/giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
+                            <a class="nav-link active" aria-current="page" href="/grad-project/giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/<?php echo $projectName; ?>/uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
+                            <a class="nav-link active" aria-current="page" href="/grad-project/uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
                         </li>
                     <?php } ?>
                     </ul>

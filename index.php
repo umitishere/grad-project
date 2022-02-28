@@ -1,7 +1,5 @@
 <?php
 
-require_once("VARIABLES_EVERYWHERE.php");
-
 $pageTitle = "Anasayfa | Grad Project";
 
 require_once("includes/header.php");
@@ -20,7 +18,7 @@ $queryLastContents->execute();
             <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
 
             <section class="padding-15 content-share margin-top-15">
-                <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
+                <form action="/grad-project/includes/content-operations.php" method="post">
 
                     <textarea
                         placeholder="Ne düşünüyorsun?"
@@ -102,11 +100,11 @@ $queryLastContents->execute();
                     <section class="margin-top-15 card padding-15">
 
                         <section>
-                            <a href="/<?php echo $projectName; ?>/user/<?php echo $getterName['username']; ?>" class="my-links">
+                            <a href="/grad-project/user/<?php echo $getterName['username']; ?>" class="my-links">
                                 <span class="badge bg-light text-dark font-16">
                                     <img
                                         style="border-radius: 100%;"
-                                        src="/<?php echo $projectName; ?>/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
+                                        src="/grad-project/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
                                         width="25px" height="25px" />
                                     <?php echo $getterName["username"]; ?>
                                 </span>
@@ -138,7 +136,7 @@ $queryLastContents->execute();
                                 </a>
                             </section>
 
-                            <form action="/<?php echo $projectName; ?>/includes/content-operations.php" method="post">
+                            <form action="/grad-project/includes/content-operations.php" method="post">
 
                                 <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
                                 <input type="hidden" name="to_where" value="home" />
