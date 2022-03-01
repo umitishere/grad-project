@@ -26,7 +26,7 @@ $queryAllNotifications->execute();
 
     <?php while ($getAllNotifications = $queryAllNotifications->fetch(PDO::FETCH_ASSOC)) { ?>
 
-        <section class="alert alert-primary">
+        <section class="alert alert-dark">
             <?php echo $getAllNotifications['notification_detail']; ?>
         </section>
 
