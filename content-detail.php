@@ -219,8 +219,11 @@ if ($getPosterInfo['comment_visibility'] == 0 && $getPosterInfo['username'] != $
                             <i class="far fa-share-square"></i>
                         </button>
 
-                        <?php $forwardFromWhere = "Content Detail"; ?>
-                        <?php include("modal-forward-content.php"); ?>
+                        <?php
+                            $forwardFromWhere = "Content Detail";
+                            
+                            include("modal-forward-content.php");
+                        ?>
                     </div>
 
                     <div class="col-3">

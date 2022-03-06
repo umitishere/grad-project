@@ -4,10 +4,7 @@ $pageTitle = "Yaptığım Yorumlar | Grad Project";
 
 require_once("includes/header.php");
 
-$sqlStatement = "SELECT * FROM comments
-    WHERE comment_sender = $loggedUserID
-    ORDER BY id DESC";
-$queryLastComments = $pdo->prepare($sqlStatement);
+$queryLastComments = $pdo->prepare("SELECT * FROM comments WHERE comment_sender = $loggedUserID ORDER BY id DESC");
 $queryLastComments->execute();
 
 ?>
@@ -29,22 +26,7 @@ $queryLastComments->execute();
 
                         <?php while($getLastComments = $queryLastComments->fetch(PDO::FETCH_ASSOC)) { ?>
 
-                            <?php
-
-                            $contentID = $getLastComments['commented_post'];
-
-                            $queryName = "queryPublisher" . $contentID;
-                            $getterName = "getPublisher" . $contentID;
-
-                            $queryLikesName = "queryLikes" . $contentID;
-                            $getLikesName = "getLikes" . $contentID;
-
-                            $queryName = $pdo->prepare("SELECT * FROM contents WHERE id = $contentID");
-                            $queryName->execute();
-
-                            $getterName = $queryName->fetch(PDO::FETCH_ASSOC);
-
-                            ?>
+                            <?php $contentID = $getLastComments['commented_post']; ?>
 
                             <section class="col-md-6 col-sm-12">
 
