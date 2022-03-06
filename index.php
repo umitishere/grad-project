@@ -7,6 +7,12 @@ require_once("includes/header.php");
 $queryLastContents = $pdo->prepare("SELECT * FROM contents ORDER BY id DESC");
 $queryLastContents->execute();
 
+$reportContentFeedbackMessage = "";
+
+if (isset($_GET['reportContent'])) {
+    $reportContentFeedbackMessage = "Şikayetiniz bize ulaşmıştır. Teşekkür ederiz.";
+}
+
 ?>
 
 <div class="container">
@@ -38,6 +44,18 @@ $queryLastContents->execute();
             </section>
 
             <main>
+
+                <?php
+
+                if (isset($_GET["reportContent"])) {
+                    echo "
+                    <div class='margin-top-15 alert alert-success' role='alert'>
+                        $reportContentFeedbackMessage
+                    </div>
+                    ";
+                }
+
+                ?>
 
                 <section>
 
@@ -208,7 +226,10 @@ $queryLastContents->execute();
 
                                     </div>
 
-                                    <?php $commentFromWhere = "Home"; ?>
+                                    <?php
+                                        $commentFromWhere = "Home";
+                                        $reportFromWhere = "Home";
+                                    ?>
                                     <?php include("modal-send-comment.php"); ?>
 
                                     <?php ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>

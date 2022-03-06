@@ -15,6 +15,37 @@ $getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
 
 $username = $getUserInfo["username"];
 
+if (isset($_POST['report_content'])) {
+
+    $contentID = htmlspecialchars($_POST["content_id"], ENT_QUOTES);
+    $fromWhere = htmlspecialchars($_POST["from_where"], ENT_QUOTES);
+
+    $reportData = [
+        ":reporter_id"=>$sessionID,
+        ":reported_content_id"=>$contentID
+    ];
+
+    $query = "INSERT INTO `content_reports`
+    (
+        `reporter_id`,
+        `reported_content_id`
+    )
+    VALUES
+    (
+        :reporter_id,
+        :reported_content_id
+    )";
+
+    $reportResult = $pdo->prepare($query);
+    $reportExecute = $reportResult->execute($reportData);
+
+    if ($fromWhere == "Home") {
+        header("Location: /grad-project/anasayfa?reportContent=success");
+    } else if ($fromWhere == "Content Detail") {
+        header("Location: /grad-project/");
+    }
+
+}
 
 if (isset($_POST['create_content'])) {
 
