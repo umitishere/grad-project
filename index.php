@@ -4,7 +4,18 @@ $pageTitle = "Anasayfa | Grad Project";
 
 require_once("includes/header.php");
 
-$queryLastContents = $pdo->prepare("SELECT * FROM contents ORDER BY id DESC");
+$sqlStatementForContents = "SELECT
+    contents.*,
+    users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility,
+    follower.follower_id, follower.followed_id
+    FROM contents
+    LEFT JOIN users ON contents.publisher_id = users.id
+    LEFT JOIN follower ON contents.publisher_id = follower.followed_id
+    WHERE follower.follower_id = '$loggedUserID'
+    ORDER BY contents.id DESC
+";
+
+$queryLastContents = $pdo->prepare($sqlStatementForContents);
 $queryLastContents->execute();
 
 $reportContentFeedbackMessage = "";
@@ -66,47 +77,25 @@ if (isset($_GET['reportContent'])) {
                     $contentID = $getLastContents['id'];
                     $publisherID = $getLastContents['publisher_id'];
 
-                    $queryName = "queryPublisher" . $contentID;
-                    $getterName = "getPublisher" . $contentID;
-
                     $queryLikesName = "queryLikes" . $contentID;
                     $getLikesName = "getLikes" . $contentID;
 
                     $queryTotalLikesName = "queryTotalLikes" . $contentID;
                     $getTotalLikesName = "getTotalLikes" . $contentID;
 
-                    $queryFollowName = "queryFollow" . $contentID;
-                    $getFollowName = "getFollow" . $contentID;
+                    $postUsername = $getLastContents['username'];
+                    $posterID = $getLastContents['user_id'];
 
-                    $queryName = $pdo->prepare("SELECT * FROM users WHERE id = $publisherID");
-                    $queryName->execute();
-
-                    $getterName = $queryName->fetch(PDO::FETCH_ASSOC);
-
-                    $postUsername = $getterName['username'];
-                    $postID = $getterName['id'];
-                    $queryFollowName = $pdo->prepare("SELECT * FROM follower WHERE follower_id = '$loggedUserID' AND followed_id = '$postID'");
-                    $queryFollowName->execute();
-
-                    $canSeePost = true;
                     $canSeeLikes = true;
                     $canSeeComments = true;
 
-                    if ($getterName['profile_lock'] == 1 && $getterName['id'] != $loggedUserID) {
-                        if ($queryFollowName->rowCount() == 1) {
-                            $canSeePost = true;
-                        } else {
-                            $canSeePost = false;
-                        }
-                    }
-
-                    if ($getterName['like_visibility'] == 0 && $getterName['id'] != $loggedUserID) {
+                    if ($getLastContents['like_visibility'] == 0 && $getLastContents['user_id'] != $loggedUserID) {
                         $canSeeLikes = false;
                     } else {
                         $canSeeLikes = true;
                     }
 
-                    if ($getterName['comment_visibility'] == 0 && $getterName['id'] != $loggedUserID) {
+                    if ($getLastContents['comment_visibility'] == 0 && $getLastContents['user_id'] != $loggedUserID) {
                         $canSeeComments = false;
                     } else {
                         $canSeeComments = true;
@@ -114,18 +103,16 @@ if (isset($_GET['reportContent'])) {
 
                     ?>
 
-                    <?php if($canSeePost) { ?>
-
                     <section class="margin-top-15 card padding-15">
 
                         <section>
-                            <a href="/grad-project/user/<?php echo $getterName['username']; ?>" class="my-links">
+                            <a href="/grad-project/user/<?php echo $getLastContents['username']; ?>" class="my-links">
                                 <span class="badge bg-light text-dark font-16">
                                     <img
                                         style="border-radius: 100%;"
-                                        src="/grad-project/assets/img/profile_photos/<?php echo $getterName["profile_photo"]; ?>"
+                                        src="/grad-project/assets/img/profile_photos/<?php echo $getLastContents["profile_photo"]; ?>"
                                         width="25px" height="25px" />
-                                    <?php echo $getterName["username"]; ?>
+                                    <?php echo $getLastContents["username"]; ?>
                                 </span>
                             </a>
                             <span style="float: right; clear: right;">
@@ -270,8 +257,6 @@ if (isset($_GET['reportContent'])) {
                         </section>
 
                     </section>
-
-                    <?php } // end if can see post ?>
 
                 <?php } ?>
 
