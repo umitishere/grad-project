@@ -12,6 +12,12 @@ if (isset($_GET)) {
     $contentID = $_GET['contentID'];
 }
 
+$reportContentFeedbackMessage = "";
+
+if (isset($_GET['reportContent'])) {
+    $reportContentFeedbackMessage = "Şikayetiniz bize ulaşmıştır. Teşekkür ederiz.";
+}
+
 require_once("includes/header.php");
 
 $queryContentDetail = $pdo->prepare("SELECT * FROM contents WHERE id = '$contentID'");
@@ -77,6 +83,18 @@ if ($getPosterInfo['comment_visibility'] == 0 && $getPosterInfo['username'] != $
 ?>
 
 <section class="container">
+
+    <?php
+
+    if (isset($_GET["reportContent"])) {
+        echo "
+        <div class='margin-top-15 alert alert-success' role='alert'>
+            $reportContentFeedbackMessage
+        </div>
+        ";
+    }
+
+    ?>
 
     <section class="margin-top-15 card padding-15">
 
@@ -170,10 +188,14 @@ if ($getPosterInfo['comment_visibility'] == 0 && $getPosterInfo['username'] != $
 
                     </div>
 
-                    <?php $commentFromWhere = "Content Detail"; ?>
-                    <?php include("modal-send-comment.php"); ?>
+                    <?php
+                        $commentFromWhere = "Content Detail";
+                        $reportFromWhere = "Content Detail";
 
-                    <?php ($getContentDetail['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>
+                        include("modal-send-comment.php");
+
+                        ($getContentDetail['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php")
+                    ?>
 
                     <div class="col-3">
                         <button

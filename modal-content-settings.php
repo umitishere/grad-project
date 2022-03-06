@@ -1,5 +1,5 @@
 <!-- Content Settings Modal -->
-<div class="modal fade" id="contentSettings<?php echo $getLastContents['id']; ?>" tabindex="-1" aria-labelledby="contentSettings<?php echo $getLastContents['id']; ?>" aria-hidden="true">
+<div class="modal fade" id="contentSettings<?php echo $contentID; ?>" tabindex="-1" aria-labelledby="contentSettings<?php echo $contentID; ?>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -9,7 +9,9 @@
 
         <form method="post" action="/grad-project/includes/content-operations.php">
 
-            <input type="hidden" name="content_id" value="<?php echo $getLastContents['id']; ?>" />
+            <?php ($reportFromWhere == "Profile Page") ? (print("<input type='hidden' name='profile_username' value='$profileUsername' />")) : (print('')) ?>
+
+            <input type="hidden" name="content_id" value="<?php echo $contentID; ?>" />
             <input type="hidden" name="from_where" value="<?php echo $reportFromWhere; ?>" />
 
             <hr />

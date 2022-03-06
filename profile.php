@@ -26,6 +26,12 @@ if (isset($_GET['usernameChangeError'])) {
     $usernameChangeError = $_GET['usernameChangeError'];
 }
 
+$reportContentFeedbackMessage = "";
+
+if (isset($_GET['reportContent'])) {
+    $reportContentFeedbackMessage = "Şikayetiniz bize ulaşmıştır. Teşekkür ederiz.";
+}
+
 $queryFollowers = $pdo->prepare("SELECT * FROM follower WHERE followed_id = '$profileID'");
 $queryFollowers->execute();
 
@@ -192,6 +198,18 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 <section>
 
+                    <?php
+
+                    if (isset($_GET["reportContent"])) {
+                        echo "
+                        <div class='margin-top-15 alert alert-success' role='alert'>
+                            $reportContentFeedbackMessage
+                        </div>
+                        ";
+                    }
+
+                    ?>
+
                 <?php while($getLastContents = $queryLastContents->fetch(PDO::FETCH_ASSOC)) { ?>
 
                     <?php
@@ -331,10 +349,15 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                                     </div>
 
-                                    <?php $commentFromWhere = "Profile Page"; ?>
-                                    <?php include("modal-send-comment.php"); ?>
+                                    <?php
 
-                                    <?php ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>
+                                        $commentFromWhere = "Profile Page";
+                                        $reportFromWhere = "Profile Page";
+
+                                        include("modal-send-comment.php");
+
+                                        ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php")
+                                    ?>
 
                                     <div class="col-3">
                                         <button

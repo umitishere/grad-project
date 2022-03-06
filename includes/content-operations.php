@@ -42,7 +42,12 @@ if (isset($_POST['report_content'])) {
     if ($fromWhere == "Home") {
         header("Location: /grad-project/anasayfa?reportContent=success");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /grad-project/");
+        header("Location: /grad-project/posts/$contentID?reportContent=success");
+    } else if ($fromWhere == "Profile Page") {
+
+        $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
+
+        header("Location: /grad-project/user/$profileUsername?reportContent=success");
     }
 
 }

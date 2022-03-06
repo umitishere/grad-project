@@ -1,4 +1,4 @@
-<!-- Send Comment Modal -->
+<!-- Edit Content Modal -->
 <div class="modal fade" id="editContent<?php echo $getLastContents['id']; ?>" tabindex="-1" aria-labelledby="editContent<?php echo $getLastContents['id']; ?>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -27,4 +27,4 @@
     </div>
   </div>
 </div>
-<!-- Send Comment Modal -->
+<!-- Edit Content Modal -->
