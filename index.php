@@ -34,7 +34,9 @@ if (isset($_GET['reportContent'])) {
 
         <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
 
+            <!-- CREATE CONTENT SECTION -->
             <section class="padding-15 content-share margin-top-15">
+
                 <form action="/grad-project/includes/content-operations.php" method="post">
 
                     <textarea
@@ -52,7 +54,9 @@ if (isset($_GET['reportContent'])) {
                     </section>
 
                 </form>
+
             </section>
+            <!-- /CREATE CONTENT SECTION -->
 
             <main>
 
@@ -68,6 +72,7 @@ if (isset($_GET['reportContent'])) {
 
                 ?>
 
+                <!-- LAST CONTENTS SECTION -->
                 <section>
 
                 <?php while($getLastContents = $queryLastContents->fetch(PDO::FETCH_ASSOC)) { ?>
@@ -76,14 +81,9 @@ if (isset($_GET['reportContent'])) {
 
                     $contentID = $getLastContents['id'];
 
-                    $queryLikesName = "queryLikes" . $contentID;
+                    // This is because of using these inside of while loop
                     $getLikesName = "getLikes" . $contentID;
-
-                    $queryTotalLikesName = "queryTotalLikes" . $contentID;
                     $getTotalLikesName = "getTotalLikes" . $contentID;
-
-                    $postUsername = $getLastContents['username'];
-                    $posterID = $getLastContents['user_id'];
 
                     $canSeeLikes = true;
                     $canSeeComments = true;
@@ -102,9 +102,12 @@ if (isset($_GET['reportContent'])) {
 
                     ?>
 
+                    <!-- CONTENT CARD SECTION -->
                     <section class="margin-top-15 card padding-15">
 
+                        <!-- CONTENT DETAILS SECTION -->
                         <section>
+
                             <a href="/grad-project/user/<?php echo $getLastContents['username']; ?>" class="my-links">
                                 <span class="badge bg-light text-dark font-16">
                                     <img
@@ -114,6 +117,7 @@ if (isset($_GET['reportContent'])) {
                                     <?php echo $getLastContents["username"]; ?>
                                 </span>
                             </a>
+
                             <span style="float: right; clear: right;">
                                 <?php if ($getLastContents['publisher_id'] == $loggedUserID) { ?>
                                 <button
@@ -135,6 +139,7 @@ if (isset($_GET['reportContent'])) {
                                     </button>
                                 <?php } ?>
                             </span>
+
                             <section class="margin-top-15">
                                 <a href="/grad-project/posts/<?php echo $getLastContents['id']; ?>" style="color: black; text-decoration: none;">
                                     <?php echo nl2br($getLastContents['content_detail']); ?>
@@ -146,81 +151,69 @@ if (isset($_GET['reportContent'])) {
                                 <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
                                 <input type="hidden" name="to_where" value="home" />
 
+                                <!-- /CONTENT ACTION ICONS SECTION -->
                                 <section class="margin-top-15 row text-center content-icons">
+
+                                <?php
+
+                                $likedContent = $getLastContents['id'];
+
+                                $queryMyLikes = $pdo->prepare(
+                                    "SELECT * FROM liked_contents
+                                    WHERE liked_content = $likedContent
+                                    AND who_liked = $loggedUserID
+                                ");
+                                $queryMyLikes->execute();
+
+                                ?>
+
+                                    <!-- LIKE BUTTON -->
+                                    <div class="col-3">
 
                                     <?php
 
-                                        $likedContent = $getLastContents['id'];
+                                    $queryTotalLikes = $pdo->prepare(
+                                        "SELECT * FROM liked_contents WHERE liked_content = $likedContent"
+                                    );
+                                    $queryTotalLikes->execute();
 
-                                        $queryLikesName = $pdo->prepare(
-                                            "SELECT * FROM liked_contents
-                                            WHERE liked_content = $likedContent
-                                            AND who_liked = $loggedUserID
-                                        ");
-                                        $queryLikesName->execute();
+                                    $likesCount = $queryTotalLikes->rowCount();
+
+                                    if ($queryMyLikes->rowCount() == 1) {
 
                                     ?>
-
-                                    <div class="col-3">
-
-                                        <?php
-
-                                            $queryTotalLikesName = $pdo->prepare(
-                                                "SELECT * FROM liked_contents WHERE liked_content = $likedContent"
-                                            );
-                                            $queryTotalLikesName->execute();
-
-                                            $likesCount = $queryTotalLikesName->rowCount();
-
-                                        ?>
-
-                                        <?php if ($queryLikesName->rowCount() == 1) { ?>
 
                                         <button type="submit" name="dislike_content" class="content-button">
                                             <i class="fas fa-heart"></i>
-                                            <span class="font-20">
-                                                <?php
-
-                                                if ($canSeeLikes) {
-                                                    echo $likesCount;
-                                                } else {
-                                                    echo "";
-                                                }
-
-                                                ?>
-                                            </span>
+                                            <span class="font-20"><?php ($canSeeLikes) ? (print($likesCount)) : ("") ?></span>
                                         </button>
 
-                                        <?php } else { ?>
+                                    <?php } else { // WHEN USER DID NOT LIKE ?>
 
                                         <button type="submit" name="like_content" class="content-button">
                                             <i class="far fa-heart"></i>
-                                            <span class="font-20">
-                                                <?php
-
-                                                if ($canSeeLikes) {
-                                                    echo $likesCount;
-                                                } else {
-                                                    echo "";
-                                                }
-
-                                                ?>
-                                            </span>
+                                            <span class="font-20"><?php ($canSeeLikes) ? (print($likesCount)) : ("") ?></span>
                                         </button>
 
-                                        <?php } ?>
+                                    <?php } ?>
 
                                     </div>
+                                    <!-- /LIKE BUTTON -->
 
                                     <?php
-                                        $commentFromWhere = "Home";
-                                        $reportFromWhere = "Home";
+
+                                    $commentFromWhere = "Home";
+                                    $reportFromWhere = "Home";
+
+                                    include("modal-send-comment.php");
+
+                                    ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php")
+
                                     ?>
-                                    <?php include("modal-send-comment.php"); ?>
 
-                                    <?php ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php") ?>
-
+                                    <!-- COMMENT BUTTON -->
                                     <div class="col-3">
+
                                         <button
                                             type="button"
                                             name="like_content"
@@ -230,9 +223,13 @@ if (isset($_GET['reportContent'])) {
                                         >
                                             <i class="far fa-comments"></i>
                                         </button>
-                                    </div>
 
+                                    </div>
+                                    <!-- /COMMENT BUTTON -->
+
+                                    <!-- FORWARD CONTENT BUTTON -->
                                     <div class="col-3">
+
                                         <button
                                             type="button"
                                             class="content-button"
@@ -243,26 +240,36 @@ if (isset($_GET['reportContent'])) {
                                         </button>
 
                                         <?php
-                                            $forwardFromWhere = "Home";
 
-                                            include("modal-forward-content.php");
+                                        $forwardFromWhere = "Home";
+
+                                        include("modal-forward-content.php");
+
                                         ?>
-                                    </div>
 
+                                    </div>
+                                    <!-- /FORWARD CONTENT BUTTON -->
+
+                                    <!-- SAVE CONTENT BUTTON -->
                                     <div class="col-3">
                                         <i class="far fa-plus-square"></i>
                                     </div>
+                                    <!-- /SAVE CONTENT BUTTON -->
 
                                 </section>
+                                <!-- /CONTENT ACTION ICONS SECTION -->
 
                             </form>
                         </section>
+                        <!-- /CONTENT DETAILS SECTION -->
 
                     </section>
+                    <!-- /CONTENT CARD SECTION -->
 
                 <?php } ?>
 
                 </section>
+                <!-- /LAST CONTENTS SECTION -->
 
         <?php } else { // Check if user logged in ?>
 
@@ -270,7 +277,11 @@ if (isset($_GET['reportContent'])) {
                 <div class="alert alert-primary" role="alert">
                     Gönderileri görebilmek ve paylaşım yapabilmek için <a href="giris-yap"><b>buraya tıklayarak</b></a> giriş yapabilirsiniz.
                 </div>
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+                <section style="margin-top: 120px;">
+
+                </section>
+
             </section>
 
         <?php } ?>
@@ -286,7 +297,9 @@ if (isset($_GET['reportContent'])) {
         </div>
 
     </div>
+    <!-- /MAIN ROW -->
 
 </div>
+<!-- /CONTAINER -->
 
 <?php require_once("includes/footer.php"); ?>
