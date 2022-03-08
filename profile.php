@@ -20,6 +20,9 @@ $getProfileInfo = $profileInfo->fetch(PDO::FETCH_ASSOC);
 
 $profileID = $getProfileInfo['id'];
 
+$queryCheckIfUserBlocked = $pdo->prepare("SELECT * FROM blocked_users WHERE blocker_id = '$loggedUserID' AND blocked_id = '$profileID'");
+$queryCheckIfUserBlocked->execute();
+
 $usernameChangeError = "";
 
 if (isset($_GET['usernameChangeError'])) {
@@ -104,7 +107,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
     <?php
         if (!empty($errorMessage)) {
-            echo "<h1 class='text-center margin-top-15'>Aradığınız kullanıcı bulunamadı.</h1>";
+            echo "<h3 class='text-center margin-top-15'>Aradığınız kullanıcı bulunamadı.</h3>";
             exit;
         }
     ?>
@@ -118,6 +121,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <img style="border-radius: 100%;" src="/grad-project/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
                 </div>
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
+
+                <?php if (!$queryCheckIfUserBlocked->rowCount()) { ?>
+
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
 
                 <section class="row">
@@ -130,6 +136,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         <div>Takip Edilen</div>
                     </div>
                 </section>
+
+                <?php } ?>
 
                 <?php ($myProfile ? print("<button class='btn btn-sm btn-secondary margin-top-15' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : ""); ?>
 
@@ -152,6 +160,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             WHERE request_sender = '$loggedUserID' AND request_getter = '$profileID'"
                         );
                         $queryFollowRequestInfo->execute();
+
+                    if (!$queryCheckIfUserBlocked->rowCount()) {
 
                         if ($queryFollowInfo->rowCount() == 1) {
 
@@ -177,9 +187,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                             <?php } ?>
 
-                        <?php } ?>
+                        <?php } // END OF NOT FOLLOWING BLOCK ?>
+
+                    <?php } // END OF CHECK IF USER IS BLOCKED ?>
 
                     </form>
+
+                    <?php if (!$queryCheckIfUserBlocked->rowCount()) { ?>
 
                     <a
                         href="/grad-project/messages/conversation?with=<?php echo $profileID; ?>"
@@ -190,7 +204,31 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         Mesaj
                     </a>
 
-                    <?php ((!$myProfile) ? (print("<button class='btn btn-sm btn-outline-danger margin-top-15' data-bs-toggle='modal' data-bs-target='#reportUser'>Şikayet Et / Engelle</button>")) : ""); ?>
+                    <?php } ?>
+
+                    <?php
+
+                        if ($queryCheckIfUserBlocked->rowCount()) {
+
+                            echo "
+                                <form action='/grad-project/includes/user-operations.php' method='post'>
+                                    <section class='text-center'>
+                                        <button type='submit' name='unblock_user' class='btn btn-sm btn-outline-danger margin-top-15'>
+                                            Engeli Kaldır
+                                        </button>
+                                    </section>
+                                </form>
+                            ";
+
+                        } else {
+
+                            if (!$myProfile) {
+                                print("<button class='btn btn-sm btn-outline-danger margin-top-15' data-bs-toggle='modal' data-bs-target='#reportUser'>Şikayet Et / Engelle</button>");
+                            }
+
+                        }
+
+                    ?>
 
                 <?php } ?>
             </div>
@@ -201,7 +239,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
             <main>
 
-                <?php if (!$lockedProfile || $queryFollowingInfo->rowCount() == 1) { ?>
+                <?php
+
+                if ($queryCheckIfUserBlocked->rowCount()) {
+                    echo "<h3 class='text-center margin-top-15'>Bu kullanıcıyı engellediniz.</h3>";
+                } else {
+
+                    if (!$lockedProfile || $queryFollowingInfo->rowCount() == 1) { ?>
 
                 <section>
 
@@ -416,11 +460,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 </section>
 
-            <?php } else { ?>
+            <?php } else { // END OF CHECK IF FOLLOWING THE USER ?>
 
                 <p class="text-center"><b>Bu kullanıcının profili gizli.</b></p>
 
             <?php } ?>
+
+        <?php } ?>
 
             </main>
 

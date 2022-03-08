@@ -81,7 +81,7 @@ if (isset($_POST["update_username"])) {
     }
 
     if (!empty($username_err)) {
-        header("Location: ../$username?usernameChangeError=$username_err");
+        header("Location: ../user/$username?usernameChangeError=$username_err");
     } else {
         header("Location: ../logout.php");
     }
@@ -226,6 +226,39 @@ if (isset($_POST['report_user'])) {
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
         header("Location: /grad-project/user/$profileUsername?reportUser=success");
+
+    }
+}
+
+if (isset($_POST['block_user'])) {
+
+    $userID = htmlspecialchars($_POST["user_id"], ENT_QUOTES);
+    $fromWhere = htmlspecialchars($_POST["from_where"], ENT_QUOTES);
+
+    $reportData = [
+        ":blocker_id"=>$sessionID,
+        ":blocked_id"=>$userID
+    ];
+
+    $query = "INSERT INTO `blocked_users`
+    (
+        `blocker_id`,
+        `blocked_id`
+    )
+    VALUES
+    (
+        :blocker_id,
+        :blocked_id
+    )";
+
+    $reportResult = $pdo->prepare($query);
+    $reportExecute = $reportResult->execute($reportData);
+
+    if ($fromWhere == "Profile Page") {
+
+        $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
+
+        header("Location: /grad-project/user/$profileUsername");
 
     }
 }
