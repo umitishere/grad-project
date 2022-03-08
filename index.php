@@ -11,7 +11,7 @@ $sqlStatementForContents = "SELECT
     FROM contents
     LEFT JOIN users ON contents.publisher_id = users.id
     LEFT JOIN follower ON contents.publisher_id = follower.followed_id
-    WHERE follower.follower_id = '$loggedUserID'
+    WHERE follower.follower_id = '$loggedUserID' OR contents.publisher_id = '$loggedUserID'
     ORDER BY contents.id DESC
 ";
 
@@ -32,7 +32,7 @@ if (isset($_GET['reportContent'])) {
 
         <div class="col-md-9 col-sm-12">
 
-            <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
+        <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
 
             <section class="padding-15 content-share margin-top-15">
                 <form action="/grad-project/includes/content-operations.php" method="post">
@@ -75,7 +75,6 @@ if (isset($_GET['reportContent'])) {
                     <?php
 
                     $contentID = $getLastContents['id'];
-                    $publisherID = $getLastContents['publisher_id'];
 
                     $queryLikesName = "queryLikes" . $contentID;
                     $getLikesName = "getLikes" . $contentID;
@@ -243,8 +242,11 @@ if (isset($_GET['reportContent'])) {
                                             <i class="far fa-share-square"></i>
                                         </button>
 
-                                        <?php $forwardFromWhere = "Home"; ?>
-                                        <?php include("modal-forward-content.php"); ?>
+                                        <?php
+                                            $forwardFromWhere = "Home";
+
+                                            include("modal-forward-content.php");
+                                        ?>
                                     </div>
 
                                     <div class="col-3">
@@ -262,16 +264,16 @@ if (isset($_GET['reportContent'])) {
 
                 </section>
 
-            <?php } else { ?>
+        <?php } else { // Check if user logged in ?>
 
-                <section class="text-center margin-top-15">
-                    <div class="alert alert-primary" role="alert">
-                        Gönderileri görebilmek ve paylaşım yapabilmek için <a href="giris-yap"><b>buraya tıklayarak</b></a> giriş yapabilirsiniz.
-                    </div>
-                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                </section>
+            <section class="text-center margin-top-15">
+                <div class="alert alert-primary" role="alert">
+                    Gönderileri görebilmek ve paylaşım yapabilmek için <a href="giris-yap"><b>buraya tıklayarak</b></a> giriş yapabilirsiniz.
+                </div>
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            </section>
 
-            <?php } ?>
+        <?php } ?>
 
             </main>
 
