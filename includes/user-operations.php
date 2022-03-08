@@ -254,6 +254,9 @@ if (isset($_POST['block_user'])) {
     $reportResult = $pdo->prepare($query);
     $reportExecute = $reportResult->execute($reportData);
 
+    $unfollowWhenBlocked = $pdo->prepare("DELETE FROM follower WHERE follower_id = '$sessionID' AND followed_id = '$userID'");
+    $unfollowExecute = $unfollowWhenBlocked->execute();
+
     if ($fromWhere == "Profile Page") {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
