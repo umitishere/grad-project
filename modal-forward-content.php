@@ -1,14 +1,6 @@
 <?php
 
-$contentID = "";
-
-if ($forwardFromWhere == "Home") {
-    $contentID = $getLastContents['id'];
-} else if ($forwardFromWhere == "Content Detail") {
-    $contentID = $getContentDetail['id'];
-} else if ($forwardFromWhere == "Profile Page") {
-    $contentID = $getLastContents['id'];
-}
+$contentID = $getLastContents['id'];
 
 ?>
 

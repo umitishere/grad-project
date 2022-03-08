@@ -322,6 +322,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 $canSeeComments = true;
                             }
 
+                            $likedFromWhere = "Profile Page";
+                            $commentFromWhere = "Profile Page";
+                            $reportFromWhere = "Profile Page";
+
                             include("content-card.php");
 
                         }

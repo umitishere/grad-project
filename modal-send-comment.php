@@ -1,14 +1,6 @@
 <?php
 
-$contentID = "";
-
-if ($commentFromWhere == "Home") {
-    $contentID = $getLastContents['id'];
-} else if ($commentFromWhere == "Content Detail") {
-    $contentID = $getContentDetail['id'];
-} else if ($commentFromWhere == "Profile Page") {
-    $contentID = $getLastContents['id'];
-}
+$contentID = $getLastContents['id'];
 
 ?>
 

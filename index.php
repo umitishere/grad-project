@@ -100,7 +100,10 @@ if (isset($_GET['reportContent'])) {
                         $canSeeComments = true;
                     }
 
-                    // CONTENT CARD
+                    $likedFromWhere = "Home";
+                    $commentFromWhere = "Home";
+                    $reportFromWhere = "Home";
+
                     include("content-card.php");
 
                 }

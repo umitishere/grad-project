@@ -85,6 +85,8 @@ if (isset($_POST['send_comment'])) {
     $commentDetail = htmlspecialchars($_POST["comment_detail"], ENT_QUOTES);
     $commentedPost = htmlspecialchars($_POST["commented_content"], ENT_QUOTES);
 
+    $fromWhere = $_POST['liked_from_where'];
+
     $commentData = [
         ":comment_sender"=>$sessionID,
         ":commented_post"=>$commentedPost,
@@ -107,8 +109,7 @@ if (isset($_POST['send_comment'])) {
     $pdoResult = $pdo->prepare($query);
     $pdoExecute = $pdoResult->execute($commentData);
 
-    header("Location: /grad-project/anasayfa");
-
+    header("Location: /grad-project/posts/$commentedPost");
 
 }
 
@@ -116,7 +117,7 @@ if (isset($_POST['send_comment'])) {
 if (isset($_POST['like_content'])) {
 
     $contentID = $_POST['liked_content'];
-    $fromWhere = $_POST['to_where'];
+    $fromWhere = $_POST['liked_from_where'];
 
     $queryProfileInfo = $pdo->prepare("SELECT * FROM users
         LEFT JOIN contents
@@ -176,11 +177,11 @@ if (isset($_POST['like_content'])) {
 
     // /SEND NOTIFICATION
 
-    if ($fromWhere == "home") {
+    if ($fromWhere == "Home") {
         header("Location: /grad-project/anasayfa");
-    } else if ($fromWhere == "content_detail") {
+    } else if ($fromWhere == "Content Detail") {
         header("Location: /grad-project/posts/$contentID");
-    } else if ($fromWhere == "profile") {
+    } else if ($fromWhere == "Profile Page") {
         header("Location: /grad-project/user/$profileUsername");
     }
 
@@ -190,7 +191,7 @@ if (isset($_POST['like_content'])) {
 if (isset($_POST['dislike_content'])) {
 
     $contentID = $_POST['liked_content'];
-    $fromWhere = $_POST['to_where'];
+    $fromWhere = $_POST['liked_from_where'];
 
     $queryProfileInfo = $pdo->prepare("SELECT * FROM users
         LEFT JOIN contents
@@ -205,11 +206,11 @@ if (isset($_POST['dislike_content'])) {
     $query = $pdo->prepare("DELETE FROM liked_contents WHERE liked_content = '$contentID' AND who_liked = '$sessionID'");
     $queryExecute = $query->execute();
 
-    if ($fromWhere == "home") {
+    if ($fromWhere == "Home") {
         header("Location: /grad-project/anasayfa");
-    } else if ($fromWhere == "content_detail") {
+    } else if ($fromWhere == "Content Detail") {
         header("Location: /grad-project/posts/$contentID");
-    } else if ($fromWhere == "profile") {
+    } else if ($fromWhere == "Profile Page") {
         header("Location: /grad-project/user/$profileUsername");
     }
 }

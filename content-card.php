@@ -45,7 +45,7 @@
         <form action="/grad-project/includes/content-operations.php" method="post">
 
             <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
-            <input type="hidden" name="to_where" value="home" />
+            <input type="hidden" name="liked_from_where" value="<?php echo $likedFromWhere; ?>" />
 
             <!-- /CONTENT ACTION ICONS SECTION -->
             <section class="margin-top-15 row text-center content-icons">
@@ -97,9 +97,6 @@
                 <!-- /LIKE BUTTON -->
 
                 <?php
-
-                $commentFromWhere = "Home";
-                $reportFromWhere = "Home";
 
                 include("modal-send-comment.php");
 
