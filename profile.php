@@ -27,9 +27,14 @@ if (isset($_GET['usernameChangeError'])) {
 }
 
 $reportContentFeedbackMessage = "";
+$reportUserFeedbackMessage = "";
 
 if (isset($_GET['reportContent'])) {
     $reportContentFeedbackMessage = "Şikayetiniz bize ulaşmıştır. Teşekkür ederiz.";
+}
+
+if (isset($_GET['reportUser'])) {
+    $reportUserFeedbackMessage = "Şikayetiniz bize ulaşmıştır. Teşekkür ederiz.";
 }
 
 $queryFollowers = $pdo->prepare("SELECT * FROM follower WHERE followed_id = '$profileID'");
@@ -153,7 +158,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         ?>
 
                         <section class="text-center margin-top-15">
-                            <button type="submit" class="btn btn-primary" name="unfollow">Takip Ediliyor</button>
+                            <button type="submit" class="btn btn-outline-primary" name="unfollow">Takip Ediliyor</button>
                         </section>
 
                         <?php } else { ?>
@@ -161,13 +166,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             <?php if ($queryFollowRequestInfo->rowCount() != 0) { ?>
 
                                 <section class="text-center margin-top-15">
-                                    <button type="button" class="btn btn-primary" name="request_sent">İstek Gönderildi</button>
+                                    <button type="button" class="btn btn-outline-primary" name="request_sent">İstek Gönderildi</button>
                                 </section>
 
                             <?php } else { ?>
 
                                 <section class="text-center margin-top-15">
-                                    <button type="submit" class="btn btn-primary" name="follow">Takip Et</button>
+                                    <button type="submit" class="btn btn-outline-primary" name="follow">Takip Et</button>
                                 </section>
 
                             <?php } ?>
@@ -178,12 +183,14 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                     <a
                         href="/grad-project/messages/conversation?with=<?php echo $profileID; ?>"
-                        class="btn btn-primary margin-top-15"
+                        class="btn btn-outline-primary margin-top-15"
                         role="button"
                         aria-pressed="true"
                     >
                         Mesaj
                     </a>
+
+                    <?php ((!$myProfile) ? (print("<button class='btn btn-sm btn-outline-danger margin-top-15' data-bs-toggle='modal' data-bs-target='#reportUser'>Şikayet Et / Engelle</button>")) : ""); ?>
 
                 <?php } ?>
             </div>
@@ -204,6 +211,14 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         echo "
                         <div class='margin-top-15 alert alert-success' role='alert'>
                             $reportContentFeedbackMessage
+                        </div>
+                        ";
+                    }
+
+                    if (isset($_GET["reportUser"])) {
+                        echo "
+                        <div class='margin-top-15 alert alert-success' role='alert'>
+                            $reportUserFeedbackMessage
                         </div>
                         ";
                     }
@@ -354,7 +369,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                         $commentFromWhere = "Profile Page";
                                         $reportFromWhere = "Profile Page";
 
-                                        include("modal-send-comment.php");
+                                        require_once("modal-send-comment.php");
+                                        require_once("modal-report-user.php");
 
                                         ($getLastContents['publisher_id'] == $loggedUserID) ? include("modal-edit-content.php") : include("modal-content-settings.php")
                                     ?>

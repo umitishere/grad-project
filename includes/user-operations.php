@@ -196,4 +196,38 @@ if (isset($_POST["comment_visibility"])) {
 
 }
 
+
+if (isset($_POST['report_user'])) {
+
+    $userID = htmlspecialchars($_POST["user_id"], ENT_QUOTES);
+    $fromWhere = htmlspecialchars($_POST["from_where"], ENT_QUOTES);
+
+    $reportData = [
+        ":reporter_id"=>$sessionID,
+        ":reported_user_id"=>$userID
+    ];
+
+    $query = "INSERT INTO `user_reports`
+    (
+        `reporter_id`,
+        `reported_user_id`
+    )
+    VALUES
+    (
+        :reporter_id,
+        :reported_user_id
+    )";
+
+    $reportResult = $pdo->prepare($query);
+    $reportExecute = $reportResult->execute($reportData);
+
+    if ($fromWhere == "Profile Page") {
+
+        $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
+
+        header("Location: /grad-project/user/$profileUsername?reportUser=success");
+
+    }
+}
+
 ?>
