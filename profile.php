@@ -212,6 +212,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                             echo "
                                 <form action='/grad-project/includes/user-operations.php' method='post'>
+
+                                    <input type='hidden' name='userToUnblock' value='$profileID' />
+
                                     <section class='text-center'>
                                         <button type='submit' name='unblock_user' class='btn btn-sm btn-outline-danger margin-top-15'>
                                             Engeli Kaldır

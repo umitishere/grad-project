@@ -266,4 +266,23 @@ if (isset($_POST['block_user'])) {
     }
 }
 
+
+if (isset($_POST['unblock_user'])) {
+
+    $blockedUserID = htmlspecialchars($_POST["userToUnblock"], ENT_QUOTES);
+
+    $queryUserDetails = $pdo->prepare("SELECT * FROM users WHERE id = '$blockedUserID'");
+    $queryUserDetails->execute();
+
+    $getUserDetails = $queryUserDetails->fetch(PDO::FETCH_ASSOC);
+
+    $profileUsername = $getUserDetails['username'];
+
+    $query = $pdo->prepare("DELETE FROM blocked_users WHERE blocker_id = '$sessionID' AND blocked_id = '$blockedUserID'");
+    $queryExecute = $query->execute();
+
+    header("Location: ../user/$profileUsername");
+
+}
+
 ?>
