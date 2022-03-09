@@ -99,6 +99,20 @@ if (isset($_POST['follow'])) {
 }
 
 
+if (isset($_POST['accept_follow_request'])) {
+
+
+
+}
+
+
+if (isset($_POST['decline_follow_request'])) {
+
+
+
+}
+
+
 if (isset($_POST['unfollow'])) {
 
     $followedPersonID = htmlspecialchars($_POST["followed_id"], ENT_QUOTES);

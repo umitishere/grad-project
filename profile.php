@@ -40,6 +40,8 @@ if (isset($_GET['reportUser'])) {
     $reportUserFeedbackMessage = "Şikayetiniz bize ulaşmıştır. Teşekkür ederiz.";
 }
 
+// ------------------------ FOLLOW QUERIES ------------------------
+
 $queryFollowers = $pdo->prepare("SELECT * FROM follower WHERE followed_id = '$profileID'");
 $queryFollowers->execute();
 
@@ -48,6 +50,19 @@ $queryFollowing->execute();
 
 $numberOfFollowers = $queryFollowers->rowCount();
 $numberOfFollowing = $queryFollowing->rowCount();
+
+$sqlFollowRequests = "SELECT follow_requests.*, users.id AS user_id,
+    users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
+    FROM follow_requests
+    LEFT JOIN users ON follow_requests.request_sender = users.id
+    WHERE follow_requests.request_getter = '$loggedUserID' AND follow_requests.isAccepted = '0'
+    ORDER BY follow_requests.request_id DESC";
+$queryFollowRequests = $pdo->prepare($sqlFollowRequests);
+$queryFollowRequests->execute();
+
+$numberOfFollowRequests = $queryFollowRequests->rowCount();
+
+// ------------------------ /FOLLOW QUERIES ------------------------
 
 if (!empty($usernameChangeError)) {
 
@@ -157,7 +172,19 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 } // END OF CHECK IF USER IS BLOCKED
 
-                ($myProfile ? print("<button class='btn btn-sm btn-outline-primary margin-top-15' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : "");
+                if ($myProfile) {
+                    echo "
+                        <button class='btn btn-sm btn-outline-primary margin-top-15' data-bs-toggle='modal' data-bs-target='#editProfile'>
+                            Profili Düzenle
+                        </button>
+                        ";
+
+                    echo "
+                        <button class='btn btn-sm btn-outline-primary margin-top-15' data-bs-toggle='modal' data-bs-target='#followRequests'>
+                            Takip İstekleri <span class='badge bg-danger'>$numberOfFollowRequests</span>
+                        </button>
+                        ";
+                }
 
                 if (!$myProfile) {
 
@@ -353,6 +380,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
 include("modal-edit-profile.php");
 include("modal-follower-list.php");
+include("modal-follow-requests.php");
 
 require_once("includes/footer.php");
 
