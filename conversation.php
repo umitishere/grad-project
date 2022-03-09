@@ -76,12 +76,12 @@ $queryMessages->execute();
 
             <?php } else { ?>
 
-                <section class="margin-top-15 card padding-15">
-                    <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right') : print('text-on-left') ?>">
+                <section class="margin-top-15 padding-15">
+                    <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right margin-left-message') : print('text-on-left margin-right-message') ?>">
                         <span><img class="image-message-sender" src="/grad-project/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                     </div>
-                    <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right') : print('text-on-left') ?>">
+                    <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right margin-left-message ') : print('text-on-left margin-right-message') ?>">
                         <div class="<?php ($getMessages['message_sender'] == $myID) ? print('message-box-1') : print('message-box-2') ?> padding-15 margin-top-15">
                             <?php echo $getMessages['message_detail']; ?>
                         </div>

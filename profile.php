@@ -157,7 +157,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 } // END OF CHECK IF USER IS BLOCKED
 
-                ($myProfile ? print("<button class='btn btn-sm btn-secondary margin-top-15' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : "");
+                ($myProfile ? print("<button class='btn btn-sm btn-outline-primary margin-top-15' data-bs-toggle='modal' data-bs-target='#editProfile'>Profili Düzenle</button>") : "");
 
                 if (!$myProfile) {
 

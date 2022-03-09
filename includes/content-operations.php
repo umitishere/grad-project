@@ -48,6 +48,8 @@ if (isset($_POST['report_content'])) {
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
         header("Location: /grad-project/user/$profileUsername?reportContent=success");
+    } else if ($fromWhere == "Liked Contents") {
+        header("Location: /grad-project/begendigim-gonderiler?reportContent=success");
     }
 
 }
@@ -183,6 +185,8 @@ if (isset($_POST['like_content'])) {
         header("Location: /grad-project/posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
         header("Location: /grad-project/user/$profileUsername");
+    } else if ($fromWhere == "Liked Contents") {
+        header("Location: /grad-project/begendigim-gonderiler");
     }
 
 }
@@ -212,6 +216,8 @@ if (isset($_POST['dislike_content'])) {
         header("Location: /grad-project/posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
         header("Location: /grad-project/user/$profileUsername");
+    } else if ($fromWhere == "Liked Contents") {
+        header("Location: /grad-project/begendigim-gonderiler");
     }
 }
 

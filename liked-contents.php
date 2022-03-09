@@ -14,6 +14,12 @@ $sqlStatement = "SELECT contents.*, liked_contents.*, users.id AS user_id,
 $queryLastContents = $pdo->prepare($sqlStatement);
 $queryLastContents->execute();
 
+$reportContentFeedbackMessage = "";
+
+if (isset($_GET['reportContent'])) {
+    $reportContentFeedbackMessage = "Şikayetiniz bize ulaşmıştır. Teşekkür ederiz.";
+}
+
 ?>
 
 <div class="container">
@@ -29,7 +35,15 @@ $queryLastContents->execute();
                     <h3 class="margin-top-15 text-center">Beğendiğim Gönderiler</h3>
                     <hr />
 
-                    <?php
+                    <?php 
+
+                    if (isset($_GET["reportContent"])) {
+                        echo "
+                        <div class='margin-top-15 alert alert-success' role='alert'>
+                            $reportContentFeedbackMessage
+                        </div>
+                        ";
+                    }
 
                     while($getLastContents = $queryLastContents->fetch(PDO::FETCH_ASSOC)) {
 
@@ -53,6 +67,10 @@ $queryLastContents->execute();
                         } else {
                             $canSeeComments = true;
                         }
+
+                        $likedFromWhere = "Liked Contents";
+                        $commentFromWhere = "Liked Contents";
+                        $reportFromWhere = "Liked Contents";
 
                         include("content-card.php");
 
