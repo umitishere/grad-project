@@ -10,20 +10,20 @@
 
         <form method="post" action="/grad-project/includes/user-operations.php">
 
-            <?php ($reportFromWhere == "Profile Page") ? (print("<input type='hidden' name='profile_username' value='$profileUsername' />")) : (print('')) ?>
+            <?php ($fromWhere == "Profile Page") ? (print("<input type='hidden' name='profile_username' value='$profileUsername' />")) : (print('')) ?>
 
             <input type="hidden" name="user_id" value="<?php echo $profileID; ?>" />
-            <input type="hidden" name="from_where" value="<?php echo $reportFromWhere; ?>" />
+            <input type="hidden" name="from_where" value="<?php echo $fromWhere; ?>" />
 
-            <hr />
+            <section class="text-center">
+                <button type="submit" name="report_user" class="btn btn-outline-danger" type="button">
+                    Kullanıcıyı Şikayet Et
+                </button>
 
-            <button type="submit" name="report_user" class="btn btn-outline-danger" type="button">
-                Kullanıcıyı Şikayet Et
-            </button>
-
-            <button type="submit" name="block_user" class="btn btn-outline-danger" type="button">
-                Kullanıcıyı Engelle
-            </button>
+                <button type="submit" name="block_user" class="btn btn-outline-danger" type="button">
+                    Kullanıcıyı Engelle
+                </button>
+            </section>
 
         </form>
 

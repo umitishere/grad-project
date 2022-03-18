@@ -17,3 +17,5 @@ RewriteRule ^posts/([0-9a-zA-Z-_]+)$ content-detail.php?contentID=$1 [L,QSA]
 
 RewriteRule ^messages/conversation$ conversation.php?with=$1 [L,QSA]
 RewriteRule ^messages/gelen-kutusu$ inbox.php [L,QSA]
+
+RewriteRule ^arama-sonucu$ user-search-results.php [L,QSA]

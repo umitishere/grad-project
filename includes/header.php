@@ -130,9 +130,26 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             </ul>
                         </li>
 
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+
+                            <form method="get" action="/grad-project/arama-sonucu">
+                                <div class="input-group mb-3 margin-top-15">
+                                    <input type="text" name="username_to_search" class="form-control" placeholder="Kullanıcı ara...">
+                                    <button class="btn btn-outline-dark" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                        </li>
+                    </ul>
+
+
                         <?php } ?>
 
-                    </ul>
                     <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
                         <li class="nav-item dropdown">

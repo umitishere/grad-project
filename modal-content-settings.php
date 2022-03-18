@@ -14,7 +14,6 @@
             <input type="hidden" name="content_id" value="<?php echo $contentID; ?>" />
             <input type="hidden" name="from_where" value="<?php echo $reportFromWhere; ?>" />
 
-            <hr />
             <button type="submit" name="report_content" class="btn btn-outline-danger" type="button">
                 Gönderiyi Şikayet Et
             </button>

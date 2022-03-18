@@ -30,8 +30,6 @@ $contentID = $getLastContents['id'];
 
             <input type="hidden" name="content_id" value="<?php echo $contentID; ?>" />
 
-            <hr />
-
             <p class="text-center margin-top-10 font-16">Gönderiler sadece takip edilenlerle paylaşılabilir.</p>
 
             <?php while ($getFollowedByMe = $queryFollowedByMe->fetch(PDO::FETCH_ASSOC)) { ?>

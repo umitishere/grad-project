@@ -9,6 +9,8 @@ $profileUsername = $_GET["username"];
 $errorMessage = "";
 $myUsername = $_SESSION["username"];
 
+$fromWhere = "Profile Page";
+
 $pageTitle = $profileUsername . " profili | Grad Project";
 
 require_once("includes/header.php");
@@ -381,6 +383,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 include("modal-edit-profile.php");
 include("modal-follower-list.php");
 include("modal-follow-requests.php");
+include("modal-report-user.php");
 
 require_once("includes/footer.php");
 

@@ -13,7 +13,6 @@
             <input type="hidden" name="content_id" value="<?php echo $getLastContents['id']; ?>" />
             <input type="hidden" name="from_where" value="home" />
 
-            <hr />
             <button type="submit" name="delete_content" class="btn btn-outline-danger" type="button">
                 Gönderiyi Sil
             </button>
