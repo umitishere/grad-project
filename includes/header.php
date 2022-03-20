@@ -86,7 +86,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             ?>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link active" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="badge bg-light text-dark font-20">
                                     <i class="fas fa-bell"></i>
                                 </span>
@@ -153,13 +153,12 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
                         <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link active" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="badge bg-light text-dark font-16">
                                     <img
                                         style="border-radius: 100%;"
                                         src="/grad-project/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
                                         width="25px" height="25px" />
-                                    <?php echo $getUserInfo["username"]; ?>
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -185,7 +184,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/user/<?php echo $loggedUsername; ?>">
+                                    <a class="dropdown-item" href="/grad-project/kaydettigim-gonderiler">
                                         <i class="far fa-plus-square"></i> Kaydettiklerim
                                     </a>
                                 </li>

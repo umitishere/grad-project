@@ -98,21 +98,6 @@ if (isset($_POST['follow'])) {
 
 }
 
-
-if (isset($_POST['accept_follow_request'])) {
-
-
-
-}
-
-
-if (isset($_POST['decline_follow_request'])) {
-
-
-
-}
-
-
 if (isset($_POST['unfollow'])) {
 
     $followedPersonID = htmlspecialchars($_POST["followed_id"], ENT_QUOTES);
@@ -128,6 +113,50 @@ if (isset($_POST['unfollow'])) {
     $queryExecute = $query->execute();
 
     header("Location: ../user/$profileUsername");
+}
+
+
+if (isset($_POST['accept_follow_request'])) {
+
+    $requestSender = htmlspecialchars($_POST["request_sender"], ENT_QUOTES);
+
+    $followerData = [
+        ":follower_id"=>$requestSender,
+        ":followed_id"=>$sessionID
+    ];
+
+    $query = "INSERT INTO `follower`
+    (
+        `follower_id`,
+        `followed_id`
+    )
+    VALUES
+    (
+        :follower_id,
+        :followed_id
+    )";
+
+    $pdoResult = $pdo->prepare($query);
+    $pdoExecute = $pdoResult->execute($followerData);
+
+    // DELETE FOLLOW REQUEST AFTER ACCEPTING
+    $queryDeleteRequest = $pdo->prepare("DELETE FROM follow_requests WHERE request_sender = '$requestSender' AND request_getter = '$sessionID'");
+    $queryExecute2 = $queryDeleteRequest->execute();
+
+    header("Location: ../user/$username");
+
+}
+
+
+if (isset($_POST['decline_follow_request'])) {
+
+    $requestSender = htmlspecialchars($_POST["request_sender"], ENT_QUOTES);
+
+    $query = $pdo->prepare("DELETE FROM follow_requests WHERE request_sender = '$requestSender' AND request_getter = '$sessionID'");
+    $queryExecute = $query->execute();
+
+    header("Location: ../user/$username");
+
 }
 
 ?>

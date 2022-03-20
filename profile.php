@@ -8,6 +8,7 @@ $myProfile = false;
 $profileUsername = $_GET["username"];
 $errorMessage = "";
 $myUsername = $_SESSION["username"];
+$profileID = "";
 
 $fromWhere = "Profile Page";
 
@@ -20,7 +21,26 @@ $profileInfo->execute();
 
 $getProfileInfo = $profileInfo->fetch(PDO::FETCH_ASSOC);
 
-$profileID = $getProfileInfo['id'];
+$chekIfUserExists = "SELECT id FROM users WHERE username = :username";
+
+if($stmt = $pdo->prepare($chekIfUserExists)) {
+
+    $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
+    $param_username = trim($profileUsername);
+
+    if($stmt->execute()){
+        if ($stmt->rowCount() == 1) {
+            $errorMessage = "";
+        } else{
+            $errorMessage = "Aradığınız kullanıcı bulunamadı.";
+        }
+    }
+
+}
+
+if (empty($errorMessage)) {
+    $profileID = $getProfileInfo['id'];
+}
 
 $queryCheckIfUserBlocked = $pdo->prepare("SELECT * FROM blocked_users WHERE blocker_id = '$loggedUserID' AND blocked_id = '$profileID'");
 $queryCheckIfUserBlocked->execute();
@@ -78,32 +98,17 @@ if (!empty($usernameChangeError)) {
 
 <?php }
 
-$chekIfUserExists = "SELECT id FROM users WHERE username = :username";
-
-if($stmt = $pdo->prepare($chekIfUserExists)) {
-
-    $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
-    $param_username = trim($profileUsername);
-
-    if($stmt->execute()){
-        if ($stmt->rowCount() == 1) {
-            $errorMessage = "";
-        } else{
-            $errorMessage = "Aradığınız kullanıcı bulunamadı.";
-        }
-    }
-
-}
-
 $lockedProfile = false;
 
 $queryFollowingInfo = $pdo->prepare("SELECT * FROM follower WHERE follower_id = '$loggedUserID' AND followed_id = '$profileID'");
 $queryFollowingInfo->execute();
 
-if ($getProfileInfo['profile_lock'] == 1 && $profileID != $loggedUserID) {
-    $lockedProfile = true;
-} else {
-    $lockedProfile = false;
+if (empty($errorMessage)) {
+    if ($getProfileInfo['profile_lock'] == 1 && $profileID != $loggedUserID) {
+        $lockedProfile = true;
+    } else {
+        $lockedProfile = false;
+    }
 }
 
 $sqlStatementLastContents = "SELECT contents.*, users.id AS user_id,
@@ -361,7 +366,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                     } else { // END OF CHECK IF FOLLOWING THE USER
 
-                        echo "<p class='text-center'><b>Bu kullanıcının profili gizli.</b></p>";
+                        echo "<p class='text-center margin-top-10'><b>Bu kullanıcının profili gizli.</b></p>";
 
                     }
 

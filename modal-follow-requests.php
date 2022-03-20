@@ -34,13 +34,21 @@
                           </a>
                       </div>
                     </div>
+
                     <div class="col-4 text-center">
-                        <button type="submit" name="accept_follow_request" class="btn btn-success">
-                            <i class="fas fa-check"></i>
-                        </button>
-                        <button type="submit" name="decline_follow_request" class="btn btn-danger">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        <form action="/grad-project/includes/follower-operations.php" method="post"> 
+
+                            <input type="hidden" name="request_sender" value="<?php echo $getFollowRequests['user_id'] ?>" />
+
+                            <button type="submit" name="accept_follow_request" class="btn btn-success">
+                                <i class="fas fa-check"></i>
+                            </button>
+
+                            <button type="submit" name="decline_follow_request" class="btn btn-danger">
+                                <i class="fas fa-times"></i>
+                            </button>
+
+                        </form>
                     </div>
 
 
