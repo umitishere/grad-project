@@ -5,6 +5,8 @@ $projectName = "grad-project";
 
 require_once("config.php");
 
+require_once("classes/User.php");
+
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -18,6 +20,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     $getUserInfo = $queryUserInfo->fetch(PDO::FETCH_ASSOC);
 
     $loggedUsername = $getUserInfo["username"];
+
+    $userLoggedInObj = new User($pdo, $loggedUsername);
 }
 
 ?>
