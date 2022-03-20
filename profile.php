@@ -10,6 +10,10 @@ $errorMessage = "";
 $myUsername = $_SESSION["username"];
 $profileID = "";
 
+$userIsBlocked = "";
+$userBlockedMe = "";
+
+
 $fromWhere = "Profile Page";
 
 $pageTitle = $profileUsername . " profili | Grad Project";
@@ -44,6 +48,17 @@ if (empty($errorMessage)) {
 
 $queryCheckIfUserBlocked = $pdo->prepare("SELECT * FROM blocked_users WHERE blocker_id = '$loggedUserID' AND blocked_id = '$profileID'");
 $queryCheckIfUserBlocked->execute();
+
+$queryCheckIfUserBlockedMe = $pdo->prepare("SELECT * FROM blocked_users WHERE blocker_id = '$profileID' AND blocked_id = '$loggedUserID'");
+$queryCheckIfUserBlockedMe->execute();
+
+if ($queryCheckIfUserBlockedMe->rowCount()) {
+    $userBlockedMe = "Yes";
+}
+
+if ($queryCheckIfUserBlocked->rowCount()) {
+    $userIsBlocked = "Yes";
+}
 
 $usernameChangeError = "";
 
@@ -155,7 +170,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
 
-                <?php if (!$queryCheckIfUserBlocked->rowCount()) { ?>
+                <?php if ($userIsBlocked != "Yes" && $userBlockedMe != "Yes") { ?>
 
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
 
@@ -215,7 +230,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     );
                     $queryFollowRequestInfo->execute();
 
-                    if (!$queryCheckIfUserBlocked->rowCount()) {
+                    if ($userIsBlocked != "Yes" && $userBlockedMe != "Yes") {
 
                         if ($queryFollowInfo->rowCount() == 1) {
 
@@ -257,7 +272,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 </form>
 
 <?php
-                    if (!$queryCheckIfUserBlocked->rowCount()) {
+                    if ($userIsBlocked != "Yes" && $userBlockedMe != "Yes") {
 ?>
 
                     <a
@@ -272,7 +287,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 <?php
                     }
 
-                    if ($queryCheckIfUserBlocked->rowCount()) {
+                    if ($userIsBlocked == "Yes") {
 
                             echo "
                                 <form action='/grad-project/includes/user-operations.php' method='post'>
@@ -313,6 +328,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 if ($queryCheckIfUserBlocked->rowCount()) {
                     echo "<h3 class='text-center margin-top-15'>Bu kullanıcıyı engellediniz.</h3>";
+                } else if ($queryCheckIfUserBlockedMe->rowCount()) {
+                    echo "<h3 class='text-center margin-top-15'>Bu kullanıcı tarafından engellediniz.</h3>";
                 } else {
 
                     if (!$lockedProfile || $queryFollowingInfo->rowCount() == 1) {
