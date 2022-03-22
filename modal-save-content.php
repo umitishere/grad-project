@@ -46,7 +46,7 @@ $contentID = $getLastContents['id'];
 
                         <section class="col-2">
 
-                            <form action="/grad-project/includes/send-message.php" method="post">
+                            <form action="/includes/send-message.php" method="post">
 
                                 <input type="hidden" name="message_getter" value="<?php // echo $getFollowedByMe['followed_id']; ?>" />
                                 <input type="hidden" name="message_detail" value="<?php echo $contentID; ?>" />
