@@ -46,14 +46,15 @@ $contentID = $getLastContents['id'];
 
                         <section class="col-2">
 
-                            <form action="/includes/send-message.php" method="post">
+                            <form action="/grad-project/includes/content-operations.php" method="post">
 
-                                <input type="hidden" name="message_getter" value="<?php // echo $getFollowedByMe['followed_id']; ?>" />
-                                <input type="hidden" name="message_detail" value="<?php echo $contentID; ?>" />
-                                <input type="hidden" name="isThisPost" value="1" />
+                                <input type="hidden" name="saved_content_id" value="<?php echo $contentID; ?>" />
+                                <input type="hidden" name="list_name" value="<?php echo $getSavedLists["list_name"]; ?>" />
+                                <input type="hidden" name="from_where" value="<?php echo $reportFromWhere; ?>" />
+                                <input type="hidden" name="profile_username" value="<?php echo $getLastContents['username']; ?>" />
 
-                                <button type="submit" name="send_message" class="btn btn-outline-primary" type="button">
-                                    <i class="fas fa-paper-plane"></i>
+                                <button type="submit" name="save_to_existing_list" class="btn btn-outline-primary" type="button">
+                                    <i class="far fa-plus-square"></i>
                                 </button>
 
                             </form>
@@ -65,6 +66,28 @@ $contentID = $getLastContents['id'];
                 </section>
 
             <?php } ?>
+
+            <hr />
+            <p class="text-center font-16 margin-top-15">Yeni Liste Oluştur ve Kaydet</p>
+
+            <form action="/grad-project/includes/content-operations.php" method="post">
+
+                <input type="hidden" name="saved_content_id" value="<?php echo $contentID; ?>" />
+                <input type="hidden" name="from_where" value="<?php echo $reportFromWhere; ?>" />
+                <input type="hidden" name="profile_username" value="<?php echo $getLastContents['username']; ?>" />
+
+                <div class="input-group">
+                    <input
+                        name="list_name"
+                        type="text"
+                        class="form-control"
+                    />
+                    <button class="btn btn-outline-primary" type="submit" name="save_to_new_list">
+                        <i class="far fa-plus-square"></i>
+                    </button>
+                </div>
+
+            </form>
 
       </div>
       <div class="modal-footer">
