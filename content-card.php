@@ -145,7 +145,24 @@
 
                 <!-- SAVE CONTENT BUTTON -->
                 <div class="col-3">
-                    <i class="far fa-plus-square"></i>
+
+                    <button
+                        type="button"
+                        class="content-button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#saveContent<?php echo $getLastContents['id']; ?>"
+                    >
+                        <i class="far fa-plus-square"></i>
+                    </button>
+
+                    <?php
+
+                    $forwardFromWhere = "Home";
+
+                    include("modal-save-content.php");
+
+                    ?>
+
                 </div>
                 <!-- /SAVE CONTENT BUTTON -->
 
