@@ -69,7 +69,7 @@ if (isset($_POST['follow'])) {
 
     // SEND NOTIFICATION
 
-    $notificationDetail = "<a style='text-decoration: none;' href='/$rootPath/user/$username'><b>$username</b></a> seni takip etmeye başladı.";
+    $notificationDetail = "<a style='text-decoration: none;' href='../user/$username'><b>$username</b></a> seni takip etmeye başladı.";
 
     $notificationData = [
         ":notification_detail"=>$notificationDetail,
@@ -93,7 +93,7 @@ if (isset($_POST['follow'])) {
     // /SEND NOTIFICATION
 
 
-    header("Location: /$rootPath/user/$profileUsername");
+    header("Location: ../user/$profileUsername");
 
 
 }
@@ -112,7 +112,7 @@ if (isset($_POST['unfollow'])) {
     $query = $pdo->prepare("DELETE FROM follower WHERE follower_id = '$sessionID' AND followed_id = '$followedPersonID'");
     $queryExecute = $query->execute();
 
-    header("Location: /$rootPath/user/$profileUsername");
+    header("Location: ../user/$profileUsername");
 }
 
 
@@ -143,7 +143,7 @@ if (isset($_POST['accept_follow_request'])) {
     $queryDeleteRequest = $pdo->prepare("DELETE FROM follow_requests WHERE request_sender = '$requestSender' AND request_getter = '$sessionID'");
     $queryExecute2 = $queryDeleteRequest->execute();
 
-    header("Location: /$rootPath/user/$username");
+    header("Location: ../user/$username");
 
 }
 
@@ -155,7 +155,7 @@ if (isset($_POST['decline_follow_request'])) {
     $query = $pdo->prepare("DELETE FROM follow_requests WHERE request_sender = '$requestSender' AND request_getter = '$sessionID'");
     $queryExecute = $query->execute();
 
-    header("Location: /$rootPath/user/$username");
+    header("Location: ../user/$username");
 
 }
 

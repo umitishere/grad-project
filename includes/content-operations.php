@@ -40,16 +40,16 @@ if (isset($_POST['report_content'])) {
     $reportExecute = $reportResult->execute($reportData);
 
     if ($fromWhere == "Home") {
-        header("Location: /$rootPath/anasayfa?reportContent=success");
+        header("Location: ../anasayfa?reportContent=success");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /$rootPath/posts/$contentID?reportContent=success");
+        header("Location: ../posts/$contentID?reportContent=success");
     } else if ($fromWhere == "Profile Page") {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /$rootPath/user/$profileUsername?reportContent=success");
+        header("Location: ../user/$profileUsername?reportContent=success");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /$rootPath/begendigim-gonderiler?reportContent=success");
+        header("Location: ../begendigim-gonderiler?reportContent=success");
     }
 
 }
@@ -77,7 +77,7 @@ if (isset($_POST['create_content'])) {
     $pdoResult = $pdo->prepare($query);
     $pdoExecute = $pdoResult->execute($contentData);
 
-    header("Location: /$rootPath/anasayfa");
+    header("Location: ../anasayfa");
 
 
 }
@@ -111,7 +111,7 @@ if (isset($_POST['send_comment'])) {
     $pdoResult = $pdo->prepare($query);
     $pdoExecute = $pdoResult->execute($commentData);
 
-    header("Location: /$rootPath/posts/$commentedPost");
+    header("Location: ../posts/$commentedPost");
 
 }
 
@@ -154,9 +154,9 @@ if (isset($_POST['like_content'])) {
     // SEND NOTIFICATION
 
     $notificationDetail = "
-        <a style='text-decoration: none;' href='/$rootPath/user/$username'>
+        <a style='text-decoration: none;' href='../user/$username'>
             <b>$username</b>
-        </a> <a style='text-decoration: none; color: white;' href='/$rootPath/posts/$contentID'><b>gönderini beğendi.</b></a>";
+        </a> <a style='text-decoration: none; color: white;' href='../posts/$contentID'><b>gönderini beğendi.</b></a>";
 
     $notificationData = [
         ":notification_detail"=>$notificationDetail,
@@ -180,13 +180,13 @@ if (isset($_POST['like_content'])) {
     // /SEND NOTIFICATION
 
     if ($fromWhere == "Home") {
-        header("Location: /$rootPath/anasayfa");
+        header("Location: ../anasayfa");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /$rootPath/posts/$contentID");
+        header("Location: ../posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
-        header("Location: /$rootPath/user/$profileUsername");
+        header("Location: ../user/$profileUsername");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /$rootPath/begendigim-gonderiler");
+        header("Location: ../begendigim-gonderiler");
     }
 
 }
@@ -211,13 +211,13 @@ if (isset($_POST['dislike_content'])) {
     $queryExecute = $query->execute();
 
     if ($fromWhere == "Home") {
-        header("Location: /$rootPath/anasayfa");
+        header("Location: ../anasayfa");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /$rootPath/posts/$contentID");
+        header("Location: ../posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
-        header("Location: /$rootPath/user/$profileUsername");
+        header("Location: ../user/$profileUsername");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /$rootPath/begendigim-gonderiler");
+        header("Location: ../begendigim-gonderiler");
     }
 }
 
@@ -228,7 +228,7 @@ if (isset($_POST['delete_content'])) {
     $query = $pdo->prepare("DELETE FROM contents WHERE id = '$contentID'");
     $queryExecute = $query->execute();
 
-    header("Location: /$rootPath/anasayfa");
+    header("Location: ../anasayfa");
 }
 
 
@@ -263,16 +263,16 @@ if (isset($_POST['save_to_new_list'])) {
     $saveExecute = $saveResult->execute($saveContentData);
 
     if ($fromWhere == "Home") {
-        header("Location: /$rootPath/anasayfa");
+        header("Location: ../anasayfa");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /$rootPath/posts/$contentID");
+        header("Location: ../posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /$rootPath/user/$profileUsername");
+        header("Location: ../user/$profileUsername");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /$rootPath/begendigim-gonderiler");
+        header("Location: ../begendigim-gonderiler");
     }
 
 }
@@ -308,16 +308,16 @@ if (isset($_POST['save_to_existing_list'])) {
     $saveExecute = $saveResult->execute($saveContentData);
 
     if ($fromWhere == "Home") {
-        header("Location: /$rootPath/anasayfa");
+        header("Location: ../anasayfa");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /$rootPath/posts/$contentID");
+        header("Location: ../posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /$rootPath/user/$profileUsername");
+        header("Location: ../user/$profileUsername");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /$rootPath/begendigim-gonderiler");
+        header("Location: ../begendigim-gonderiler");
     }
 
 }
@@ -334,18 +334,18 @@ if (isset($_POST['remove_from_saved_contents'])) {
     $queryExecute = $query->execute();
 
     if ($fromWhere == "Home") {
-        header("Location: /$rootPath/anasayfa");
+        header("Location: ../anasayfa");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /$rootPath/posts/$contentID");
+        header("Location: ../posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /$rootPath/user/$profileUsername");
+        header("Location: ../user/$profileUsername");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /$rootPath/begendigim-gonderiler");
+        header("Location: ../begendigim-gonderiler");
     } else if ($fromWhere = "Saved Contents") {
-        header("Location: /$rootPath/kaydettigim-gonderiler");
+        header("Location: ../kaydettigim-gonderiler");
     }
 
 }

@@ -59,7 +59,7 @@ $queryMessages->execute();
 
             <section class="margin-top-15 card padding-15">
                 <div>
-                    <span><img class="image-message-sender" src="/<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
+                    <span><img class="image-message-sender" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                     <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                 </div>
 
@@ -72,7 +72,7 @@ $queryMessages->execute();
 
                 <section class="margin-top-15 card padding-15">
                     <div>
-                        <span><img class="image-message-sender" src="/<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
+                        <span><img class="image-message-sender" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                     </div>
 

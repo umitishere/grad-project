@@ -146,7 +146,7 @@ if (isset($_POST["update_profile_lock"])) {
     $query = $pdo->prepare("UPDATE users SET profile_lock = '$newStatus' WHERE id = '$sessionID'");
     $queryExeute = $query->execute();
 
-    header("Location: /$rootPath/ayarlar");
+    header("Location: ../ayarlar");
 
 }
 
@@ -157,7 +157,7 @@ if (isset($_POST["update_like_visibility"])) {
     $query = $pdo->prepare("UPDATE users SET like_visibility = '$newStatus' WHERE id = '$sessionID'");
     $queryExeute = $query->execute();
 
-    header("Location: /$rootPath/ayarlar");
+    header("Location: ../ayarlar");
 
 }
 
@@ -168,7 +168,7 @@ if (isset($_POST["comment_visibility"])) {
     $query = $pdo->prepare("UPDATE users SET comment_visibility = '$newStatus' WHERE id = '$sessionID'");
     $queryExeute = $query->execute();
 
-    header("Location: /$rootPath/ayarlar");
+    header("Location: ../ayarlar");
 
 }
 
@@ -201,7 +201,7 @@ if (isset($_POST['report_user'])) {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /$rootPath/user/$profileUsername?reportUser=success");
+        header("Location: ../user/$profileUsername?reportUser=success");
 
     }
 }
@@ -237,7 +237,7 @@ if (isset($_POST['block_user'])) {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /$rootPath/user/$profileUsername");
+        header("Location: ../user/$profileUsername");
 
     }
 }

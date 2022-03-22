@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="/<?php echo $rootPath; ?>/includes/user-operations.php" enctype="multipart/form-data">
+        <form method="post" action="<?php echo $rootPath; ?>/includes/user-operations.php" enctype="multipart/form-data">
 
             <label for="update-profile-photo">Profil Fotoğrafı</label>
             <div class="input-group">
