@@ -323,4 +323,32 @@ if (isset($_POST['save_to_existing_list'])) {
 }
 
 
+
+if (isset($_POST['remove_from_saved_contents'])) {
+
+    $contentID = htmlspecialchars($_POST["liked_content"], ENT_QUOTES);
+    $fromWhere = htmlspecialchars($_POST["liked_from_where"], ENT_QUOTES);
+    $profileUsername = htmlspecialchars($_POST["profile_username"], ENT_QUOTES);
+
+    $query = $pdo->prepare("DELETE FROM saved_contents WHERE saved_content_id = '$contentID' AND saver_id = '$sessionID'");
+    $queryExecute = $query->execute();
+
+    if ($fromWhere == "Home") {
+        header("Location: /grad-project/anasayfa");
+    } else if ($fromWhere == "Content Detail") {
+        header("Location: /grad-project/posts/$contentID");
+    } else if ($fromWhere == "Profile Page") {
+
+        $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
+
+        header("Location: /grad-project/user/$profileUsername");
+    } else if ($fromWhere == "Liked Contents") {
+        header("Location: /grad-project/begendigim-gonderiler");
+    } else if ($fromWhere = "Saved Contents") {
+        header("Location: /grad-project/kaydettigim-gonderiler");
+    }
+
+}
+
+
 ?>

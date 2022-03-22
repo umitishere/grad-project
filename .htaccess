@@ -7,6 +7,7 @@ RewriteRule ^uye-ol$ register.php [L,QSA]
 RewriteRule ^oturumu-kapat$ logout.php [L,QSA]
 
 RewriteRule ^begendigim-gonderiler$ liked-contents.php [L,QSA]
+RewriteRule ^kaydettigim-gonderiler$ saved-contents.php [L,QSA]
 RewriteRule ^yaptigim-yorumlar$ my-comments.php [L,QSA]
 
 RewriteRule ^ayarlar$ settings.php [L,QSA]

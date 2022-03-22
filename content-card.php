@@ -46,6 +46,7 @@
 
             <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
             <input type="hidden" name="liked_from_where" value="<?php echo $likedFromWhere; ?>" />
+            <input type="hidden" name="profile_username" value="<?php echo $getLastContents['username']; ?>" />
 
             <!-- /CONTENT ACTION ICONS SECTION -->
             <section class="margin-top-15 row text-center content-icons">
@@ -146,6 +147,31 @@
                 <!-- SAVE CONTENT BUTTON -->
                 <div class="col-3">
 
+                    <?php
+
+                    $savedContent = $getLastContents['id'];
+
+                    $queryIsSaved = $pdo->prepare(
+                        "SELECT * FROM saved_contents
+                        WHERE saved_content_id = $savedContent
+                        AND saver_id = $loggedUserID
+                    ");
+                    $queryIsSaved->execute();
+
+                    if ($queryIsSaved->rowCount() == 1) {
+
+                    ?>
+
+                    <button
+                        type="submit"
+                        class="content-button"
+                        name="remove_from_saved_contents"
+                    >
+                        <i class="fas fa-plus-square"></i>
+                    </button>
+
+<?php               } else { ?>
+
                     <button
                         type="button"
                         class="content-button"
@@ -156,6 +182,8 @@
                     </button>
 
                     <?php
+
+                    }
 
                     $forwardFromWhere = "Home";
 
