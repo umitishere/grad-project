@@ -47,10 +47,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <script src="https://kit.fontawesome.com/05e9384002.js" crossorigin="anonymous"></script>
 
     <!-- Custom CSS -->
-    <link href="/grad-project/assets/css/layout.css" rel="stylesheet" />
-    <link href="/grad-project/assets/css/fonts.css" rel="stylesheet" />
-    <link href="/grad-project/assets/css/colors.css" rel="stylesheet" />
-    <link href="/grad-project/assets/css/images.css" rel="stylesheet" />
+    <link href="/assets/css/layout.css" rel="stylesheet" />
+    <link href="/assets/css/fonts.css" rel="stylesheet" />
+    <link href="/assets/css/colors.css" rel="stylesheet" />
+    <link href="/assets/css/images.css" rel="stylesheet" />
 
     <title><?php echo $pageTitle; ?></title>
 </head>
@@ -59,7 +59,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/grad-project/anasayfa"><b>Grad Project</b></a>
+                <a class="navbar-brand" href="/anasayfa"><b>Grad Project</b></a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -119,14 +119,14 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form action="/grad-project/includes/notifications.php" method="post">
+                                    <form action="/includes/notifications.php" method="post">
 
                                         <section class="text-center padding-15">
                                             <button class="btn-light btn-sm" type="submit" name="mark_as_read">Okundu Olarak İşaretle</button>
                                         </section>
 
                                         <section class="text-center padding-15">
-                                            <button onclick="window.location.href='/grad-project/bildirimler'" class="btn-light" type="button">Tümünü Göster</button>
+                                            <button onclick="window.location.href='/bildirimler'" class="btn-light" type="button">Tümünü Göster</button>
                                         </section>
 
                                     </form>
@@ -139,7 +139,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
 
-                            <form method="get" action="/grad-project/arama-sonucu">
+                            <form method="get" action="/arama-sonucu">
                                 <div class="input-group mb-3 margin-top-15">
                                     <input type="text" name="username_to_search" class="form-control" placeholder="Kullanıcı ara...">
                                     <button class="btn btn-outline-dark" type="submit">
@@ -161,50 +161,50 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 <span class="badge bg-light text-dark font-16">
                                     <img
                                         style="border-radius: 100%;"
-                                        src="/grad-project/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
+                                        src="/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
                                         width="25px" height="25px" />
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/messages/gelen-kutusu">
+                                    <a class="dropdown-item" href="/messages/gelen-kutusu">
                                         <i class="fas fa-inbox"></i> Mesajlar
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/user/<?php echo $loggedUsername; ?>">
+                                    <a class="dropdown-item" href="/user/<?php echo $loggedUsername; ?>">
                                         <i class="fas fa-user"></i> Profilim
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/begendigim-gonderiler">
+                                    <a class="dropdown-item" href="/begendigim-gonderiler">
                                         <i class="far fa-heart"></i> Beğendiklerim
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/yaptigim-yorumlar">
+                                    <a class="dropdown-item" href="/yaptigim-yorumlar">
                                         <i class="far fa-comments"></i> Yorumlarım
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/kaydettigim-gonderiler">
+                                    <a class="dropdown-item" href="/kaydettigim-gonderiler">
                                         <i class="far fa-plus-square"></i> Kaydettiklerim
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/ayarlar">
+                                    <a class="dropdown-item" href="/ayarlar">
                                         <i class="fas fa-cog"></i> Ayarlar
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/ayarlar">
+                                    <a class="dropdown-item" href="/ayarlar">
                                         <i class="fas fa-question-circle"></i> Yardım
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/grad-project/oturumu-kapat">
+                                    <a class="dropdown-item" href="/oturumu-kapat">
                                         <i class="fas fa-sign-out-alt"></i> Oturumu Kapat
                                     </a>
                                 </li>
@@ -212,10 +212,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         </li>
                     <?php } else { ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/grad-project/giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
+                            <a class="nav-link active" aria-current="page" href="/giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/grad-project/uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
+                            <a class="nav-link active" aria-current="page" href="/uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
                         </li>
                     <?php } ?>
                     </ul>
