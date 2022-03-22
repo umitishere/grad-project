@@ -4,11 +4,11 @@
     <!-- CONTENT DETAILS SECTION -->
     <section>
 
-        <a href="/<?php echo $rootPath; ?>/user/<?php echo $getLastContents['username']; ?>" class="my-links">
+        <a href="<?php echo $rootPath; ?>/user/<?php echo $getLastContents['username']; ?>" class="my-links">
             <span class="badge bg-light text-dark font-16">
                 <img
                     style="border-radius: 100%;"
-                    src="/<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getLastContents["profile_photo"]; ?>"
+                    src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getLastContents["profile_photo"]; ?>"
                     width="25px" height="25px" />
                 <?php echo $getLastContents["username"]; ?>
             </span>
@@ -37,12 +37,12 @@
         </span>
 
         <section class="margin-top-15">
-            <a href="/<?php echo $rootPath; ?>/posts/<?php echo $getLastContents['id']; ?>" style="color: black; text-decoration: none;">
+            <a href="<?php echo $rootPath; ?>/posts/<?php echo $getLastContents['id']; ?>" style="color: black; text-decoration: none;">
                 <?php echo nl2br($getLastContents['content_detail']); ?>
             </a>
         </section>
 
-        <form action="/<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
+        <form action="<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
 
             <input type="hidden" name="liked_content" value="<?php echo $getLastContents['id']; ?>" />
             <input type="hidden" name="liked_from_where" value="<?php echo $likedFromWhere; ?>" />
