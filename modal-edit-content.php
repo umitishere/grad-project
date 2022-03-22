@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="<?php echo $rootPath; ?>/includes/content-operations.php">
+        <form method="post" action="/<?php echo $rootPath; ?>/includes/content-operations.php">
 
             <input type="hidden" name="content_id" value="<?php echo $getLastContents['id']; ?>" />
             <input type="hidden" name="from_where" value="home" />

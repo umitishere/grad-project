@@ -42,7 +42,7 @@ $contentID = $getLastContents['id'];
                             <span class="badge bg-light text-dark font-16">
                                 <img
                                     style="border-radius: 100%;"
-                                    src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getFollowedByMe["profile_photo"]; ?>"
+                                    src="/<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getFollowedByMe["profile_photo"]; ?>"
                                     width="40px" height="40px" />
                                 <?php echo $getFollowedByMe["username"]; ?>
                             </span>
@@ -50,7 +50,7 @@ $contentID = $getLastContents['id'];
 
                         <section class="col-2">
 
-                            <form action="<?php echo $rootPath; ?>/includes/send-message.php" method="post">
+                            <form action="/<?php echo $rootPath; ?>/includes/send-message.php" method="post">
 
                                 <input type="hidden" name="message_getter" value="<?php echo $getFollowedByMe['followed_id']; ?>" />
                                 <input type="hidden" name="message_detail" value="<?php echo $contentID; ?>" />
