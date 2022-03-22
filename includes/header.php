@@ -46,10 +46,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <script src="https://kit.fontawesome.com/05e9384002.js" crossorigin="anonymous"></script>
 
     <!-- Custom CSS -->
-    <link href="/<?php echo $rootPath; ?>assets/css/layout.css" rel="stylesheet" />
-    <link href="/<?php echo $rootPath; ?>assets/css/fonts.css" rel="stylesheet" />
-    <link href="/<?php echo $rootPath; ?>assets/css/colors.css" rel="stylesheet" />
-    <link href="/<?php echo $rootPath; ?>assets/css/images.css" rel="stylesheet" />
+    <link href="<?php echo $rootPath; ?>assets/css/layout.css" rel="stylesheet" />
+    <link href="<?php echo $rootPath; ?>assets/css/fonts.css" rel="stylesheet" />
+    <link href="<?php echo $rootPath; ?>assets/css/colors.css" rel="stylesheet" />
+    <link href="<?php echo $rootPath; ?>assets/css/images.css" rel="stylesheet" />
 
     <title><?php echo $pageTitle; ?></title>
 </head>
@@ -58,7 +58,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/<?php echo $rootPath; ?>anasayfa"><b>Grad Project</b></a>
+                <a class="navbar-brand" href="<?php echo $rootPath; ?>anasayfa"><b>Grad Project</b></a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -118,14 +118,14 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form action="/<?php echo $rootPath; ?>includes/notifications.php" method="post">
+                                    <form action="<?php echo $rootPath; ?>includes/notifications.php" method="post">
 
                                         <section class="text-center padding-15">
                                             <button class="btn-light btn-sm" type="submit" name="mark_as_read">Okundu Olarak İşaretle</button>
                                         </section>
 
                                         <section class="text-center padding-15">
-                                            <button onclick="window.location.href='/<?php echo $rootPath; ?>bildirimler'" class="btn-light" type="button">Tümünü Göster</button>
+                                            <button onclick="window.location.href='<?php echo $rootPath; ?>bildirimler'" class="btn-light" type="button">Tümünü Göster</button>
                                         </section>
 
                                     </form>
@@ -138,7 +138,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
 
-                            <form method="get" action="/<?php echo $rootPath; ?>arama-sonucu">
+                            <form method="get" action="<?php echo $rootPath; ?>arama-sonucu">
                                 <div class="input-group mb-3 margin-top-15">
                                     <input type="text" name="username_to_search" class="form-control" placeholder="Kullanıcı ara...">
                                     <button class="btn btn-outline-dark" type="submit">
@@ -160,50 +160,50 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 <span class="badge bg-light text-dark font-16">
                                     <img
                                         style="border-radius: 100%;"
-                                        src="/<?php echo $rootPath; ?>assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
+                                        src="<?php echo $rootPath; ?>assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
                                         width="25px" height="25px" />
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $rootPath; ?>messages/gelen-kutusu">
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>messages/gelen-kutusu">
                                         <i class="fas fa-inbox"></i> Mesajlar
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $rootPath; ?>user/<?php echo $loggedUsername; ?>">
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>user/<?php echo $loggedUsername; ?>">
                                         <i class="fas fa-user"></i> Profilim
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $rootPath; ?>begendigim-gonderiler">
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>begendigim-gonderiler">
                                         <i class="far fa-heart"></i> Beğendiklerim
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $rootPath; ?>yaptigim-yorumlar">
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>yaptigim-yorumlar">
                                         <i class="far fa-comments"></i> Yorumlarım
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $rootPath; ?>kaydettigim-gonderiler">
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>kaydettigim-gonderiler">
                                         <i class="far fa-plus-square"></i> Kaydettiklerim
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $rootPath; ?>ayarlar">
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>ayarlar">
                                         <i class="fas fa-cog"></i> Ayarlar
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $rootPath; ?>ayarlar">
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>ayarlar">
                                         <i class="fas fa-question-circle"></i> Yardım
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/<?php echo $rootPath; ?>oturumu-kapat">
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>oturumu-kapat">
                                         <i class="fas fa-sign-out-alt"></i> Oturumu Kapat
                                     </a>
                                 </li>
@@ -211,10 +211,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         </li>
                     <?php } else { ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/<?php echo $rootPath; ?>giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
+                            <a class="nav-link active" aria-current="page" href="<?php echo $rootPath; ?>giris-yap"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/<?php echo $rootPath; ?>uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
+                            <a class="nav-link active" aria-current="page" href="<?php echo $rootPath; ?>uye-ol"><i class="fas fa-user-plus"></i> Üye Ol</a>
                         </li>
                     <?php } ?>
                     </ul>

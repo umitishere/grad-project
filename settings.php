@@ -28,7 +28,7 @@ $getProfileStatus = $queryProfileStatus->fetch(PDO::FETCH_ASSOC);
         <h5 class="text-center margin-top-15">Gizlilik Ayarları</h5>
         <hr />
 
-        <form class="text-center" action="/<?php echo $rootPath; ?>/includes/user-operations.php" method="post">
+        <form class="text-center" action="<?php echo $rootPath; ?>/includes/user-operations.php" method="post">
 
             <label><b>Kilitli Profil</b></label>
             <div class="input-group mb-3">

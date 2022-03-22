@@ -46,7 +46,7 @@ $contentID = $getLastContents['id'];
 
                         <section class="col-2">
 
-                            <form action="/<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
+                            <form action="<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
 
                                 <input type="hidden" name="saved_content_id" value="<?php echo $contentID; ?>" />
                                 <input type="hidden" name="list_name" value="<?php echo $getSavedLists["list_name"]; ?>" />
@@ -70,7 +70,7 @@ $contentID = $getLastContents['id'];
             <hr />
             <p class="text-center font-16 margin-top-15">Yeni Liste Oluştur ve Kaydet</p>
 
-            <form action="/<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
+            <form action="<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
 
                 <input type="hidden" name="saved_content_id" value="<?php echo $contentID; ?>" />
                 <input type="hidden" name="from_where" value="<?php echo $reportFromWhere; ?>" />

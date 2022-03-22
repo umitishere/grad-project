@@ -164,7 +164,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 <!-- PROFILE PHOTO -->
                 <div class="center">
-                    <img style="border-radius: 100%;" src="/<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
+                    <img style="border-radius: 100%;" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
                 </div>
                 <!-- /PROFILE PHOTO -->
 
@@ -212,7 +212,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 ?>
 
-                <form action="/<?php echo $rootPath; ?>/includes/follower-operations.php" method="post">
+                <form action="<?php echo $rootPath; ?>/includes/follower-operations.php" method="post">
 
                     <input type="hidden" name="followed_id" value="<?php echo $profileID; ?>" />
 
@@ -276,7 +276,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 ?>
 
                     <a
-                        href="/<?php echo $rootPath; ?>/messages/conversation?with=<?php echo $profileID; ?>"
+                        href="<?php echo $rootPath; ?>/messages/conversation?with=<?php echo $profileID; ?>"
                         class="btn btn-outline-primary margin-top-15"
                         role="button"
                         aria-pressed="true"

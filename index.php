@@ -38,7 +38,7 @@ if (isset($_GET['reportContent'])) {
             <!-- CREATE CONTENT SECTION -->
             <section class="padding-15 content-share margin-top-15">
 
-                <form action="/<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
+                <form action="<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
 
                     <textarea
                         placeholder="Ne düşünüyorsun?"
