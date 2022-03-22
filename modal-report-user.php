@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="/grad-project/includes/user-operations.php">
+        <form method="post" action="<?php echo $rootPath; ?>/includes/user-operations.php">
 
             <?php ($fromWhere == "Profile Page") ? (print("<input type='hidden' name='profile_username' value='$profileUsername' />")) : (print('')) ?>
 

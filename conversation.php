@@ -59,7 +59,7 @@ $queryMessages->execute();
 
                 <section class="margin-top-15 padding-15">
                     <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right') : print('text-on-left') ?>">
-                        <span><img class="image-message-sender" src="/grad-project/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
+                        <span><img class="image-message-sender" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
 
                         <p class="font-12 margin-top-10"><i class="fas fa-share-square"></i> bir gönderi paylaştı</p>
@@ -78,7 +78,7 @@ $queryMessages->execute();
 
                 <section class="margin-top-15 padding-15">
                     <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right margin-left-message') : print('text-on-left margin-right-message') ?>">
-                        <span><img class="image-message-sender" src="/grad-project/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
+                        <span><img class="image-message-sender" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                     </div>
                     <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right margin-left-message ') : print('text-on-left margin-right-message') ?>">
@@ -102,7 +102,7 @@ $queryMessages->execute();
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/grad-project/includes/send-message.php" method="post">
+                            <form action="<?php echo $rootPath; ?>/includes/send-message.php" method="post">
 
                                 <input type="hidden" value="<?php echo $getMessages['unique_name']; ?>" name="unique" />
                                 <input type="hidden" value="<?php echo $conversationWithID; ?>" name="conversation_with" />
@@ -130,7 +130,7 @@ $queryMessages->execute();
 
         <!-- SEND MESSAGE -->
         <section class="padding-15 margin-top-30">
-            <form action="/grad-project/includes/send-message.php" method="post">
+            <form action="<?php echo $rootPath; ?>/includes/send-message.php" method="post">
 
                 <input type="hidden" name="message_getter" value="<?php echo $conversationWithID; ?>" />
                 <input type="hidden" name="isThisPost" value="0" />

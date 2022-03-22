@@ -23,11 +23,11 @@
                     <!-- FOLLOW REQUEST DETAILS -->
                     <div class="col-8 text-center">
                       <div class="text-center">
-                          <a href="/grad-project/user/<?php echo $getFollowRequests['username']; ?>" class="my-links">
+                          <a href="<?php echo $rootPath; ?>/user/<?php echo $getFollowRequests['username']; ?>" class="my-links">
                               <span class="badge bg-light text-dark font-16">
                                   <img
                                       style="border-radius: 100%;"
-                                      src="/grad-project/assets/img/profile_photos/<?php echo $getFollowRequests["profile_photo"]; ?>"
+                                      src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getFollowRequests["profile_photo"]; ?>"
                                       width="40px" height="40px" />
                                   <?php echo $getFollowRequests["username"]; ?>
                               </span>
@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="col-4 text-center">
-                        <form action="/grad-project/includes/follower-operations.php" method="post"> 
+                        <form action="<?php echo $rootPath; ?>/includes/follower-operations.php" method="post">
 
                             <input type="hidden" name="request_sender" value="<?php echo $getFollowRequests['user_id'] ?>" />
 

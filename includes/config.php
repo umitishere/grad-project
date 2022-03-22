@@ -1,5 +1,13 @@
 <?php
 
+$rootPath = "";
+
+if ($_SERVER["SERVER_NAME"] == "localhost") {
+    $rootPath = "/grad-project/";
+} else {
+    $rootPath = "/";
+}
+
 require_once("DB_CREDENTIALS.php");
 
 define('DB_SERVER', 'localhost');
