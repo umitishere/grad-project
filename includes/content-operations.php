@@ -231,4 +231,96 @@ if (isset($_POST['delete_content'])) {
     header("Location: /grad-project/anasayfa");
 }
 
+
+
+if (isset($_POST['save_to_new_list'])) {
+
+    $contentID = htmlspecialchars($_POST["saved_content_id"], ENT_QUOTES);
+    $listName = htmlspecialchars($_POST["list_name"], ENT_QUOTES);
+    $fromWhere = htmlspecialchars($_POST["from_where"], ENT_QUOTES);
+    $profileUsername = htmlspecialchars($_POST["profile_username"], ENT_QUOTES);
+
+    $saveContentData = [
+        ":saved_content_id"=>$contentID,
+        ":list_name"=>$listName,
+        ":saver_id"=>$sessionID
+    ];
+
+    $query = "INSERT INTO `saved_contents`
+    (
+        `saved_content_id`,
+        `list_name`,
+        `saver_id`
+    )
+    VALUES
+    (
+        :saved_content_id,
+        :list_name,
+        :saver_id
+    )";
+
+    $saveResult = $pdo->prepare($query);
+    $saveExecute = $saveResult->execute($saveContentData);
+
+    if ($fromWhere == "Home") {
+        header("Location: /grad-project/anasayfa");
+    } else if ($fromWhere == "Content Detail") {
+        header("Location: /grad-project/posts/$contentID");
+    } else if ($fromWhere == "Profile Page") {
+
+        $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
+
+        header("Location: /grad-project/user/$profileUsername");
+    } else if ($fromWhere == "Liked Contents") {
+        header("Location: /grad-project/begendigim-gonderiler");
+    }
+
+}
+
+
+if (isset($_POST['save_to_existing_list'])) {
+
+    $contentID = htmlspecialchars($_POST["saved_content_id"], ENT_QUOTES);
+    $listName = htmlspecialchars($_POST["list_name"], ENT_QUOTES);
+    $fromWhere = htmlspecialchars($_POST["from_where"], ENT_QUOTES);
+    $profileUsername = htmlspecialchars($_POST["profile_username"], ENT_QUOTES);
+
+    $saveContentData = [
+        ":saved_content_id"=>$contentID,
+        ":list_name"=>$listName,
+        ":saver_id"=>$sessionID
+    ];
+
+    $query = "INSERT INTO `saved_contents`
+    (
+        `saved_content_id`,
+        `list_name`,
+        `saver_id`
+    )
+    VALUES
+    (
+        :saved_content_id,
+        :list_name,
+        :saver_id
+    )";
+
+    $saveResult = $pdo->prepare($query);
+    $saveExecute = $saveResult->execute($saveContentData);
+
+    if ($fromWhere == "Home") {
+        header("Location: /grad-project/anasayfa");
+    } else if ($fromWhere == "Content Detail") {
+        header("Location: /grad-project/posts/$contentID");
+    } else if ($fromWhere == "Profile Page") {
+
+        $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
+
+        header("Location: /grad-project/user/$profileUsername");
+    } else if ($fromWhere == "Liked Contents") {
+        header("Location: /grad-project/begendigim-gonderiler");
+    }
+
+}
+
+
 ?>

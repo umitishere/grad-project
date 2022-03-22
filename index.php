@@ -11,7 +11,8 @@ $sqlStatementForContents = "SELECT
     FROM contents
     LEFT JOIN users ON contents.publisher_id = users.id
     LEFT JOIN follower ON contents.publisher_id = follower.followed_id
-    WHERE follower.follower_id = '$loggedUserID' OR contents.publisher_id = '$loggedUserID'
+    WHERE (follower.follower_id = '$loggedUserID' AND follower.followed_id = contents.publisher_id) OR contents.publisher_id = '$loggedUserID'
+    GROUP BY contents.content_detail
     ORDER BY contents.id DESC
 ";
 
