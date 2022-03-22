@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="/grad-project/includes/content-operations.php">
+        <form method="post" action="/includes/content-operations.php">
 
             <?php ($reportFromWhere == "Profile Page") ? (print("<input type='hidden' name='profile_username' value='$profileUsername' />")) : (print('')) ?>
 

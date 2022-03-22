@@ -13,7 +13,7 @@ $contentID = $getLastContents['id'];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="/grad-project/includes/content-operations.php">
+        <form method="post" action="/includes/content-operations.php">
 
             <input type="hidden" name="commented_content" value="<?php echo $contentID; ?>" />
             <input type="hidden" name="from_where" value="home" />
@@ -60,11 +60,11 @@ $contentID = $getLastContents['id'];
 
             <section>
 
-                <a href="/grad-project/user/<?php echo $getterUser['username']; ?>" class="my-links">
+                <a href="/user/<?php echo $getterUser['username']; ?>" class="my-links">
                     <span class="badge bg-light text-dark font-16">
                         <img
                             style="border-radius: 100%;"
-                            src="/grad-project/assets/img/profile_photos/<?php echo $getterUser["profile_photo"]; ?>"
+                            src="/assets/img/profile_photos/<?php echo $getterUser["profile_photo"]; ?>"
                             width="25px" height="25px" />
                         <?php echo $getterUser["username"]; ?>
                     </span>

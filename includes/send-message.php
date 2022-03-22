@@ -36,7 +36,7 @@ if (isset($_POST["send_message"])) {
     $postDetail = $getPostInfo['content_detail'];
 
     if ($isThisPost == "1") {
-        $messageDetail = "<a href='/grad-project/posts/$messageDetail' style='color: black; text-decoration: none;'>$postDetail</a>";
+        $messageDetail = "<a href='/posts/$messageDetail' style='color: black; text-decoration: none;'>$postDetail</a>";
     }
 
     $uniqueName = $sessionID . rand(1, 9999999);

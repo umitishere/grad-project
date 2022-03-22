@@ -69,7 +69,7 @@ if (isset($_POST['follow'])) {
 
     // SEND NOTIFICATION
 
-    $notificationDetail = "<a style='text-decoration: none;' href='/grad-project/user/$username'><b>$username</b></a> seni takip etmeye başladı.";
+    $notificationDetail = "<a style='text-decoration: none;' href='/user/$username'><b>$username</b></a> seni takip etmeye başladı.";
 
     $notificationData = [
         ":notification_detail"=>$notificationDetail,
