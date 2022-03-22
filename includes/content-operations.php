@@ -263,16 +263,16 @@ if (isset($_POST['save_to_new_list'])) {
     $saveExecute = $saveResult->execute($saveContentData);
 
     if ($fromWhere == "Home") {
-        header("Location: /grad-project/anasayfa");
+        header("Location: /anasayfa");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /grad-project/posts/$contentID");
+        header("Location: /posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /grad-project/user/$profileUsername");
+        header("Location: /user/$profileUsername");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /grad-project/begendigim-gonderiler");
+        header("Location: /begendigim-gonderiler");
     }
 
 }
@@ -308,16 +308,16 @@ if (isset($_POST['save_to_existing_list'])) {
     $saveExecute = $saveResult->execute($saveContentData);
 
     if ($fromWhere == "Home") {
-        header("Location: /grad-project/anasayfa");
+        header("Location: /anasayfa");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /grad-project/posts/$contentID");
+        header("Location: /posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /grad-project/user/$profileUsername");
+        header("Location: /user/$profileUsername");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /grad-project/begendigim-gonderiler");
+        header("Location: /begendigim-gonderiler");
     }
 
 }
@@ -334,18 +334,18 @@ if (isset($_POST['remove_from_saved_contents'])) {
     $queryExecute = $query->execute();
 
     if ($fromWhere == "Home") {
-        header("Location: /grad-project/anasayfa");
+        header("Location: /anasayfa");
     } else if ($fromWhere == "Content Detail") {
-        header("Location: /grad-project/posts/$contentID");
+        header("Location: /posts/$contentID");
     } else if ($fromWhere == "Profile Page") {
 
         $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
 
-        header("Location: /grad-project/user/$profileUsername");
+        header("Location: /user/$profileUsername");
     } else if ($fromWhere == "Liked Contents") {
-        header("Location: /grad-project/begendigim-gonderiler");
+        header("Location: /begendigim-gonderiler");
     } else if ($fromWhere = "Saved Contents") {
-        header("Location: /grad-project/kaydettigim-gonderiler");
+        header("Location: /kaydettigim-gonderiler");
     }
 
 }
