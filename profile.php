@@ -13,16 +13,12 @@ $profileID = "";
 $userIsBlocked = "";
 $userBlockedMe = "";
 
+
 $fromWhere = "Profile Page";
 
 $pageTitle = $profileUsername . " profili | Grad Project";
 
 require_once("includes/header.php");
-
-if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true) {
-    echo "<h3 class='text-center margin-top-15'>Profilleri görüntülemek için giriş yapmalısınız.</h3>";
-    exit;
-}
 
 $profileInfo = $pdo->prepare("SELECT * FROM users WHERE username = '$profileUsername'");
 $profileInfo->execute();
@@ -96,7 +92,7 @@ $sqlFollowRequests = "SELECT follow_requests.*, users.id AS user_id,
     users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
     FROM follow_requests
     LEFT JOIN users ON follow_requests.request_sender = users.id
-    WHERE follow_requests.request_getter = '$loggedUserID'
+    WHERE follow_requests.request_getter = '$loggedUserID' AND follow_requests.isAccepted = '0'
     ORDER BY follow_requests.request_id DESC";
 $queryFollowRequests = $pdo->prepare($sqlFollowRequests);
 $queryFollowRequests->execute();
@@ -168,7 +164,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 <!-- PROFILE PHOTO -->
                 <div class="center">
-                    <img style="border-radius: 100%;" src="/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
+                    <img style="border-radius: 100%;" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
                 </div>
                 <!-- /PROFILE PHOTO -->
 
@@ -216,7 +212,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 ?>
 
-                <form action="/includes/follower-operations.php" method="post">
+                <form action="<?php echo $rootPath; ?>/includes/follower-operations.php" method="post">
 
                     <input type="hidden" name="followed_id" value="<?php echo $profileID; ?>" />
 
@@ -280,7 +276,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 ?>
 
                     <a
-                        href="/messages/conversation?with=<?php echo $profileID; ?>"
+                        href="<?php echo $rootPath; ?>/messages/conversation?with=<?php echo $profileID; ?>"
                         class="btn btn-outline-primary margin-top-15"
                         role="button"
                         aria-pressed="true"
@@ -294,7 +290,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     if ($userIsBlocked == "Yes") {
 
                             echo "
-                                <form action='/includes/user-operations.php' method='post'>
+                                <form action='$rootPath/includes/user-operations.php' method='post'>
 
                                     <input type='hidden' name='userToUnblock' value='$profileID' />
 
