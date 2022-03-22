@@ -13,12 +13,15 @@ $profileID = "";
 $userIsBlocked = "";
 $userBlockedMe = "";
 
-
 $fromWhere = "Profile Page";
 
 $pageTitle = $profileUsername . " profili | Grad Project";
 
 require_once("includes/header.php");
+
+if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true) {
+    echo "<h3 class='text-center margin-top-15'>Profilleri görüntülemek için giriş yapmalısınız.</h3>";
+}
 
 $profileInfo = $pdo->prepare("SELECT * FROM users WHERE username = '$profileUsername'");
 $profileInfo->execute();
