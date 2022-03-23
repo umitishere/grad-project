@@ -4,58 +4,62 @@ $pageTitle = "Anasayfa | Grad Project";
 
 require_once("includes/header.php");
 
-$queryContentPreferences = $pdo->prepare("SELECT * FROM users WHERE id = '$loggedUserID'");
-$queryContentPreferences->execute();
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
-$getContentPreferences = $queryContentPreferences->fetch(PDO::FETCH_ASSOC);
+    $queryContentPreferences = $pdo->prepare("SELECT * FROM users WHERE id = '$loggedUserID'");
+    $queryContentPreferences->execute();
 
-$contentPreference = $getContentPreferences["content_preference"];
-$myUniversity = $getContentPreferences["university"];
+    $getContentPreferences = $queryContentPreferences->fetch(PDO::FETCH_ASSOC);
 
-$sqlStatementForContents = "";
+    $contentPreference = $getContentPreferences["content_preference"];
+    $myUniversity = $getContentPreferences["university"];
 
-if ($contentPreference == "Sadece Takip Ettiklerim") {
+    $sqlStatementForContents = "";
 
-    $sqlStatementForContents = "SELECT
-        contents.*,
-        users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility,
-        follower.follower_id, follower.followed_id
-        FROM contents
-        LEFT JOIN users ON contents.publisher_id = users.id
-        LEFT JOIN follower ON contents.publisher_id = follower.followed_id
-        WHERE (follower.follower_id = '$loggedUserID' AND follower.followed_id = contents.publisher_id) OR contents.publisher_id = '$loggedUserID'
-        GROUP BY contents.content_detail
-        ORDER BY contents.id DESC
-    ";
+    if ($contentPreference == "Sadece Takip Ettiklerim") {
 
-} else if ($contentPreference == "Sadece Üniversitemdekiler") {
+        $sqlStatementForContents = "SELECT
+            contents.*,
+            users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility,
+            follower.follower_id, follower.followed_id
+            FROM contents
+            LEFT JOIN users ON contents.publisher_id = users.id
+            LEFT JOIN follower ON contents.publisher_id = follower.followed_id
+            WHERE (follower.follower_id = '$loggedUserID' AND follower.followed_id = contents.publisher_id) OR contents.publisher_id = '$loggedUserID'
+            GROUP BY contents.content_detail
+            ORDER BY contents.id DESC
+        ";
 
-    $sqlStatementForContents = "SELECT
-        contents.*,
-        users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
-        FROM contents
-        LEFT JOIN users ON contents.publisher_id = users.id
-        WHERE users.university = '$myUniversity' AND users.profile_lock = '0'
-        GROUP BY contents.content_detail
-        ORDER BY contents.id DESC
-    ";
+    } else if ($contentPreference == "Sadece Üniversitemdekiler") {
 
-} else if ($contentPreference == "Açık Olan Tüm Gönderiler") {
+        $sqlStatementForContents = "SELECT
+            contents.*,
+            users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
+            FROM contents
+            LEFT JOIN users ON contents.publisher_id = users.id
+            WHERE users.university = '$myUniversity' AND users.profile_lock = '0'
+            GROUP BY contents.content_detail
+            ORDER BY contents.id DESC
+        ";
 
-    $sqlStatementForContents = "SELECT
-        contents.*,
-        users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
-        FROM contents
-        LEFT JOIN users ON contents.publisher_id = users.id
-        WHERE users.profile_lock = '0'
-        GROUP BY contents.content_detail
-        ORDER BY contents.id DESC
-    ";
+    } else if ($contentPreference == "Açık Olan Tüm Gönderiler") {
+
+        $sqlStatementForContents = "SELECT
+            contents.*,
+            users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
+            FROM contents
+            LEFT JOIN users ON contents.publisher_id = users.id
+            WHERE users.profile_lock = '0'
+            GROUP BY contents.content_detail
+            ORDER BY contents.id DESC
+        ";
+
+    }
+
+    $queryLastContents = $pdo->prepare($sqlStatementForContents);
+    $queryLastContents->execute();
 
 }
-
-$queryLastContents = $pdo->prepare($sqlStatementForContents);
-$queryLastContents->execute();
 
 $reportContentFeedbackMessage = "";
 
