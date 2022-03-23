@@ -290,7 +290,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     if ($userIsBlocked == "Yes") {
 
                             echo "
-                                <form action='/$rootPath/includes/user-operations.php' method='post'>
+                                <form action='$rootPath/includes/user-operations.php' method='post'>
 
                                     <input type='hidden' name='userToUnblock' value='$profileID' />
 

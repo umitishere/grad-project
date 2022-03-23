@@ -3,7 +3,7 @@
 $rootPath = "";
 
 if ($_SERVER["SERVER_NAME"] == "localhost") {
-    $rootPath = "grad-project/";
+    $rootPath = "/grad-project/";
 } else {
     $rootPath = "";
 }
