@@ -90,9 +90,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                         <li class="nav-item dropdown">
                             <a class="nav-link active" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="badge bg-light text-dark font-20">
+                                <section class="padding-15 font-20 text-center">
                                     <i class="fas fa-bell"></i>
-                                </span>
+                                </section>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
 
@@ -157,12 +157,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link active" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="badge bg-light text-dark font-16">
-                                    <img
-                                        style="border-radius: 100%;"
-                                        src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getUserInfo["profile_photo"]; ?>"
-                                        width="25px" height="25px" />
-                                </span>
+                                <section class="padding-15 font-20 text-center">
+                                    <i class="fas fa-user"></i>
+                                </section>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li>

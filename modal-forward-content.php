@@ -40,10 +40,6 @@ $contentID = $getLastContents['id'];
 
                         <section class="col-10">
                             <span class="badge bg-light text-dark font-16">
-                                <img
-                                    style="border-radius: 100%;"
-                                    src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getFollowedByMe["profile_photo"]; ?>"
-                                    width="40px" height="40px" />
                                 <?php echo $getFollowedByMe["username"]; ?>
                             </span>
                         </section>
