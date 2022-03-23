@@ -92,7 +92,7 @@ $sqlFollowRequests = "SELECT follow_requests.*, users.id AS user_id,
     users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
     FROM follow_requests
     LEFT JOIN users ON follow_requests.request_sender = users.id
-    WHERE follow_requests.request_getter = '$loggedUserID' AND follow_requests.isAccepted = '0'
+    WHERE follow_requests.request_getter = '$loggedUserID'
     ORDER BY follow_requests.request_id DESC";
 $queryFollowRequests = $pdo->prepare($sqlFollowRequests);
 $queryFollowRequests->execute();
