@@ -4,17 +4,55 @@ $pageTitle = "Anasayfa | Grad Project";
 
 require_once("includes/header.php");
 
-$sqlStatementForContents = "SELECT
-    contents.*,
-    users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility,
-    follower.follower_id, follower.followed_id
-    FROM contents
-    LEFT JOIN users ON contents.publisher_id = users.id
-    LEFT JOIN follower ON contents.publisher_id = follower.followed_id
-    WHERE (follower.follower_id = '$loggedUserID' AND follower.followed_id = contents.publisher_id) OR contents.publisher_id = '$loggedUserID'
-    GROUP BY contents.content_detail
-    ORDER BY contents.id DESC
-";
+$queryContentPreferences = $pdo->prepare("SELECT * FROM users WHERE id = '$loggedUserID'");
+$queryContentPreferences->execute();
+
+$getContentPreferences = $queryContentPreferences->fetch(PDO::FETCH_ASSOC);
+
+$contentPreference = $getContentPreferences["content_preference"];
+$myUniversity = $getContentPreferences["university"];
+
+$sqlStatementForContents = "";
+
+if ($contentPreference == "Sadece Takip Ettiklerim") {
+
+    $sqlStatementForContents = "SELECT
+        contents.*,
+        users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility,
+        follower.follower_id, follower.followed_id
+        FROM contents
+        LEFT JOIN users ON contents.publisher_id = users.id
+        LEFT JOIN follower ON contents.publisher_id = follower.followed_id
+        WHERE (follower.follower_id = '$loggedUserID' AND follower.followed_id = contents.publisher_id) OR contents.publisher_id = '$loggedUserID'
+        GROUP BY contents.content_detail
+        ORDER BY contents.id DESC
+    ";
+
+} else if ($contentPreference == "Sadece Üniversitemdekiler") {
+
+    $sqlStatementForContents = "SELECT
+        contents.*,
+        users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
+        FROM contents
+        LEFT JOIN users ON contents.publisher_id = users.id
+        WHERE users.university = '$myUniversity' AND users.profile_lock = '0'
+        GROUP BY contents.content_detail
+        ORDER BY contents.id DESC
+    ";
+
+} else if ($contentPreference == "Açık Olan Tüm Gönderiler") {
+
+    $sqlStatementForContents = "SELECT
+        contents.*,
+        users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
+        FROM contents
+        LEFT JOIN users ON contents.publisher_id = users.id
+        WHERE users.profile_lock = '0'
+        GROUP BY contents.content_detail
+        ORDER BY contents.id DESC
+    ";
+
+}
 
 $queryLastContents = $pdo->prepare($sqlStatementForContents);
 $queryLastContents->execute();
@@ -58,6 +96,14 @@ if (isset($_GET['reportContent'])) {
 
             </section>
             <!-- /CREATE CONTENT SECTION -->
+
+            <!-- CONTENT PREFERENCES -->
+            <section class="text-center">
+                <button class='btn btn-outline-primary margin-top-15' data-bs-toggle='modal' data-bs-target='#contentPreferences'>
+                    <i class="fas fa-cog"></i> Gönderi Tercihleri
+                </button>
+            </section>
+            <!-- /CONTENT PREFERENCES -->
 
             <main>
 
@@ -145,4 +191,9 @@ if (isset($_GET['reportContent'])) {
 </div>
 <!-- /CONTAINER -->
 
-<?php require_once("includes/footer.php"); ?>
+<?php
+
+require_once("modal-content-preferences.php");
+require_once("includes/footer.php");
+
+?>
