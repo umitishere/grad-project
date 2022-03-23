@@ -261,4 +261,15 @@ if (isset($_POST['unblock_user'])) {
 
 }
 
+if (isset($_POST["update_content_preferences"])) {
+
+    $newPreference = htmlspecialchars($_POST["new_content_preference"], ENT_QUOTES);
+
+    $query = $pdo->prepare("UPDATE users SET content_preference = '$newPreference' WHERE id = '$sessionID'");
+    $queryExeute = $query->execute();
+
+    header("Location: ../anasayfa");
+
+}
+
 ?>

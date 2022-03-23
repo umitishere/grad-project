@@ -4,6 +4,11 @@ $pageTitle = "Gelen Kutusu | Grad Project";
 
 require_once("includes/header.php");
 
+if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true) {
+    header("Location: $rootPath/giris-yap");
+    exit;
+}
+
 $sessionID = $_SESSION["id"];
 
 $queryMessages = $pdo->prepare(

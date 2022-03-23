@@ -20,6 +20,11 @@ $pageTitle = $profileUsername . " profili | Grad Project";
 
 require_once("includes/header.php");
 
+if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true) {
+    header("Location: $rootPath/giris-yap");
+    exit;
+}
+
 $profileInfo = $pdo->prepare("SELECT * FROM users WHERE username = '$profileUsername'");
 $profileInfo->execute();
 
