@@ -22,10 +22,6 @@ $querySearchResult->execute();
         <section class="card margin-top-10">
 
             <span class="badge bg-light text-dark font-16 padding-15">
-                <img
-                    style="border-radius: 100%;"
-                    src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getSearchResult["profile_photo"]; ?>"
-                    width="40px" height="40px" />
                 <?php echo $getSearchResult["username"]; ?>
             </span>
 

@@ -36,10 +36,6 @@
                           <div class="text-center margin-top-15">
                               <a href="<?php echo $rootPath; ?>/user/<?php echo $getterNameFollower['username']; ?>" class="my-links">
                                   <span class="badge bg-light text-dark font-16">
-                                      <img
-                                          style="border-radius: 100%;"
-                                          src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getterNameFollower["profile_photo"]; ?>"
-                                          width="40px" height="40px" />
                                       <?php echo $getterNameFollower["username"]; ?>
                                   </span>
                               </a>
@@ -103,10 +99,6 @@
                           <div class="text-center margin-top-15">
                               <a href="<?php echo $rootPath; ?>/user/<?php echo $getterNameFollowing['username']; ?>" class="my-links margin-top-15">
                                   <span class="badge bg-light text-dark font-16">
-                                      <img
-                                          style="border-radius: 100%;"
-                                          src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getterNameFollowing["profile_photo"]; ?>"
-                                          width="40px" height="40px" />
                                       <?php echo $getterNameFollowing["username"]; ?>
                                   </span>
                               </a>

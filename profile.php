@@ -167,12 +167,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
             <!-- USER INFORMATION CARD -->
             <div class="card padding-15 margin-top-15">
 
-                <!-- PROFILE PHOTO -->
-                <div class="center">
-                    <img style="border-radius: 100%;" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getProfileInfo["profile_photo"]; ?>" width="100%" height="100%" />
-                </div>
-                <!-- /PROFILE PHOTO -->
-
                 <p class="profileInfoText margin-top-15"><?php echo $getProfileInfo["username"]; ?></p>
 
                 <?php if ($userIsBlocked != "Yes" && $userBlockedMe != "Yes") { ?>

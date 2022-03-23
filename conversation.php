@@ -64,7 +64,7 @@ $queryMessages->execute();
 
                 <section class="margin-top-15 padding-15">
                     <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right') : print('text-on-left') ?>">
-                        <span><img class="image-message-sender" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
+                        <span><b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
 
                         <p class="font-12 margin-top-10"><i class="fas fa-share-square"></i> bir gönderi paylaştı</p>
@@ -83,7 +83,7 @@ $queryMessages->execute();
 
                 <section class="margin-top-15 padding-15">
                     <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right margin-left-message') : print('text-on-left margin-right-message') ?>">
-                        <span><img class="image-message-sender" src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getMessages['profile_photo']; ?>" /> <b><?php echo $getMessages['username']; ?></b></span>
+                        <span><b><?php echo $getMessages['username']; ?></b></span>
                         <span><i class="fas fa-clock"></i> <?php echo $messageHour . ":" .$messageMinute; ?></span>
                     </div>
                     <div class="<?php ($getMessages['message_sender'] == $myID) ? print('text-on-right margin-left-message ') : print('text-on-left margin-right-message') ?>">

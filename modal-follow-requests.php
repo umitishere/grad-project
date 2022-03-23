@@ -25,10 +25,6 @@
                       <div class="text-center">
                           <a href="<?php echo $rootPath; ?>/user/<?php echo $getFollowRequests['username']; ?>" class="my-links">
                               <span class="badge bg-light text-dark font-16">
-                                  <img
-                                      style="border-radius: 100%;"
-                                      src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getFollowRequests["profile_photo"]; ?>"
-                                      width="40px" height="40px" />
                                   <?php echo $getFollowRequests["username"]; ?>
                               </span>
                           </a>

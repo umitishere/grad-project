@@ -62,10 +62,6 @@ $contentID = $getLastContents['id'];
 
                 <a href="<?php echo $rootPath; ?>/user/<?php echo $getterUser['username']; ?>" class="my-links">
                     <span class="badge bg-light text-dark font-16">
-                        <img
-                            style="border-radius: 100%;"
-                            src="<?php echo $rootPath; ?>/assets/img/profile_photos/<?php echo $getterUser["profile_photo"]; ?>"
-                            width="25px" height="25px" />
                         <?php echo $getterUser["username"]; ?>
                     </span>
                 </a>

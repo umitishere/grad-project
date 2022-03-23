@@ -7,22 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="<?php echo $rootPath; ?>/includes/user-operations.php" enctype="multipart/form-data">
-
-            <label for="update-profile-photo">Profil Fotoğrafı</label>
-            <div class="input-group">
-                <input
-                    name="new_profile_photo"
-                    type="file"
-                    class="form-control"
-                    id="update-profile-photo"
-                    aria-describedby="inputGroupFileAddon04"
-                    aria-label="Upload"
-                />
-                <button class="btn btn-outline-success" type="submit" name="update_profile_photo"><i class="fas fa-save"></i></button>
-            </div>
-
-            <br />
+        <form method="post" action="<?php echo $rootPath; ?>/includes/user-operations.php">
 
             <label for="update-username">Kullanıcı Adı</label>
             <div class="input-group mb-3">
