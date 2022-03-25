@@ -59,7 +59,7 @@ if (isset($_POST["update_username"])) {
     if (!empty($username_err)) {
         header("Location: ../user/$username?usernameChangeError=$username_err");
     } else {
-        header("Location: ../logout.php");
+        header("Location: ../user/$newUsername");
     }
 
 

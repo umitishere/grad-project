@@ -14,6 +14,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     $contentPreference = $getContentPreferences["content_preference"];
     $myUniversity = $getContentPreferences["university"];
 
+    $queryCheckIfUserMuted = $pdo->prepare("SELECT * FROM muted_users WHERE muter_id = '$loggedUserID' AND muted_user_id = ''");
+    $queryCheckIfUserMuted->execute();
+
     $sqlStatementForContents = "";
 
     if ($contentPreference == "Sadece Takip Ettiklerim") {

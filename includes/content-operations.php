@@ -351,4 +351,51 @@ if (isset($_POST['remove_from_saved_contents'])) {
 }
 
 
+if (isset($_POST["mute_user"])) {
+
+    $contentID = htmlspecialchars($_POST["content_id"], ENT_QUOTES);
+    $fromWhere = htmlspecialchars($_POST["from_where"], ENT_QUOTES);
+
+    $queryMutedUserInfo = $pdo->prepare("SELECT * FROM contents WHERE id = $contentID");
+    $queryMutedUserInfo->execute();
+
+    $getMutedUserInfo = $queryMutedUserInfo->fetch(PDO::FETCH_ASSOC);
+
+    $mutedUserID = $getMutedUserInfo['publisher_id'];
+
+    $mutedUserData = [
+        ":muted_user_id"=>$mutedUserID,
+        ":muter_id"=>$sessionID
+    ];
+
+    $query = "INSERT INTO `muted_users`
+    (
+        `muted_user_id`,
+        `muter_id`
+    )
+    VALUES
+    (
+        :muted_user_id,
+        :muter_id
+    )";
+
+    $muteResult = $pdo->prepare($query);
+    $muteExecute = $muteResult->execute($mutedUserData);
+
+    if ($fromWhere == "Home") {
+        header("Location: ../anasayfa");
+    } else if ($fromWhere == "Content Detail") {
+        header("Location: ../posts/$contentID");
+    } else if ($fromWhere == "Profile Page") {
+
+        $profileUsername = htmlspecialchars($_POST['profile_username'], ENT_QUOTES);
+
+        header("Location: ../user/$profileUsername");
+    } else if ($fromWhere == "Liked Contents") {
+        header("Location: ../begendigim-gonderiler");
+    }
+
+}
+
+
 ?>

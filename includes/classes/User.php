@@ -8,7 +8,7 @@ class User {
 
         $this->pdo = $pdo;
 
-        $query = $this->pdo->prepare("SELECT * FROM users WHERE username = :un");        
+        $query = $this->pdo->prepare("SELECT * FROM users WHERE username = :un");
         $query->bindParam(":un", $username);
         $query->execute();
 
@@ -24,9 +24,6 @@ class User {
         return $this->sqlData["id"];
     }
 
-    public function getProfilePicture() {
-        return $this->sqlData["profile_photo"];
-    }
 
 }
 
