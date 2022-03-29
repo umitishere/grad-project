@@ -398,4 +398,16 @@ if (isset($_POST["mute_user"])) {
 }
 
 
+if (isset($_POST["unmute_user"])) {
+
+    $userToUnmute = htmlspecialchars($_POST["user_to_unmute"], ENT_QUOTES);
+
+    $query = $pdo->prepare("DELETE FROM muted_users WHERE muted_user_id = '$userToUnmute' AND muter_id = '$sessionID'");
+    $queryExecute = $query->execute();
+
+    header("Location: ../ayarlar");
+
+}
+
+
 ?>
