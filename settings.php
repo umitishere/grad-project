@@ -17,6 +17,14 @@ $queryProfileStatus->execute();
 
 $getProfileStatus = $queryProfileStatus->fetch(PDO::FETCH_ASSOC);
 
+$queryMutedUsers = $pdo->prepare(
+    "SELECT muted_users.*, users.* FROM muted_users
+    LEFT JOIN users
+    ON muted_users.muted_user_id = users.id
+    WHERE muter_id = '$loggedUserID'"
+);
+$queryMutedUsers->execute();
+
 ?>
 
 <div class="container">
@@ -25,6 +33,7 @@ $getProfileStatus = $queryProfileStatus->fetch(PDO::FETCH_ASSOC);
     <hr />
 
     <div class="alert alert-primary" role="alert">
+
         <h5 class="text-center margin-top-15">Gizlilik Ayarları</h5>
         <hr />
 
@@ -64,6 +73,27 @@ $getProfileStatus = $queryProfileStatus->fetch(PDO::FETCH_ASSOC);
             </div>
 
         </form>
+
+        <h5 class="text-center margin-top-15">Sessize Alınan Hesaplar</h5>
+        <hr />
+
+        <p class="text-center margin-top-15">Susturmayı kaldırmak için kullanıcının üzerine tıklayın.</p>
+
+<?php while ($getMutedUsers = $queryMutedUsers->fetch(PDO::FETCH_ASSOC)) { ?>
+
+        <section class="text-center margin-top-15">
+
+            <form action="<?php echo $rootPath; ?>/includes/content-operations.php" method="post">
+
+                <input type="hidden" name="user_to_unmute" value="<?php echo $getMutedUsers["muted_user_id"]; ?>" />
+
+                <button type="submit" name="unmute_user" class="btn btn-light"><?php echo $getMutedUsers["username"]; ?></button>
+
+            </form>
+
+        </section>
+
+<?php } ?>
     </div>
 
 </div>

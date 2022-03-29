@@ -3,7 +3,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="contentSettings<?php echo $contentID; ?>">Gönderi Ayarları</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
@@ -17,6 +18,17 @@
             <button type="submit" name="report_content" class="btn btn-outline-danger" type="button">
                 Gönderiyi Şikayet Et
             </button>
+
+            <hr />
+
+            <section class="margin-top-15">
+
+                <p class="font-12">Anasayfada bu kullanıcının gönderileri gösterilmez fakat profilini ziyaret edince görülebilir.</p>
+
+                <button type="submit" name="mute_user" class="btn btn-outline-warning" type="button">
+                    Kullanıcıyı Sessize Al
+                </button>
+            </section>
 
         </form>
 

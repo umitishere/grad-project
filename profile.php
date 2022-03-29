@@ -13,7 +13,6 @@ $profileID = "";
 $userIsBlocked = "";
 $userBlockedMe = "";
 
-
 $fromWhere = "Profile Page";
 
 $pageTitle = $profileUsername . " profili | Grad Project";
@@ -171,6 +170,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                 <?php if ($userIsBlocked != "Yes" && $userBlockedMe != "Yes") { ?>
 
+                <p class="margin-top-15 text-center"><?php echo $getProfileInfo["university"]; ?></p>
                 <p class="margin-top-15"><?php echo $getProfileInfo["biography"]; ?></p>
 
                 <!-- FOLLOWERS AND FOLLOWINGS -->
