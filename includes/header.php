@@ -52,6 +52,56 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <link href="<?php echo $rootPath; ?>/assets/css/images.css" rel="stylesheet" />
 
     <title><?php echo $pageTitle; ?></title>
+
+    <script>
+
+    $(document).ready(function() {
+
+        $("#searchUser").on('shown.bs.modal', function(){
+            $("#search").focus();
+        });
+
+
+        //On pressing a key on "Search box" in "search.php" file. This function will be called.
+        $("#search").keyup(function() {
+
+            //Assigning search box value to javascript variable named as "name".
+            var name = $('#search').val();
+
+            //Validating, if "name" is empty.
+            if (name == "") {
+                //Assigning empty value to "display" div in "search.php" file.
+                $("#display").html("");
+            } else {
+
+                //AJAX is called.
+                $.ajax({
+
+                    //AJAX type is "Post".
+                    type: "POST",
+
+                    //Data will be sent to "ajax.php".
+                    url: "ajax.php",
+
+                    //Data, that will be sent to "ajax.php".
+                    data: {
+
+                        //Assigning value of "name" into "search" variable.
+                        search: name
+                    },
+
+                    // If result found, this funtion will be called.
+                    success: function(html) {
+
+                        //Assigning result to "display" div in "search.php" file.
+                        $("#display").html(html).show();
+                    }
+               });
+           }
+       });
+    });
+
+    </script>
 </head>
 <body>
 
@@ -138,18 +188,21 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
 
-                            <form method="get" action="<?php echo $rootPath; ?>/arama-sonucu">
-                                <div class="input-group mb-3 margin-top-15">
-                                    <input type="text" name="username_to_search" class="form-control" placeholder="Kullanıcı ara...">
-                                    <button class="btn btn-outline-dark" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </form>
+                            <div class="input-group mb-3 margin-top-15">
+                                <input
+                                    data-bs-toggle='modal'
+                                    data-bs-target='#searchUser'
+                                    autocomplete="off"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Kullanıcı ara..."
+                                />
+                            </div>
 
                         </li>
                     </ul>
 
+<?php include("modal-search-user.php"); ?>
 
                         <?php } ?>
 
