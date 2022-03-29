@@ -24,11 +24,23 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         $sqlStatementForContents = "SELECT
             contents.*,
             users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility,
-            follower.follower_id, follower.followed_id
+            follower.follower_id, follower.followed_id,
+            muted_users.muted_user_id, muted_users.muter_id
             FROM contents
             LEFT JOIN users ON contents.publisher_id = users.id
             LEFT JOIN follower ON contents.publisher_id = follower.followed_id
-            WHERE (follower.follower_id = '$loggedUserID' AND follower.followed_id = contents.publisher_id) OR contents.publisher_id = '$loggedUserID'
+            LEFT JOIN muted_users ON contents.publisher_id = muted_users.muted_user_id
+            WHERE (
+                IF (
+                    muted_users.muted_user_id = contents.publisher_id,
+                    (
+                        (follower.follower_id = '$loggedUserID' AND follower.followed_id = contents.publisher_id)
+                        OR contents.publisher_id = '$loggedUserID'
+                    )
+                    AND contents.publisher_id != muted_users.muted_user_id,
+                    (follower.follower_id = '$loggedUserID' AND follower.followed_id = contents.publisher_id) OR contents.publisher_id = '$loggedUserID'
+                )
+            )
             GROUP BY contents.content_detail
             ORDER BY contents.id DESC
         ";
@@ -37,10 +49,18 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
         $sqlStatementForContents = "SELECT
             contents.*,
-            users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
+            users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility,
+            muted_users.muted_user_id, muted_users.muter_id
             FROM contents
             LEFT JOIN users ON contents.publisher_id = users.id
-            WHERE users.university = '$myUniversity' AND users.profile_lock = '0'
+            LEFT JOIN muted_users ON contents.publisher_id = muted_users.muted_user_id
+            WHERE (
+                IF (
+                    muted_users.muted_user_id = contents.publisher_id,
+                    users.university = '$myUniversity' AND users.profile_lock = '0' AND contents.publisher_id != muted_users.muted_user_id,
+                    users.university = '$myUniversity' AND users.profile_lock = '0'
+                )
+            )
             GROUP BY contents.content_detail
             ORDER BY contents.id DESC
         ";
@@ -49,10 +69,18 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
         $sqlStatementForContents = "SELECT
             contents.*,
-            users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
+            users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility,
+            muted_users.muted_user_id, muted_users.muter_id
             FROM contents
             LEFT JOIN users ON contents.publisher_id = users.id
-            WHERE users.profile_lock = '0'
+            LEFT JOIN muted_users ON contents.publisher_id = muted_users.muted_user_id
+            WHERE (
+                IF (
+                    muted_users.muted_user_id = contents.publisher_id,
+                    users.profile_lock = '0' AND contents.publisher_id != muted_users.muted_user_id,
+                    users.profile_lock = '0'
+                )
+            )
             GROUP BY contents.content_detail
             ORDER BY contents.id DESC
         ";
