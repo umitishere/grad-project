@@ -90,6 +90,23 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     $queryLastContents = $pdo->prepare($sqlStatementForContents);
     $queryLastContents->execute();
 
+} else {
+
+    // USER NOT LOGGED IN
+
+    $sqlStatementForContents = "SELECT
+        contents.*,
+        users.id AS user_id, users.username, users.profile_photo, users.profile_lock, users.like_visibility, users.comment_visibility
+        FROM contents
+        LEFT JOIN users ON contents.publisher_id = users.id
+        WHERE users.profile_lock = '0'
+        GROUP BY contents.content_detail
+        ORDER BY contents.id DESC
+    ";
+
+    $queryLastContents = $pdo->prepare($sqlStatementForContents);
+    $queryLastContents->execute();
+
 }
 
 $reportContentFeedbackMessage = "";
@@ -157,6 +174,8 @@ if (isset($_GET['reportContent'])) {
                 <!-- LAST CONTENTS SECTION -->
                 <section>
 
+        <?php } ?>
+
                 <?php
 
                 while($getLastContents = $queryLastContents->fetch(PDO::FETCH_ASSOC)) {
@@ -167,24 +186,28 @@ if (isset($_GET['reportContent'])) {
                     $getLikesName = "getLikes" . $contentID;
                     $getTotalLikesName = "getTotalLikes" . $contentID;
 
-                    $canSeeLikes = true;
-                    $canSeeComments = true;
+                    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
-                    if ($getLastContents['like_visibility'] == 0 && $getLastContents['user_id'] != $loggedUserID) {
-                        $canSeeLikes = false;
-                    } else {
                         $canSeeLikes = true;
-                    }
-
-                    if ($getLastContents['comment_visibility'] == 0 && $getLastContents['user_id'] != $loggedUserID) {
-                        $canSeeComments = false;
-                    } else {
                         $canSeeComments = true;
-                    }
 
-                    $likedFromWhere = "Home";
-                    $commentFromWhere = "Home";
-                    $reportFromWhere = "Home";
+                        if ($getLastContents['like_visibility'] == 0 && $getLastContents['user_id'] != $loggedUserID) {
+                            $canSeeLikes = false;
+                        } else {
+                            $canSeeLikes = true;
+                        }
+
+                        if ($getLastContents['comment_visibility'] == 0 && $getLastContents['user_id'] != $loggedUserID) {
+                            $canSeeComments = false;
+                        } else {
+                            $canSeeComments = true;
+                        }
+
+                        $likedFromWhere = "Home";
+                        $commentFromWhere = "Home";
+                        $reportFromWhere = "Home";
+
+                    }
 
                     include("content-card.php");
 
@@ -194,21 +217,6 @@ if (isset($_GET['reportContent'])) {
 
                 </section>
                 <!-- /LAST CONTENTS SECTION -->
-
-        <?php } else { // Check if user logged in ?>
-
-            <section class="text-center margin-top-15">
-                <div class="alert alert-primary" role="alert">
-                    Gönderileri görebilmek ve paylaşım yapabilmek için <a href="giris-yap"><b>buraya tıklayarak</b></a> giriş yapabilirsiniz.
-                </div>
-
-                <section style="margin-top: 120px;">
-
-                </section>
-
-            </section>
-
-        <?php } ?>
 
             </main>
 
