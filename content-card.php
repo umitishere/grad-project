@@ -44,7 +44,9 @@
             <input type="hidden" name="liked_from_where" value="<?php echo $likedFromWhere; ?>" />
             <input type="hidden" name="profile_username" value="<?php echo $getLastContents['username']; ?>" />
 
-            <!-- /CONTENT ACTION ICONS SECTION -->
+            <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { ?>
+
+            <!-- /CONTENT ACTION ICONS SECTION IF LOGGED IN -->
             <section class="margin-top-15 row text-center content-icons">
 
             <?php
@@ -191,7 +193,73 @@
                 <!-- /SAVE CONTENT BUTTON -->
 
             </section>
-            <!-- /CONTENT ACTION ICONS SECTION -->
+            <!-- /CONTENT ACTION ICONS SECTION IF LOGGED IN -->
+
+        <?php } else { ?>
+
+            <!-- /CONTENT ACTION ICONS SECTION IF NOT LOGGED IN -->
+            <section class="margin-top-15 row text-center content-icons">
+
+                <!-- LIKE BUTTON -->
+                <div class="col-3">
+
+                    <button onclick="window.location.href='giris-yap';" type="button" name="like_content" class="content-button">
+                        <i class="far fa-heart"></i>
+                        <span class="font-20"></span>
+                    </button>
+
+                </div>
+                <!-- /LIKE BUTTON -->
+
+                <!-- COMMENT BUTTON -->
+                <div class="col-3">
+
+                    <button
+                        onclick="window.location.href='giris-yap';"
+                        type="button"
+                        name="like_content"
+                        class="content-button"
+                    >
+                        <i class="far fa-comments"></i>
+                    </button>
+
+                </div>
+                <!-- /COMMENT BUTTON -->
+
+                <!-- FORWARD CONTENT BUTTON -->
+                <div class="col-3">
+
+                    <button
+                        onclick="window.location.href='giris-yap';"
+                        type="button"
+                        class="content-button"
+                    >
+                        <i class="far fa-share-square"></i>
+                    </button>
+
+                </div>
+                <!-- /FORWARD CONTENT BUTTON -->
+
+                <!-- SAVE CONTENT BUTTON -->
+                <div class="col-3">
+
+                    <button
+                        onclick="window.location.href='giris-yap';"
+                        type="button"
+                        class="content-button"
+                    >
+                        <i class="far fa-plus-square"></i>
+                    </button>
+
+                </div>
+                <!-- /SAVE CONTENT BUTTON -->
+
+
+
+            </section>
+            <!-- /CONTENT ACTION ICONS SECTION IF NOT LOGGED IN -->
+
+        <?php } ?>
 
         </form>
     </section>
