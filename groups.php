@@ -17,13 +17,14 @@ $queryProfileStatus->execute();
 
 $getProfileStatus = $queryProfileStatus->fetch(PDO::FETCH_ASSOC);
 
-$queryMutedUsers = $pdo->prepare(
-    "SELECT muted_users.*, users.* FROM muted_users
-    LEFT JOIN users
-    ON muted_users.muted_user_id = users.id
-    WHERE muter_id = '$loggedUserID'"
+$queryMyGroups = $pdo->prepare(
+    "SELECT groups.*, group_members.* 
+    FROM groups
+    LEFT JOIN group_members
+    ON groups.group_id = group_members.joined_group_id
+    WHERE groups.group_creator_id = '$loggedUserID' OR group_members.joined_user_id = '$loggedUserID'"
 );
-$queryMutedUsers->execute();
+$queryMyGroups->execute();
 
 ?>
 
@@ -36,6 +37,24 @@ $queryMutedUsers->execute();
         <button class="btn btn-outline-success" data-bs-toggle='modal' data-bs-target='#createGroup'>
             <i class="fas fa-plus"></i> Grup Oluştur
         </button>
+    </section>
+
+    <section class="margin-top-15 text-center">
+
+<?php while($getMyGroups = $queryMyGroups->fetch(PDO::FETCH_ASSOC)) { ?>
+
+        <section class="card padding-15 margin-top-15">
+
+            <h3 class="text-center margin-top-15"><?php echo $getMyGroups['group_name']; ?></h3>
+
+            <section class="margin-top-15 text-center">
+                <button class="btn btn-outline-primary">Grubu Görüntüle</button>
+            </section>
+
+        </section>
+
+<?php } ?>
+
     </section>
 
 <?php require_once("modal-create-group.php"); ?>
