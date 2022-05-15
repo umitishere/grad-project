@@ -175,6 +175,11 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                         <i class="fas fa-user"></i> Profilim
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>/gruplar">
+                                        <i class="fas fa-users"></i> Gruplar
+                                    </a>
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item" href="<?php echo $rootPath; ?>/begendigim-gonderiler">
@@ -198,8 +203,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>/ayarlar">
-                                        <i class="fas fa-question-circle"></i> Yardım
+                                    <a class="dropdown-item" href="<?php echo $rootPath; ?>/destek">
+                                        <i class="fas fa-question-circle"></i> Destek
                                     </a>
                                 </li>
                                 <li>

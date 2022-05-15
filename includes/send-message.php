@@ -20,8 +20,6 @@ $queryConversationWith->execute();
 
 $getConversationWithInfo = $queryConversationWith->fetch(PDO::FETCH_ASSOC);
 
-$conversationWithUsername = $getConversationWithInfo['username'];
-
 if (isset($_POST["send_message"])) {
 
     $messageDetail = htmlspecialchars($_POST["message_detail"], ENT_QUOTES);

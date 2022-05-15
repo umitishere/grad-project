@@ -139,7 +139,7 @@ if (isset($_GET['reportContent'])) {
                     ></textarea>
 
                     <section class="text-center margin-top-15">
-                        <button type="submit" name="create_content" class="btn btn-primary btn-lg">
+                        <button type="submit" name="create_content" class="btn btn-primary">
                             <i class="far fa-paper-plane"></i>
                         </button>
                     </section>

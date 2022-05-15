@@ -11,6 +11,8 @@ RewriteRule ^kaydettigim-gonderiler$ saved-contents.php [L,QSA]
 RewriteRule ^yaptigim-yorumlar$ my-comments.php [L,QSA]
 
 RewriteRule ^ayarlar$ settings.php [L,QSA]
+RewriteRule ^gruplar$ groups.php [L,QSA]
+RewriteRule ^destek$ support.php [L,QSA]
 RewriteRule ^bildirimler$ show-notifications.php [L,QSA]
 RewriteRule ^user/([0-9a-zA-Z-_]+)$ profile.php?username=$1 [L,QSA]
 
