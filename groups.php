@@ -18,7 +18,7 @@ $queryProfileStatus->execute();
 $getProfileStatus = $queryProfileStatus->fetch(PDO::FETCH_ASSOC);
 
 $queryMyGroups = $pdo->prepare(
-    "SELECT groups.*, group_members.* 
+    "SELECT groups.*, group_members.*
     FROM groups
     LEFT JOIN group_members
     ON groups.group_id = group_members.joined_group_id
@@ -32,6 +32,28 @@ $queryMyGroups->execute();
 
     <h3 class="text-center margin-top-15">Gruplar</h3>
     <hr />
+
+    <div class="margin-top-15">
+
+        <form method="get" action="<?php echo $rootPath; ?>/arama-sonucu">
+            <div class="input-group mb-3 margin-top-15">
+                <input
+                    autocomplete="off"
+                    id="search_group"
+                    type="text"
+                    name="username_to_search"
+                    class="form-control"
+                    placeholder="Grup ara..."
+                />
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div id="display_group_results"></div>
+        </form>
+
+    </div>
 
     <section class="text-center margin-top-15">
         <button class="btn btn-outline-success" data-bs-toggle='modal' data-bs-target='#createGroup'>
@@ -48,7 +70,9 @@ $queryMyGroups->execute();
             <h3 class="text-center margin-top-15"><?php echo $getMyGroups['group_name']; ?></h3>
 
             <section class="margin-top-15 text-center">
-                <button class="btn btn-outline-primary">Grubu Görüntüle</button>
+                <a href="grup?groupID=<?php echo $getMyGroups['group_id']; ?>">
+                    <button class="btn btn-outline-primary">Grubu Görüntüle</button>
+                </a>
             </section>
 
         </section>
